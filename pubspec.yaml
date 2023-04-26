@@ -30,6 +30,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-   assets:
-     - assets/certificates
-     - .env
+  assets:
+    - assets/certificates
+    - .env
