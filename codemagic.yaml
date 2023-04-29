@@ -12,8 +12,7 @@ workflows:
         - pull_request
         - push
       branch_patterns:
-        - pattern: "master"
-        - pattern: "dev"
+        - pattern: *
           include: true
           source: true
 
