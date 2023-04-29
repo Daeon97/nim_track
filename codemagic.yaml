@@ -12,10 +12,8 @@ workflows:
         - pull_request
         - push
       branch_patterns:
-        - pattern: "master"
         - pattern: "dev"
           include: true
-          source: true
 
     scripts:
       - name: Get dependencies
