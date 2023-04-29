@@ -13,8 +13,6 @@ workflows:
         - push
       branch_patterns:
         - pattern: "master"
-          include: true
-          source: true
         - pattern: "dev"
           include: true
           source: true
