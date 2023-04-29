@@ -2,7 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:nim_track/app.dart';
 
 void main() {
-  runApp(
-    const App(),
+  _init().then(
+    (_) => runApp(
+      const App(),
+    ),
+  );
+}
+
+Future<void> _init() async {
+  await Future.delayed(
+    Duration(
+      seconds: 5,
+    ),
   );
 }
