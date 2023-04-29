@@ -14,7 +14,7 @@ workflows:
       branch_patterns:
         - pattern: "master"
           include: true
-          source: false
+          source: true
         - pattern: "dev"
           include: true
           source: true
