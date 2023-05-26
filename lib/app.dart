@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:nim_track/core/resources/strings.dart';
-import 'package:nim_track/features/presentation/screens/home_screen.dart';
+import 'package:nim_track/features/tracker_module/presentation/screens/home_screen.dart';
 
 class App extends StatelessWidget {
   const App({
