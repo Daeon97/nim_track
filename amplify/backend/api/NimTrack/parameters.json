@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "NimTrack",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authnimtrackc3988b73",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

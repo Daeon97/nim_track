@@ -1,0 +1,13 @@
+{
+  "projectName": "NimTrack",
+  "version": "3.1",
+  "frontend": "flutter",
+  "flutter": {
+    "config": {
+      "ResDir": "./assets/configs"
+    }
+  },
+  "providers": [
+    "awscloudformation"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-nimtrack-dev-134243-authRole",
+      "UnauthRoleArn": "arn:aws:iam::580510132728:role/amplify-nimtrack-dev-134243-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::580510132728:role/amplify-nimtrack-dev-134243-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-nimtrack-dev-134243-deployment",
+      "UnauthRoleName": "amplify-nimtrack-dev-134243-unauthRole",
+      "StackName": "amplify-nimtrack-dev-134243",
+      "StackId": "arn:aws:cloudformation:eu-north-1:580510132728:stack/amplify-nimtrack-dev-134243/090a2340-0143-11ee-9eaf-06bccd10b7de",
+      "AmplifyAppId": "dbf8ah5rek2lv"
+    },
+    "categories": {
+      "auth": {
+        "nimtrackc3988b73": {}
+      }
+    }
+  }
+}

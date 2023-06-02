@@ -13,7 +13,23 @@ packages:
     dependency: transitive
     description:
       name: amplify_core
-      sha256: "10be745f795a47cccc6125e3a9765cc9e7751f055f89b904de1210e00a70fdaf"
+      sha256: "3c4b8315f15a837f9294bd7d182dc4b05fed51548231ee912144f1fd8cca717f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
+  amplify_datastore:
+    dependency: "direct main"
+    description:
+      name: amplify_datastore
+      sha256: f60e243e39d75b5fb4eb20cba15f14390044527611a709186be6dd682e3fd617
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0-supports-only-mobile+1"
+  amplify_datastore_plugin_interface:
+    dependency: transitive
+    description:
+      name: amplify_datastore_plugin_interface
+      sha256: e18f6872c374d9ca2c1c833efdb6f552beefd2486469786cccf44c85ac9b9271
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
@@ -21,10 +37,10 @@ packages:
     dependency: "direct main"
     description:
       name: amplify_flutter
-      sha256: "041d4e19daf6feb93734745177483e5390b7d381283eb44e04759b8458afe1f6"
+      sha256: cc1804fce2d28da3f4007ed54e9173b5c3c5a2e60fe5e6228385169efa0faf9e
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   amplify_secure_storage:
     dependency: transitive
     description:
@@ -69,18 +85,18 @@ packages:
     dependency: transitive
     description:
       name: aws_common
-      sha256: "96ce8fe16a514e436f518b9f69df439c65ce46ca2229f1ed83a06c217ee92ee1"
+      sha256: e2ec5cfd1acdbca48da39d45854e9c03e5ae4aac0f1a7ca0f297677cce357979
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.0"
+    version: "0.5.0+1"
   aws_signature_v4:
     dependency: transitive
     description:
       name: aws_signature_v4
-      sha256: af95373402261de4ee4be5aaed9533d701c97257bd3fef1d468a422cfa95994c
+      sha256: b8898819180236c078d68ec0512b42b05fcecc28b53cdd01714aa0cb753a3097
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.0"
+    version: "0.4.0+1"
   bloc:
     dependency: "direct main"
     description:

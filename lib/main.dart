@@ -10,9 +10,5 @@ void main() {
 }
 
 Future<void> _init() async {
-  await Future.delayed(
-    Duration(
-      seconds: 5,
-    ),
-  );
+  WidgetsFlutterBinding.ensureInitialized();
 }

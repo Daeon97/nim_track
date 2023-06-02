@@ -6,9 +6,9 @@ import 'package:nim_track/core/use_cases/use_case.dart';
 import 'package:nim_track/features/tracker_module/domain/entities/tracker_module_entity.dart';
 import 'package:nim_track/features/tracker_module/domain/repositories/tracker_module_repository.dart';
 
-class TrackerModuleDetailsUseCase
+class TrackerModuleDataUseCase
     implements UseCase<Failure, TrackerModuleEntity> {
-  const TrackerModuleDetailsUseCase({
+  const TrackerModuleDataUseCase({
     required this.trackerModuleRepository,
   });
 
