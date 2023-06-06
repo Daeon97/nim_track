@@ -1,19 +1,31 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-nimtrack-dev-134243-authRole",
-      "UnauthRoleArn": "arn:aws:iam::580510132728:role/amplify-nimtrack-dev-134243-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::580510132728:role/amplify-nimtrack-dev-134243-authRole",
+      "AuthRoleName": "amplify-nimtrack-dev-124809-authRole",
+      "UnauthRoleArn": "arn:aws:iam::580510132728:role/amplify-nimtrack-dev-124809-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::580510132728:role/amplify-nimtrack-dev-124809-authRole",
       "Region": "eu-north-1",
-      "DeploymentBucketName": "amplify-nimtrack-dev-134243-deployment",
-      "UnauthRoleName": "amplify-nimtrack-dev-134243-unauthRole",
-      "StackName": "amplify-nimtrack-dev-134243",
-      "StackId": "arn:aws:cloudformation:eu-north-1:580510132728:stack/amplify-nimtrack-dev-134243/090a2340-0143-11ee-9eaf-06bccd10b7de",
-      "AmplifyAppId": "dbf8ah5rek2lv"
+      "DeploymentBucketName": "amplify-nimtrack-dev-124809-deployment",
+      "UnauthRoleName": "amplify-nimtrack-dev-124809-unauthRole",
+      "StackName": "amplify-nimtrack-dev-124809",
+      "StackId": "arn:aws:cloudformation:eu-north-1:580510132728:stack/amplify-nimtrack-dev-124809/df61cb50-0396-11ee-bcb2-0aefb8cfd2d0",
+      "AmplifyAppId": "d17b4i98yr01zl"
     },
     "categories": {
       "auth": {
-        "nimtrackc3988b73": {}
+        "nimtrackb8334a7b": {}
+      },
+      "storage": {
+        "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB": {
+          "tableName": "iot-core-to-dynamo-db-function-NimTrack-1880A47TAKPHB",
+          "region": "eu-north-1",
+          "arn": "arn:aws:dynamodb:eu-north-1:580510132728:table/iot-core-to-dynamo-db-function-NimTrack-1880A47TAKPHB",
+          "partitionKeyName": "id",
+          "partitionKeyType": "N"
+        }
+      },
+      "api": {
+        "NimTrack": {}
       }
     }
   }

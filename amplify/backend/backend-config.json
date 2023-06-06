@@ -7,16 +7,25 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "nimtrackc3988b73"
+          "resourceName": "nimtrackb8334a7b"
         }
       ],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [],
+          "additionalAuthenticationProviders": [
+            {
+              "apiKeyConfig": {
+                "apiKeyExpirationDate": "2023-06-12T13:13:13.746Z",
+                "apiKeyExpirationDays": 7,
+                "description": "NimTrack Key"
+              },
+              "authenticationType": "API_KEY"
+            }
+          ],
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authnimtrackc3988b73"
+              "userPoolId": "authnimtrackb8334a7b"
             }
           }
         }
@@ -26,7 +35,7 @@
     }
   },
   "auth": {
-    "nimtrackc3988b73": {
+    "nimtrackb8334a7b": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -49,6 +58,56 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_arn": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+        }
+      ]
+    },
+    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_partitionKeyName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+        }
+      ]
+    },
+    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_partitionKeyType": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+        }
+      ]
+    },
+    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_region": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+        }
+      ]
+    },
+    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_tableName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB",
+      "serviceType": "imported"
     }
   }
 }
