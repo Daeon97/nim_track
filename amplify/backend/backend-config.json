@@ -61,49 +61,49 @@
     }
   },
   "parameters": {
-    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_arn": {
+    "AMPLIFY_storage_iotcoretodynamodbfunction2NimTrack280E2PWC3CVKJ_arn": {
       "usedBy": [
         {
           "category": "storage",
-          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+          "resourceName": "iotcoretodynamodbfunction2NimTrack280E2PWC3CVKJ"
         }
       ]
     },
-    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_partitionKeyName": {
+    "AMPLIFY_storage_iotcoretodynamodbfunction2NimTrack280E2PWC3CVKJ_partitionKeyName": {
       "usedBy": [
         {
           "category": "storage",
-          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+          "resourceName": "iotcoretodynamodbfunction2NimTrack280E2PWC3CVKJ"
         }
       ]
     },
-    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_partitionKeyType": {
+    "AMPLIFY_storage_iotcoretodynamodbfunction2NimTrack280E2PWC3CVKJ_partitionKeyType": {
       "usedBy": [
         {
           "category": "storage",
-          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+          "resourceName": "iotcoretodynamodbfunction2NimTrack280E2PWC3CVKJ"
         }
       ]
     },
-    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_region": {
+    "AMPLIFY_storage_iotcoretodynamodbfunction2NimTrack280E2PWC3CVKJ_region": {
       "usedBy": [
         {
           "category": "storage",
-          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+          "resourceName": "iotcoretodynamodbfunction2NimTrack280E2PWC3CVKJ"
         }
       ]
     },
-    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_tableName": {
+    "AMPLIFY_storage_iotcoretodynamodbfunction2NimTrack280E2PWC3CVKJ_tableName": {
       "usedBy": [
         {
           "category": "storage",
-          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+          "resourceName": "iotcoretodynamodbfunction2NimTrack280E2PWC3CVKJ"
         }
       ]
     }
   },
   "storage": {
-    "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB": {
+    "iotcoretodynamodbfunction2NimTrack280E2PWC3CVKJ": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB",

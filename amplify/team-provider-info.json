@@ -15,17 +15,17 @@
       "auth": {
         "nimtrackb8334a7b": {}
       },
+      "api": {
+        "NimTrack": {}
+      },
       "storage": {
-        "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB": {
-          "tableName": "iot-core-to-dynamo-db-function-NimTrack-1880A47TAKPHB",
+        "iotcoretodynamodbfunction2NimTrack280E2PWC3CVKJ": {
+          "tableName": "iot-core-to-dynamo-db-function-2-NimTrack2-80E2PWC3CVKJ",
           "region": "eu-north-1",
-          "arn": "arn:aws:dynamodb:eu-north-1:580510132728:table/iot-core-to-dynamo-db-function-NimTrack-1880A47TAKPHB",
+          "arn": "arn:aws:dynamodb:eu-north-1:580510132728:table/iot-core-to-dynamo-db-function-2-NimTrack2-80E2PWC3CVKJ",
           "partitionKeyName": "id",
           "partitionKeyType": "N"
         }
-      },
-      "api": {
-        "NimTrack": {}
       }
     }
   }
