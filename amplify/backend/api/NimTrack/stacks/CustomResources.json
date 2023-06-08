@@ -36,6 +36,101 @@
       "Properties": {
         "ApiId": {
           "Ref": "AppSyncApiId"
+        },
+        "Name": "iotcoretodynamodbfunction2NimTrack280E2PWC3CVKJDataset",
+        "Type": "AMAZON_DYNAMODB",
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "DynamoDBDataSourceRole",
+            "Arn"
+          ]
+        },
+        "DynamoDBConfig": {
+          "TableName": "iot-core-to-dynamo-db-function-2-NimTrack2-80E2PWC3CVKJ",
+          "AwsRegion": "eu-north-1"
+        }
+      }
+    },
+    "DynamoDBDataSourceRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "DynamoDBDataSource",
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "appsync.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "DynamoDBFullAccess",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:*"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": [
+                        "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/iot-core-to-dynamo-db-function-2-NimTrack2-80E2PWC3CVKJ/index/id",
+                        {
+                          "env": {
+                            "Ref": "env"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "QueryTrackerModuleById": {
+      "Type": "AWS::AppSync::Resolver",
+      "Properties": {
+        "ApiId": {
+          "Ref": "AppSyncApiId"
+        },
+        "DataSourceName": "iotcoretodynamodbfunction2NimTrack280E2PWC3CVKJDataset",
+        "TypeName": "Query",
+        "FieldName": "trackerModule",
+        "RequestMappingTemplateS3Location": {
+          "Fn::Sub": [
+            "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/Query.trackerModule.req.vtl",
+            {
+              "S3DeploymentBucket": {
+                "Ref": "S3DeploymentBucket"
+              },
+              "S3DeploymentRootKey": {
+                "Ref": "S3DeploymentRootKey"
+              }
+            }
+          ]
+        },
+        "ResponseMappingTemplateS3Location": {
+          "Fn::Sub": [
+            "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/Query.trackerModule.res.vtl",
+            {
+              "S3DeploymentBucket": {
+                "Ref": "S3DeploymentBucket"
+              },
+              "S3DeploymentRootKey": {
+                "Ref": "S3DeploymentRootKey"
+              }
+            }
+          ]
         }
       }
     }

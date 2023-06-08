@@ -4,7 +4,8 @@
 
 type Query {
     trackerModules: [TrackerModule!]
-    trackerModule(id: ID!): [TrackerModuleData!]
+    trackerModule(id: ID!): String!
+#    trackerModule(id: ID!): [TrackerModuleData!]
 }
 
 type Mutation {
