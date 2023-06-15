@@ -10,10 +10,11 @@ class TrackerModuleModel extends TrackerModuleEntity {
     required super.coordinates,
     required super.batteryLevel,
     required super.timestamp,
+    super.nodeName,
   });
 
-  // factory TrackerModuleModel.fromJson(Map<String, dynamic> json) =>
-  //     _$TrackerModuleModelFromJson(json);
-  //
-  // Map<String, dynamic> toJson() => _$TrackerModuleModelToJson(this);
+// factory TrackerModuleModel.fromJson(Map<String, dynamic> json) =>
+//       _$TrackerModuleModelFromJson(json);
+//
+//   Map<String, dynamic> toJson() => _$TrackerModuleModelToJson(this);
 }
