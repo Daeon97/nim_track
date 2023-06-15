@@ -48,9 +48,8 @@ workflows:
 
     environment:
       flutter: stable
-#      groups:
-#        - certificate-variables
-#        - environment-variables
+      groups:
+        - MAPBOX_SECRETS
 
     triggering:
       events:
@@ -60,6 +59,9 @@ workflows:
         - pattern: "master"
           include: true
           source: false
+        - pattern: "dev"
+          include: true
+          source: false
 
     scripts:
 #      - name: Create certificates
@@ -67,10 +69,10 @@ workflows:
 #          cat assets/certificates/device_certificate.pem.crt.enc | openssl aes-256-cbc -d -pass pass:$ENCRYPTION_PASSWORD > assets/certificates/device_certificate.pem.crt
 #          cat assets/certificates/private_key.pem.key.enc | openssl aes-256-cbc -d -pass pass:$ENCRYPTION_PASSWORD > assets/certificates/private_key.pem.key
 #          cat assets/certificates/root_certificate_authority.pem.enc | openssl aes-256-cbc -d -pass pass:$ENCRYPTION_PASSWORD > assets/certificates/root_certificate_authority.pem
-#      - name: Create .env file
-#        script: |
-#          echo "IOT_UNITY_PLATFORM_TOPIC_NAME=$IOT_UNITY_PLATFORM_TOPIC_NAME" > .env
-#          echo "AWS_IOT_CORE_SERVER_END_POINT=$AWS_IOT_CORE_SERVER_END_POINT" >> .env
+      - name: Create .env file
+        script: |
+          echo "MAPBOX_PUBLIC_TOKEN=$MAPBOX_PUBLIC_TOKEN" > .env
+          echo "MAPBOX_SECRET_TOKEN=$MAPBOX_SECRET_TOKEN" >> .env
       - name: Get dependencies
         script: |
           flutter pub get
