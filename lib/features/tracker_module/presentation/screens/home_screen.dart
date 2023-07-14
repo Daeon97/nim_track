@@ -18,20 +18,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: MapWidget(
-          key: const ValueKey(
-            mapboxMapKey,
-          ),
-          resourceOptions: ResourceOptions(
-            accessToken: dotenv.env[mapboxSecretTokenKeyName]!,
+        body: Center(
+          child: Text(
+            'NimTrack',
+            style: TextStyle(
+              fontSize: 32,
+            ),
           ),
         ),
-        // GoogleMap(
-        //   initialCameraPosition: CameraPosition(
-        //     bearing: 192.8334901395799,
-        //     target: LatLng(37.43296265331129, -122.08832357078792),
-        //     tilt: 59.440717697143555,
-        //     zoom: 19.151926040649414,
+        // MapWidget(
+        //   key: const ValueKey(
+        //     mapboxMapKey,
+        //   ),
+        //   resourceOptions: ResourceOptions(
+        //     accessToken: dotenv.env[mapboxSecretTokenKeyName]!,
         //   ),
         // ),
       );
