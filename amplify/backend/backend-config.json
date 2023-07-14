@@ -1,0 +1,22 @@
+{
+  "api": {
+    "NimTrack": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDate": "2024-07-13T15:26:18.904Z",
+              "apiKeyExpirationDays": 365,
+              "description": "NimTrack GraphQL API Key"
+            },
+            "authenticationType": "API_KEY"
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  }
+}
