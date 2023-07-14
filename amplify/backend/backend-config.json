@@ -18,5 +18,55 @@
       "providerPlugin": "awscloudformation",
       "service": "AppSync"
     }
+  },
+  "parameters": {
+    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_arn": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+        }
+      ]
+    },
+    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_partitionKeyName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+        }
+      ]
+    },
+    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_partitionKeyType": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+        }
+      ]
+    },
+    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_region": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+        }
+      ]
+    },
+    "AMPLIFY_storage_iotcoretodynamodbfunctionNimTrack1880A47TAKPHB_tableName": {
+      "usedBy": [
+        {
+          "category": "storage",
+          "resourceName": "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB",
+      "serviceType": "imported"
+    }
   }
 }

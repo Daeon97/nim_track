@@ -10,6 +10,17 @@
       "StackName": "amplify-nimtrack-dev-162126",
       "StackId": "arn:aws:cloudformation:eu-north-1:580510132728:stack/amplify-nimtrack-dev-162126/1c1c6cd0-225a-11ee-9eb6-0e2a888dc61e",
       "AmplifyAppId": "d1ynda21seics7"
+    },
+    "categories": {
+      "storage": {
+        "iotcoretodynamodbfunctionNimTrack1880A47TAKPHB": {
+          "tableName": "iot-core-to-dynamo-db-function-NimTrack-1880A47TAKPHB",
+          "region": "eu-north-1",
+          "arn": "arn:aws:dynamodb:eu-north-1:580510132728:table/iot-core-to-dynamo-db-function-NimTrack-1880A47TAKPHB",
+          "partitionKeyName": "id",
+          "partitionKeyType": "N"
+        }
+      }
     }
   }
 }
