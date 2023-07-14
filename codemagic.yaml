@@ -6,6 +6,8 @@ workflows:
 
     environment:
       flutter: stable
+      groups:
+        - MAPBOX_SECRETS
 
     triggering:
       events:
@@ -20,6 +22,10 @@ workflows:
           source: false
 
     scripts:
+      - name: Create .env file
+        script: |
+          echo "MAPBOX_PUBLIC_TOKEN=$MAPBOX_PUBLIC_TOKEN" > .env
+          echo "MAPBOX_SECRET_TOKEN=$MAPBOX_SECRET_TOKEN" >> .env
       - name: Get dependencies
         script: |
           flutter pub get
@@ -64,11 +70,6 @@ workflows:
           source: false
 
     scripts:
-#      - name: Create certificates
-#        script: |
-#          cat assets/certificates/device_certificate.pem.crt.enc | openssl aes-256-cbc -d -pass pass:$ENCRYPTION_PASSWORD > assets/certificates/device_certificate.pem.crt
-#          cat assets/certificates/private_key.pem.key.enc | openssl aes-256-cbc -d -pass pass:$ENCRYPTION_PASSWORD > assets/certificates/private_key.pem.key
-#          cat assets/certificates/root_certificate_authority.pem.enc | openssl aes-256-cbc -d -pass pass:$ENCRYPTION_PASSWORD > assets/certificates/root_certificate_authority.pem
       - name: Create .env file
         script: |
           echo "MAPBOX_PUBLIC_TOKEN=$MAPBOX_PUBLIC_TOKEN" > .env
