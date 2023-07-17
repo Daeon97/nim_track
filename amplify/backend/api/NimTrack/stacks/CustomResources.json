@@ -37,9 +37,9 @@
         "ApiId": {
           "Ref": "AppSyncApiId"
         },
-        "DataSourceName": "...",
+        "DataSourceName": "NimTrack_1880A47TAKPHB_DataSource",
         "TypeName": "Query",
-        "FieldName": "...",
+        "FieldName": "getTrackerModule",
         "RequestMappingTemplateS3Location": {
           "Fn::Sub": [
             "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/Query.getTrackerModule.req.vtl",

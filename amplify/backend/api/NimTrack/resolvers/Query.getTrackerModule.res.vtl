@@ -1,1 +1,18 @@
-$util.toJson($context.result)
+{
+    #set( $result = $context.result )
+    #set( $dataList = [] )
+    #set( $resultMap = { "id": $result.id } )
+
+    #if($result.name)
+        $resultMap.put("name", $result.name)
+    #end
+    #foreach( $data in $result.data )
+        $dataList.add({
+            ## Will continue tomorrow
+        })
+    #end
+
+    $resultMap.put("data", $dataList)
+
+    $util.toJson($resultMap)
+}
