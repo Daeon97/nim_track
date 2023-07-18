@@ -1,18 +1,31 @@
-{
-    #set( $result = $context.result )
-    #set( $dataList = [] )
-    #set( $resultMap = { "id": $result.id } )
+#set( $result = $context.result )
+#set( $dataList = [] )
+#set( $resultMap = { "id": $result.id } )
 
-    #if($result.name)
-        $resultMap.put("name", $result.name)
-    #end
-    #foreach( $data in $result.data )
-        $dataList.add({
-            ## Will continue tomorrow
-        })
-    #end
+#if($result.name)
+	$resultMap.put("name", $result.name)
+#end
 
-    $resultMap.put("data", $dataList)
+#foreach( $data in $result.data )
+	#set( $dataItemMap = {} )
+	#set( $coordinatesMap = {} )
+	#set( $coordList = [] )
+	
+	$coordinatesMap.put("hash", $data.coordinates.hash)
+	
+	#foreach( $coord in $data.coordinates.lat_lng )
+		$coordList.add($coord)
+	#end
+	
+	$coordinatesMap.put("latLng", $coordList)
+	
+	$dataItemMap.put("batteryLevel", $data.battery_level)
+	$dataItemMap.put("coordinates", $coordinatesMap)
+	$dataItemMap.put("timestamp", $data.timestamp)
+	
+	$dataList.add($dataItemMap)
+#end
 
-    $util.toJson($resultMap)
-}
+$resultMap.put("data", $dataList)
+
+$util.toJson($resultMap)
