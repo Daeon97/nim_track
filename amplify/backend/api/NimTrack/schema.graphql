@@ -23,12 +23,12 @@ type TrackerModule {
 }
 
 type TrackerModuleData {
-    batteryLevel: Int!
+    battery_level: Int!
     coordinates: Coordinates!
     timestamp: Int!
 }
 
 type Coordinates {
     hash: String!
-    latLng: [Float!]!
+    lat_lng: [Float!]!
 }
