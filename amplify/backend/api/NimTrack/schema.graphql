@@ -4,11 +4,10 @@
 
 type Query {
     getTrackerModule(id: Int!): TrackerModule
-    listTrackerModules: [TrackerModule!]
 }
 
 type Mutation {
-    updateTrackerModuleName(input: UpdateTrackerModuleNameInput): String!
+    updateTrackerModuleName(input: UpdateTrackerModuleNameInput): Boolean!
 }
 
 input UpdateTrackerModuleNameInput {

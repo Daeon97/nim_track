@@ -1,0 +1,27 @@
+{
+    "version": "2017-02-28",
+    "operation": "UpdateItem",
+    "key": {
+        "id": $util.dynamodb.toDynamoDBJson($context.arguments.input.id)
+    },
+    "update": {
+        "expression": "SET #k = :v",
+        "expressionNames": {
+            "#k": "name"
+        },
+        "expressionValues": {
+            ":v": $util.dynamodb.toDynamoDBJson($context.arguments.input.name)
+        }
+    },
+    "condition": {
+        "expression": "attribute_exists(#k1) AND #k1 = :v1 AND ((attribute_exists(#k2) AND #k2 <> :v2) OR attribute_not_exists(#k2))",
+        "expressionNames": {
+            "#k1": "id",
+            "#k2": "name"
+        },
+        "expressionValues": {
+            ":v1": $util.dynamodb.toDynamoDBJson($context.arguments.input.id),
+            ":v2": $util.dynamodb.toDynamoDBJson($context.arguments.input.name)
+        }
+    }
+}
