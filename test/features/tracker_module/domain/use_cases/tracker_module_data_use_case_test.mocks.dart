@@ -9,7 +9,7 @@ import 'dart:async' as _i3;
 
 import 'package:dartz/dartz.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:nim_track/core/errors/failures.dart' as _i5;
+import 'package:nim_track/core/errors/failure.dart' as _i5;
 import 'package:nim_track/features/tracker_module/domain/entities/tracker_module_entity.dart'
     as _i6;
 import 'package:nim_track/features/tracker_module/domain/repositories/tracker_module_repository.dart'

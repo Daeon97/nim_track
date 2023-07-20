@@ -11,5 +11,17 @@ const mapboxMapKey = 'mapboxMap';
 const mapboxPublicTokenKeyName = 'MAPBOX_PUBLIC_TOKEN';
 const mapboxSecretTokenKeyName = 'MAPBOX_SECRET_TOKEN';
 
+// Json keys
+const dataJsonKey = 'data';
+const batteryLevelJsonKey = 'battery_level';
+const coordinatesJsonKey = 'coordinates';
+const geohashJsonKey = 'hash';
+const latLngJsonKey = 'lat_lng';
+
 // Env file name
 const envFileName = '.env';
+
+// Literals
+const nodeDataLiteral = 'Node Data';
+const availableLiteral = 'Available';
+const problemsLiteral = 'Problems';

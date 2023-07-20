@@ -24,7 +24,7 @@ void main() {
 
   test(
     '''
-      should ensure that [MockTrackerModuleRepository.call]
+      should ensure that [TrackerModuleRepository.call]
       is called once when [TrackerModuleDetailsUseCase.call]
     ''',
     () {

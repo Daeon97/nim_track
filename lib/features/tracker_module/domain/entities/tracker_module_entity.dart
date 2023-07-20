@@ -1,23 +1,31 @@
 // ignore_for_file: public_member_api_docs
 
-class TrackerModuleEntity {
+base class TrackerModuleEntity {
   const TrackerModuleEntity({
-    required this.nodeId,
-    required this.coordinates,
-    required this.batteryLevel,
-    required this.timestamp,
-    this.nodeName,
+    required this.id,
+    required this.data,
+    this.name,
   });
 
-  final String nodeId;
-  final Coordinates coordinates;
-  final num batteryLevel;
-  final int timestamp;
-  final String? nodeName;
+  final String id;
+  final List<TrackerModuleDataEntity> data;
+  final String? name;
 }
 
-class Coordinates {
-  const Coordinates({
+base class TrackerModuleDataEntity {
+  const TrackerModuleDataEntity({
+    required this.batteryLevel,
+    required this.coordinates,
+    required this.timestamp,
+  });
+
+  final int batteryLevel;
+  final TrackerModuleCoordinatesEntity coordinates;
+  final int timestamp;
+}
+
+base class TrackerModuleCoordinatesEntity {
+  const TrackerModuleCoordinatesEntity({
     required this.geohash,
     required this.latLng,
   });
