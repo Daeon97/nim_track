@@ -7,7 +7,7 @@ type Query {
 }
 
 type Mutation {
-    updateTrackerModuleName(input: UpdateTrackerModuleNameInput): Boolean!
+    updateTrackerModuleName(input: UpdateTrackerModuleNameInput): String!
 }
 
 input UpdateTrackerModuleNameInput {

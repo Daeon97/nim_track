@@ -1,8 +1,1 @@
-#set( $success = false )
-#set( $statusCode = $context.result.statusCode )
-
-#if($statusCode == 200)
-    $success = true
-#end
-
-$util.toJson($success)
+$util.toJson($context.result.name)
