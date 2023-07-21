@@ -1,11 +1,12 @@
 // ignore_for_file: public_member_api_docs
 
 // Dashboard sheet dimensions
-const initialChildSize = 0.35;
-const minChildSize = 0.1;
-const maxChildSize = 0.35;
+const initialChildSize = minChildSize;
+const minChildSize = 0.22;
+const maxChildSize = 0.55;
 
 // Spacing values
+const nil = 0.0;
 const veryTinySpacing = 1.0;
 const tinySpacing = 2.0;
 const smallSpacing = 8.0;
@@ -18,3 +19,19 @@ const veryLargeSpacing = 128.0;
 const defaultLat = 8.9397816;
 const defaultLng = 7.3182521;
 const defaultZoom = 16.0;
+
+// Placeholders to be removed later
+const placeholderTimestamp = 1689779361;
+const placeholderBatteryLevel1 = 10;
+const placeholderBatteryLevel2 = 20;
+const placeholderBatteryLevel3 = 30;
+const placeholderBatteryLevel4 = 40;
+const placeholderBatteryLevel5 = 50;
+const placeholderBatteryLevel6 = 60;
+const placeholderBatteryLevel7 = 70;
+const placeholderBatteryLevel8 = 80;
+const placeholderId1 = 1;
+const placeholderId3 = 3;
+const placeholderId4 = 4;
+const placeholderId6 = 6;
+const placeholderId7 = 7;

@@ -25,3 +25,12 @@ const envFileName = '.env';
 const nodeDataLiteral = 'Node Data';
 const availableLiteral = 'Available';
 const problemsLiteral = 'Problems';
+const viewAllLiteral = 'View All';
+
+// Special characters
+const percentage = '%';
+
+// Placeholders to be removed later
+const placeholderName2 = 'Test 2';
+const placeholderName5 = 'Test 5';
+const placeholderName8 = 'Test 8';

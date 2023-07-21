@@ -29,25 +29,43 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: MapWidget(
-          cameraOptions: CameraOptions(
-            center: Point(
-              coordinates: Position(
-                defaultLng,
-                defaultLat,
+        body: SafeArea(
+          child: Stack(
+            alignment: AlignmentDirectional.topEnd,
+            children: [
+              MapWidget(
+                cameraOptions: CameraOptions(
+                  center: Point(
+                    coordinates: Position(
+                      defaultLng,
+                      defaultLat,
+                    ),
+                  ).toJson(),
+                  zoom: defaultZoom,
+                ),
+                key: const ValueKey(
+                  mapboxMapKey,
+                ),
+                resourceOptions: ResourceOptions(
+                  accessToken: dotenv.env[mapboxSecretTokenKeyName]!,
+                ),
+                styleUri: Theme.of(context).brightness == Brightness.light
+                    ? MapboxStyles.MAPBOX_STREETS
+                    : MapboxStyles.DARK,
               ),
-            ).toJson(),
-            zoom: defaultZoom,
+              Padding(
+                padding: const EdgeInsetsDirectional.all(
+                  spacing,
+                ),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.settings,
+                  ),
+                ),
+              ),
+            ],
           ),
-          key: const ValueKey(
-            mapboxMapKey,
-          ),
-          resourceOptions: ResourceOptions(
-            accessToken: dotenv.env[mapboxSecretTokenKeyName]!,
-          ),
-          styleUri: Theme.of(context).brightness == Brightness.light
-              ? MapboxStyles.MAPBOX_STREETS
-              : MapboxStyles.DARK,
         ),
         bottomSheet: const DashboardSheet(),
       );

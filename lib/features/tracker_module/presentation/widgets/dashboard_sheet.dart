@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_data_card.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/node_summary_card.dart';
 
 class DashboardSheet extends StatefulWidget {
   const DashboardSheet({super.key});
@@ -12,8 +13,23 @@ class DashboardSheet extends StatefulWidget {
 }
 
 class _DashboardSheetState extends State<DashboardSheet> {
+  late final DraggableScrollableController _dashboardSheetController;
+
+  @override
+  void initState() {
+    _dashboardSheetController = DraggableScrollableController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _dashboardSheetController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) => DraggableScrollableSheet(
+        controller: _dashboardSheetController,
         expand: false,
         snap: true,
         initialChildSize: initialChildSize,
@@ -22,7 +38,6 @@ class _DashboardSheetState extends State<DashboardSheet> {
         builder: (_, scrollController) => SingleChildScrollView(
           controller: scrollController,
           child: Container(
-            height: 500,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsetsDirectional.all(
               spacing,
@@ -34,12 +49,14 @@ class _DashboardSheetState extends State<DashboardSheet> {
                 ),
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const NodeDataCard(),
-              ],
-            ),
+            child: NodeSummaryCard(),
+            // child: switch (_dashboardSheetController.isAttached) {
+            //   true => switch (_dashboardSheetController.size) {
+            //       initialChildSize => const NodeSummaryCard(),
+            //       _ => const NodeDataCard()
+            //     },
+            //   false => const SizedBox.shrink()
+            // },
           ),
         ),
       );

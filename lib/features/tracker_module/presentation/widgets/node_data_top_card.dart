@@ -18,42 +18,63 @@ class NodeDataTopCard extends StatelessWidget {
   final String valueText;
 
   @override
-  Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Theme.of(context).iconTheme.color!,
-          ),
-          borderRadius: BorderRadius.circular(
-            spacing,
-          ),
+  Widget build(BuildContext context) => InkWell(
+        borderRadius: BorderRadius.circular(
+          spacing,
         ),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.all(
-            smallSpacing,
+        onTap: () {},
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Theme.of(context).dividerColor,
+            ),
+            borderRadius: BorderRadius.circular(
+              spacing,
+            ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                color: iconColor,
-              ),
-              const SizedBox(
-                width: smallSpacing,
-              ),
-              Column(
-                children: [
-                  Text(
-                    headerText,
-                    style: Theme.of(context).textTheme.bodyMedium?.merge(
-                          TextStyle(
-                            color: Theme.of(context).dividerColor,
+          child: Padding(
+            padding: const EdgeInsetsDirectional.all(
+              smallSpacing,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  icon,
+                  size: spacing + smallSpacing,
+                  color: iconColor,
+                ),
+                const SizedBox(
+                  width: smallSpacing,
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      headerText,
+                      maxLines: veryTinySpacing.toInt(),
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodySmall?.merge(
+                            TextStyle(
+                              color: Theme.of(context).dividerColor,
+                            ),
                           ),
-                        ),
-                  ),
-                ],
-              ),
-            ],
+                    ),
+                    Text(
+                      valueText,
+                      maxLines: veryTinySpacing.toInt(),
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodyLarge?.merge(
+                            const TextStyle(
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       );
