@@ -58,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   spacing,
                 ),
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.of(context).pushNamed(
+                    settingsScreenRoute,
+                  ),
                   icon: const Icon(
                     Icons.settings,
                   ),

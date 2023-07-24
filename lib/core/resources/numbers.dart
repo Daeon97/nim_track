@@ -2,8 +2,8 @@
 
 // Dashboard sheet dimensions
 const initialChildSize = minChildSize;
-const minChildSize = 0.22;
-const maxChildSize = 0.55;
+const minChildSize = 0.225;
+const maxChildSize = 0.565;
 
 // Spacing values
 const nil = 0.0;

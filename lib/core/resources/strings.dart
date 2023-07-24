@@ -3,6 +3,7 @@
 // Routes
 const defaultScreenRoute = '/';
 const homeScreenRoute = '/home';
+const settingsScreenRoute = '/settings';
 
 // Widget keys
 const mapboxMapKey = 'mapboxMap';
@@ -26,6 +27,7 @@ const nodeDataLiteral = 'Node Data';
 const availableLiteral = 'Available';
 const problemsLiteral = 'Problems';
 const viewAllLiteral = 'View All';
+const allLiteral = 'All';
 
 // Special characters
 const percentage = '%';

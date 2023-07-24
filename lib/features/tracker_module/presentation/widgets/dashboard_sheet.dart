@@ -14,17 +14,39 @@ class DashboardSheet extends StatefulWidget {
 
 class _DashboardSheetState extends State<DashboardSheet> {
   late final DraggableScrollableController _dashboardSheetController;
+  late final ValueNotifier<bool> _isAttachedListenable;
+  late final ValueNotifier<double> _sizeListenable;
 
   @override
   void initState() {
     _dashboardSheetController = DraggableScrollableController();
+    _dashboardSheetController.addListener(
+      _dashboardSheetControllerListener,
+    );
+    _isAttachedListenable = ValueNotifier<bool>(
+      false,
+    );
+    _sizeListenable = ValueNotifier<double>(
+      minChildSize,
+    );
     super.initState();
   }
 
   @override
   void dispose() {
-    _dashboardSheetController.dispose();
+    _dashboardSheetController
+      ..removeListener(
+        _dashboardSheetControllerListener,
+      )
+      ..dispose();
+    _isAttachedListenable.dispose();
+    _sizeListenable.dispose();
     super.dispose();
+  }
+
+  void _dashboardSheetControllerListener() {
+    _isAttachedListenable.value = _dashboardSheetController.isAttached;
+    _sizeListenable.value = _dashboardSheetController.size;
   }
 
   @override
@@ -49,14 +71,35 @@ class _DashboardSheetState extends State<DashboardSheet> {
                 ),
               ),
             ),
-            child: NodeSummaryCard(),
-            // child: switch (_dashboardSheetController.isAttached) {
-            //   true => switch (_dashboardSheetController.size) {
-            //       initialChildSize => const NodeSummaryCard(),
-            //       _ => const NodeDataCard()
-            //     },
-            //   false => const SizedBox.shrink()
-            // },
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).dividerColor,
+                    borderRadius: BorderRadius.circular(
+                      spacing,
+                    ),
+                  ),
+                  height: veryTinySpacing + tinySpacing,
+                  width: largeSpacing,
+                ),
+                const SizedBox(
+                  height: spacing,
+                ),
+                ValueListenableBuilder<bool>(
+                  valueListenable: _isAttachedListenable,
+                  builder: (_, isAttachedValue, __) =>
+                      ValueListenableBuilder<double>(
+                    valueListenable: _sizeListenable,
+                    builder: (_, sizeValue, __) => switch (isAttachedValue) {
+                      true when sizeValue > minChildSize =>
+                        const NodeDataCard(),
+                      _ => const NodeSummaryCard()
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );

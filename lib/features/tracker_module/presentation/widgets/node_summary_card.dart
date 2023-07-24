@@ -12,20 +12,74 @@ class NodeSummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          ListWheelScrollView(
-            itemExtent: largeSpacing,
-            children: List<Widget>.generate(
-              smallSpacing.toInt(),
-              (index) => Text(
-                (index + veryTinySpacing.toInt()).toString(),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: spacing,
-          ),
           Row(
             children: [
+              Expanded(
+                flex: tinySpacing.toInt(),
+                child: Container(
+                  height: extraLargeSpacing -
+                      (veryTinySpacing + tinySpacing + tinySpacing),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Theme.of(context).dividerColor,
+                    ),
+                    borderRadius: BorderRadius.circular(
+                      spacing,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {}, icon: Icon(Icons.arrow_left)),
+                      Expanded(
+                        child: RotatedBox(
+                          quarterTurns: -veryTinySpacing.toInt(),
+                          child: ListWheelScrollView(
+                            // physics: NeverScrollableScrollPhysics(),
+                            itemExtent: largeSpacing + spacing,
+                            diameterRatio: veryTinySpacing,
+                            offAxisFraction: veryTinySpacing,
+                            clipBehavior: Clip.antiAlias,
+                            children: List<Widget>.generate(
+                              veryTinySpacing.toInt() + smallSpacing.toInt(),
+                              (index) => RotatedBox(
+                                quarterTurns: veryTinySpacing.toInt(),
+                                child: // TextButton(
+                                    // style: ButtonStyle(
+                                    //   backgroundColor: MaterialStatePropertyAll<Color>(
+                                    //     Theme.of(context).textTheme.bodyMedium!.color!,
+                                    //   ),
+                                    // ),
+                                    // onPressed: () {},
+                                    // child:
+                                    Text(
+                                  index == nil.toInt()
+                                      ? allLiteral
+                                      : index.toString(),
+                                  // style: Theme.of(context)
+                                  //     .textTheme
+                                  //     .bodyMedium
+                                  //     ?.merge(
+                                  //       TextStyle(
+                                  //         color: Theme.of(context).primaryColorDark,
+                                  //       ),
+                                  //     ),
+                                ),
+                                // ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                          onPressed: () {}, icon: Icon(Icons.arrow_right)),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: spacing,
+              ),
               Expanded(
                 child: NodeDataTopCard(
                   icon: Icons.developer_board,
@@ -34,15 +88,37 @@ class NodeSummaryCard extends StatelessWidget {
                   valueText: smallSpacing.toInt().toString(),
                 ),
               ),
-              const SizedBox(
-                width: spacing,
-              ),
+            ],
+          ),
+          const SizedBox(
+            height: spacing,
+          ),
+          Row(
+            children: [
               Expanded(
                 child: NodeDataTopCard(
                   icon: Icons.developer_board_off,
                   iconColor: nodeProblemsColor,
                   headerText: problemsLiteral,
                   valueText: veryTinySpacing.toInt().toString(),
+                ),
+              ),
+              const SizedBox(
+                width: spacing,
+              ),
+              Expanded(
+                flex: tinySpacing.toInt(),
+                child: Container(
+                  height: extraLargeSpacing -
+                      (veryTinySpacing + tinySpacing + tinySpacing),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Theme.of(context).dividerColor,
+                    ),
+                    borderRadius: BorderRadius.circular(
+                      spacing,
+                    ),
+                  ),
                 ),
               ),
             ],
