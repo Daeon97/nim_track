@@ -2,7 +2,7 @@
 
 import 'package:nim_track/features/tracker_module/data/models/tracker_module_model.dart';
 
-abstract class TrackerModuleRemoteDataSource {
+abstract interface class TrackerModuleRemoteDataSource {
   Stream<TrackerModuleModel> call();
 }
 

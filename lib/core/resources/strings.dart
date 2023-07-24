@@ -19,6 +19,8 @@ const coordinatesJsonKey = 'coordinates';
 const geohashJsonKey = 'hash';
 const latLngJsonKey = 'lat_lng';
 
+const
+
 // Env file name
 const envFileName = '.env';
 

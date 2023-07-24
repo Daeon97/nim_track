@@ -4,6 +4,6 @@ import 'package:dartz/dartz.dart';
 import 'package:nim_track/core/errors/failure.dart';
 import 'package:nim_track/features/tracker_module/domain/entities/tracker_module_entity.dart';
 
-abstract class TrackerModuleRepository {
+abstract interface class TrackerModuleRepository {
   Stream<Either<Failure, TrackerModuleEntity>> call();
 }
