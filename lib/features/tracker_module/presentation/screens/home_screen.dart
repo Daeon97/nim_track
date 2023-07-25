@@ -3,11 +3,13 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:nim_track/amplifyconfiguration.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
+import 'package:nim_track/features/settings/presentation/blocs/theme_bloc/theme_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/dashboard_sheet.dart';
 // import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
@@ -33,25 +35,28 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Stack(
             alignment: AlignmentDirectional.topEnd,
             children: [
-              MapWidget(
-                cameraOptions: CameraOptions(
-                  center: Point(
-                    coordinates: Position(
-                      defaultLng,
-                      defaultLat,
-                    ),
-                  ).toJson(),
-                  zoom: defaultZoom,
+              BlocBuilder<ThemeBloc, ThemeState>(
+                builder: (_, themeState) => MapWidget(
+                  cameraOptions: CameraOptions(
+                    center: Point(
+                      coordinates: Position(
+                        defaultLng,
+                        defaultLat,
+                      ),
+                    ).toJson(),
+                    zoom: defaultZoom,
+                  ),
+                  key: const ValueKey(
+                    mapboxMapKey,
+                  ),
+                  resourceOptions: ResourceOptions(
+                    accessToken: dotenv.env[mapboxSecretTokenKeyName]!,
+                  ),
+                  styleUri:
+                      themeState.themeEntity.brightness == Brightness.light
+                          ? MapboxStyles.MAPBOX_STREETS
+                          : MapboxStyles.DARK,
                 ),
-                key: const ValueKey(
-                  mapboxMapKey,
-                ),
-                resourceOptions: ResourceOptions(
-                  accessToken: dotenv.env[mapboxSecretTokenKeyName]!,
-                ),
-                styleUri: Theme.of(context).brightness == Brightness.light
-                    ? MapboxStyles.MAPBOX_STREETS
-                    : MapboxStyles.DARK,
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.all(

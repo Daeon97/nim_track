@@ -32,9 +32,24 @@ const problemsLiteral = 'Problems';
 const viewAllLiteral = 'View All';
 const allLiteral = 'All';
 const settingsLiteral = 'Settings';
+const themeSettingsLiteral = 'Theme settings';
+const brightnessLiteral = 'Brightness';
+const lightLiteral = 'Light';
+const darkLiteral = 'Dark';
+const lightThemeExplanationLiteral =
+    "To folks that love it bright and sunny ☀️, the light theme's got you 😎";
+const darkThemeExplanationLiteral =
+    'To folks that love it dark and cool 🌑, the dark theme is the way to go 🌚';
+const colorLiteral = 'Color';
+const blueLiteral = 'Blue';
+const colorExplanationLiteral =
+    'To avoid users getting high on different colors, we have disabled this for now and set a default';
 
 // Special characters
 const percentage = '%';
+const bullet = '•';
+const tabSpace = ' ';
+const verticalBar = '|';
 
 // Placeholders to be removed later
 const placeholderName2 = 'Test 2';
