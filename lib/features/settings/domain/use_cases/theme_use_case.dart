@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs
 
-import 'package:flutter/material.dart';
+import 'package:nim_track/core/utils/enums.dart' as enums;
+import 'package:nim_track/features/settings/domain/entities/theme_entity.dart';
 import 'package:nim_track/features/settings/domain/repositories/theme_repository.dart';
 
 class ThemeUseCase {
@@ -10,9 +11,26 @@ class ThemeUseCase {
 
   final ThemeRepository themeRepository;
 
-  Color get seedColor => themeRepository.seedColor;
+  ThemeEntity fromJsonToEntity({
+    required Map<String, dynamic> json,
+  }) =>
+      themeRepository.fromJsonToEntity(
+        json: json,
+      );
 
-  Brightness get brightness => themeRepository.brightness;
+  Map<String, dynamic> fromEntityToJson({
+    required ThemeEntity themeEntity,
+  }) =>
+      themeRepository.fromEntityToJson(
+        themeEntity: themeEntity,
+      );
 
-  ColorScheme get colorScheme => themeRepository.colorScheme;
+  ThemeEntity call({
+    required enums.SeedColor seedColor,
+    required enums.Brightness brightness,
+  }) =>
+      themeRepository(
+        seedColor: seedColor,
+        brightness: brightness,
+      );
 }

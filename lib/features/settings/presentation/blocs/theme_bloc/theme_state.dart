@@ -4,13 +4,13 @@ part of 'theme_bloc.dart';
 
 final class ThemeState extends Equatable {
   const ThemeState({
-    this.themeData,
+    required this.themeEntity,
   });
 
-  final ThemeData? themeData;
+  final ThemeEntity themeEntity;
 
   @override
   List<Object?> get props => [
-        themeData,
+        themeEntity,
       ];
 }

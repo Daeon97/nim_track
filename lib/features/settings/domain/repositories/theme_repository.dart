@@ -1,11 +1,19 @@
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, one_member_abstracts
 
-import 'package:flutter/material.dart';
+import 'package:nim_track/core/utils/enums.dart' as enums;
+import 'package:nim_track/features/settings/domain/entities/theme_entity.dart';
 
 abstract interface class ThemeRepository {
-  Color get seedColor;
+  ThemeEntity fromJsonToEntity({
+    required Map<String, dynamic> json,
+  });
 
-  Brightness get brightness;
+  Map<String, dynamic> fromEntityToJson({
+    required ThemeEntity themeEntity,
+  });
 
-  ColorScheme get colorScheme;
+  ThemeEntity call({
+    required enums.SeedColor seedColor,
+    required enums.Brightness brightness,
+  });
 }

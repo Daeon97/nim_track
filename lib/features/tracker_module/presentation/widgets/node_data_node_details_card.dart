@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:nim_track/core/resources/colors.dart';
 import 'package:nim_track/core/resources/numbers.dart';
-import 'package:nim_track/core/utils/timestamp_util.dart';
+import 'package:nim_track/core/utils/helpers/timestamp_util.dart';
 
 class NodeDataNodeDetailsCard extends StatelessWidget {
   const NodeDataNodeDetailsCard({

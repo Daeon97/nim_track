@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nim_track/core/resources/colors.dart';
 import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/features/settings/presentation/blocs/theme_bloc/theme_bloc.dart';
 import 'package:nim_track/features/settings/presentation/screens/settings_screen.dart';
@@ -19,14 +18,13 @@ class App extends StatelessWidget {
         providers: _providers,
         child: BlocBuilder<ThemeBloc, ThemeState>(
           builder: (_, themeState) => MaterialApp(
-            theme: themeState.themeData,
-            // theme: ThemeData(
-            //   useMaterial3: true,
-            //   colorScheme: ColorScheme.fromSeed(
-            //     seedColor: baseColor,
-            //     brightness: Brightness.dark,
-            //   ),
-            // ),
+            theme: ThemeData(
+              useMaterial3: true,
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: themeState.themeEntity.seedColor,
+                brightness: themeState.themeEntity.brightness,
+              ),
+            ),
             onGenerateRoute: _routes,
           ),
         ),

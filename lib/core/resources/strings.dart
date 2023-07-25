@@ -19,7 +19,8 @@ const coordinatesJsonKey = 'coordinates';
 const geohashJsonKey = 'hash';
 const latLngJsonKey = 'lat_lng';
 
-const
+const seedColorKey = 'seed_color';
+const brightnessKey = 'brightness';
 
 // Env file name
 const envFileName = '.env';
@@ -30,6 +31,7 @@ const availableLiteral = 'Available';
 const problemsLiteral = 'Problems';
 const viewAllLiteral = 'View All';
 const allLiteral = 'All';
+const settingsLiteral = 'Settings';
 
 // Special characters
 const percentage = '%';
