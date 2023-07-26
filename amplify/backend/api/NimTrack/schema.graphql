@@ -10,6 +10,11 @@ type Mutation {
     updateTrackerModuleName(input: UpdateTrackerModuleNameInput): String!
 }
 
+type Subscription {
+    onGetTrackerModule(id: Int!): TrackerModule @aws_subscribe(mutations: ["updateTrackerModuleName"])
+    onListTrackerModules: [TrackerModule] @aws_subscribe(mutations: ["updateTrackerModuleName"])
+}
+
 input UpdateTrackerModuleNameInput {
     id: Int!
     name: String!
