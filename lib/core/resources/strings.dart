@@ -19,8 +19,8 @@ const coordinatesJsonKey = 'coordinates';
 const geohashJsonKey = 'hash';
 const latLngJsonKey = 'lat_lng';
 
-const seedColorKey = 'seed_color';
-const brightnessKey = 'brightness';
+const fakeSeedColorKey = 'fake_seed_color';
+const fakeBrightnessKey = 'fake_brightness';
 
 // Env file name
 const envFileName = '.env';
@@ -42,8 +42,11 @@ const darkThemeExplanationLiteral =
     'To folks that love it dark and cool 🌑, the dark theme is the way to go 🌚';
 const colorLiteral = 'Color';
 const blueLiteral = 'Blue';
+const yellowLiteral = 'Yellow';
+const purpleLiteral = 'Purple';
+const orangeLiteral = 'Orange';
 const colorExplanationLiteral =
-    'To avoid users getting high on different colors, we have disabled this for now and set a default';
+    'Get high on different colors. Choose your inspiration';
 
 // Special characters
 const percentage = '%';

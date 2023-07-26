@@ -16,16 +16,16 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
   }) : super(
           ThemeState(
             themeEntity: themeUseCase(
-              seedColor: enums.SeedColor.blue,
-              brightness: enums.Brightness.light,
+              fakeSeedColor: enums.SeedColor.blue,
+              fakeBrightness: enums.Brightness.light,
             ),
           ),
         ) {
     on<ThemeEvent>(
       (event, emit) {
         final themeEntity = themeUseCase(
-          seedColor: event.seedColor,
-          brightness: event.brightness,
+          fakeSeedColor: event.fakeSeedColor,
+          fakeBrightness: event.fakeBrightness,
         );
 
         emit(

@@ -9,17 +9,18 @@ part 'theme_model.g.dart';
 @JsonSerializable()
 final class ThemeModel {
   const ThemeModel({
-    required this.seedColor,
-    required this.brightness,
+    required this.fakeSeedColor,
+    required this.fakeBrightness,
   });
 
   factory ThemeModel.fromJson(Map<String, dynamic> json) =>
       _$ThemeModelFromJson(json);
 
-  @JsonKey(name: seedColorKey)
-  final SeedColor seedColor;
+  @JsonKey(name: fakeSeedColorKey)
+  final SeedColor fakeSeedColor;
 
-  final Brightness brightness;
+  @JsonKey(name: fakeBrightnessKey)
+  final Brightness fakeBrightness;
 
   Map<String, dynamic> toJson() => _$ThemeModelToJson(this);
 }

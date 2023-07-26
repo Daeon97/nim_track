@@ -4,16 +4,16 @@ part of 'theme_bloc.dart';
 
 final class ThemeEvent extends Equatable {
   const ThemeEvent({
-    required this.seedColor,
-    required this.brightness,
+    required this.fakeSeedColor,
+    required this.fakeBrightness,
   });
 
-  final enums.SeedColor seedColor;
-  final enums.Brightness brightness;
+  final enums.SeedColor fakeSeedColor;
+  final enums.Brightness fakeBrightness;
 
   @override
   List<Object?> get props => [
-        seedColor,
-        brightness,
+        fakeSeedColor,
+        fakeBrightness,
       ];
 }

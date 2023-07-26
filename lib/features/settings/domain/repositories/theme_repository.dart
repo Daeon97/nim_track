@@ -13,7 +13,7 @@ abstract interface class ThemeRepository {
   });
 
   ThemeEntity call({
-    required enums.SeedColor seedColor,
-    required enums.Brightness brightness,
+    required enums.SeedColor fakeSeedColor,
+    required enums.Brightness fakeBrightness,
   });
 }

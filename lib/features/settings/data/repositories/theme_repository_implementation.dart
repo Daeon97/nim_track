@@ -19,17 +19,9 @@ class ThemeRepositoryImplementation implements ThemeRepository {
   Map<String, dynamic> fromEntityToJson({
     required ThemeEntity themeEntity,
   }) {
-    final fakeSeedColor =
-        switch (themeEntity.seedColor) { _ => enums.SeedColor.blue };
-
-    final fakeBrightness = switch (themeEntity.brightness) {
-      Brightness.light => enums.Brightness.light,
-      Brightness.dark => enums.Brightness.dark
-    };
-
     final themeModel = ThemeModel(
-      seedColor: fakeSeedColor,
-      brightness: fakeBrightness,
+      fakeSeedColor: themeEntity.fakeSeedColor,
+      fakeBrightness: themeEntity.fakeBrightness,
     );
 
     final themeJson = themeDataSource.fromModelToJson(
@@ -46,57 +38,62 @@ class ThemeRepositoryImplementation implements ThemeRepository {
     final themeModel = themeDataSource.fromJsonToModel(
       json: json,
     );
-    final seedColor = themeModel.seedColor;
-    final brightness = themeModel.brightness;
+    final fakeSeedColor = themeModel.fakeSeedColor;
+    final fakeBrightness = themeModel.fakeBrightness;
 
     final (
       actualSeedColor,
       actualBrightness,
     ) = _computeActualSeedColorAndBrightness(
-      seedColor: seedColor,
-      brightness: brightness,
+      fakeSeedColor: fakeSeedColor,
+      fakeBrightness: fakeBrightness,
     );
 
     return ThemeEntity(
-      seedColor: actualSeedColor,
-      brightness: actualBrightness,
+      actualSeedColor: actualSeedColor,
+      fakeSeedColor: fakeSeedColor,
+      actualBrightness: actualBrightness,
+      fakeBrightness: fakeBrightness,
     );
   }
 
   @override
   ThemeEntity call({
-    required enums.SeedColor seedColor,
-    required enums.Brightness brightness,
+    required enums.SeedColor fakeSeedColor,
+    required enums.Brightness fakeBrightness,
   }) {
     final (
       actualSeedColor,
       actualBrightness,
     ) = _computeActualSeedColorAndBrightness(
-      seedColor: seedColor,
-      brightness: brightness,
+      fakeSeedColor: fakeSeedColor,
+      fakeBrightness: fakeBrightness,
     );
 
     return ThemeEntity(
-      seedColor: actualSeedColor,
-      brightness: actualBrightness,
+      actualSeedColor: actualSeedColor,
+      fakeSeedColor: fakeSeedColor,
+      actualBrightness: actualBrightness,
+      fakeBrightness: fakeBrightness,
     );
   }
 
   (Color, Brightness) _computeActualSeedColorAndBrightness({
-    required enums.SeedColor seedColor,
-    required enums.Brightness brightness,
+    required enums.SeedColor fakeSeedColor,
+    required enums.Brightness fakeBrightness,
   }) {
-    final actualSeedColor =
-        switch (seedColor) { enums.SeedColor.blue => baseColorBlue };
-
-    final actualBrightness = switch (brightness) {
-      enums.Brightness.light => Brightness.light,
-      enums.Brightness.dark => Brightness.dark,
+    final actualSeedColor = switch (fakeSeedColor) {
+      enums.SeedColor.blue => baseColorBlue,
+      enums.SeedColor.yellow => baseColorYellow,
+      enums.SeedColor.purple => baseColorPurple,
+      enums.SeedColor.orange => baseColorOrange
     };
 
-    return (
-      actualSeedColor,
-      actualBrightness,
-    );
+    final actualBrightness = switch (fakeBrightness) {
+      enums.Brightness.light => Brightness.light,
+      enums.Brightness.dark => Brightness.dark
+    };
+
+    return (actualSeedColor, actualBrightness);
   }
 }

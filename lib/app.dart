@@ -21,8 +21,8 @@ class App extends StatelessWidget {
             theme: ThemeData(
               useMaterial3: true,
               colorScheme: ColorScheme.fromSeed(
-                seedColor: themeState.themeEntity.seedColor,
-                brightness: themeState.themeEntity.brightness,
+                seedColor: themeState.themeEntity.actualSeedColor,
+                brightness: themeState.themeEntity.actualBrightness,
               ),
             ),
             onGenerateRoute: _routes,

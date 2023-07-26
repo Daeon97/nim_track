@@ -2,4 +2,4 @@
 
 enum Brightness { light, dark }
 
-enum SeedColor { blue }
+enum SeedColor { blue, yellow, purple, orange }

@@ -25,14 +25,14 @@ class ThemeDataSourceImplementation implements ThemeDataSource {
   ThemeModel fromJsonToModel({
     required Map<String, dynamic> json,
   }) =>
-      switch (
-          json.containsKey(seedColorKey) && json.containsKey(brightnessKey)) {
+      switch (json.containsKey(fakeSeedColorKey) &&
+          json.containsKey(fakeBrightnessKey)) {
         true => ThemeModel.fromJson(
             json,
           ),
         false => const ThemeModel(
-            seedColor: enums.SeedColor.blue,
-            brightness: enums.Brightness.light,
+            fakeSeedColor: enums.SeedColor.blue,
+            fakeBrightness: enums.Brightness.light,
           )
       };
 }
