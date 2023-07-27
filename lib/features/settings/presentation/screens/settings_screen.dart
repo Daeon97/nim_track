@@ -19,6 +19,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: const Text(
             settingsLiteral,
           ),
+          actions: [
+            IconButton(
+              onPressed: () => _onAboutClicked(
+                context: context,
+              ),
+              icon: const Icon(
+                Icons.info,
+              ),
+            ),
+          ],
         ),
         body: const SingleChildScrollView(
           padding: EdgeInsetsDirectional.symmetric(
@@ -38,4 +48,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
       );
+
+  void _onAboutClicked({
+    required BuildContext context,
+  }) {
+    showAboutDialog(
+      context: context,
+      applicationName: applicationNameLiteral,
+      applicationLegalese: applicationShortDescriptionLiteral,
+    );
+  }
 }

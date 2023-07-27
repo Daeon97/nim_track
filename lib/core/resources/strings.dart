@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, lines_longer_than_80_chars
 
 // Routes
 const defaultScreenRoute = '/';
@@ -47,6 +47,9 @@ const purpleLiteral = 'Purple';
 const orangeLiteral = 'Orange';
 const colorExplanationLiteral =
     'Get high on different colors. Choose your inspiration';
+const applicationNameLiteral = 'NimTrack';
+const applicationShortDescriptionLiteral =
+    "A prototype for a mobile app interface for an IoT-enabled animal tracking system built by Engels Immanuel for TETFAIR, powered by Flutter, Clean Architecture, AWS Amplify, GraphQL, Felix Angelov's BLoC/Hydrated BLoC, Get It and several other open source flutter packages/libraries. No animals were harmed in the development of this app";
 
 // Special characters
 const percentage = '%';
