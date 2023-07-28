@@ -8,8 +8,8 @@ import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/core/utils/enums.dart' as enums;
 import 'package:nim_track/features/settings/presentation/blocs/theme_bloc/theme_bloc.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/dashboard_sheet.dart';
-// import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -23,7 +23,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    // _configureAmplify();
+    BlocProvider.of<TrackerModulesBloc>(context).add(
+      const ListTrackerModulesEvent(),
+    );
     super.initState();
   }
 
@@ -74,42 +76,4 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         bottomSheet: const DashboardSheet(),
       );
-
-// Future<String?> _roughWork(int id) async {
-//   try {
-//     final graphQLQueryDocument = '''query GetTrackerModule {
-//       getTrackerModule(id: $id) {
-//         id
-//         name
-//         data {
-//           battery_level
-//         }
-//       }
-//     }''';
-//     final operation = Amplify.API.query(
-//       request: GraphQLRequest<String>(
-//         document: graphQLQueryDocument,
-//       ),
-//     );
-//     final response = await operation.response;
-//     return response.data;
-//   } on ApiException catch (e) {
-//     safePrint(e.message);
-//   }
-// }
-//
-// Future<void> _configureAmplify() async {
-//   if (!Amplify.isConfigured) {
-//     await Amplify.addPlugin(
-//       AmplifyAPI(),
-//     );
-//   }
-//
-//   try {
-//     await Amplify.configure(amplifyconfig);
-//     _test.value = true;
-//   } on AmplifyAlreadyConfiguredException catch (e) {
-//     safePrint(e.message);
-//   }
-// }
 }

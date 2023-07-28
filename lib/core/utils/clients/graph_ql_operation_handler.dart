@@ -8,6 +8,7 @@ import 'package:dartz/dartz.dart';
 mixin class GraphQLOperationHandler {
   Future<T1> call<T1, T2>({
     required String graphQLDocument,
+    required String actualDataResidenceKey,
     required Function1<T2, T1> handler,
   }) async {
     final graphQLOperation = Amplify.API.query<String>(
@@ -24,7 +25,9 @@ mixin class GraphQLOperationHandler {
       throw Exception();
     }
 
-    final maybeJson = jsonDecode(data) as T2;
+    final json = jsonDecode(data) as Map<String, dynamic>;
+
+    final maybeJson = json[actualDataResidenceKey] as T2;
 
     return handler(maybeJson);
   }

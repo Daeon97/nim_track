@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, one_member_abstracts
 
+import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/core/utils/clients/graph_ql_operation_handler.dart';
 import 'package:nim_track/core/utils/helpers/graph_ql_document_util.dart';
 import 'package:nim_track/features/tracker_module/data/models/tracker_module_model.dart';
@@ -28,19 +29,23 @@ class TrackerModuleRemoteDataSourceImplementation
         graphQLDocument: GraphQLDocumentUtil.getTrackerModuleQueryDocument(
           id: id,
         ),
+        actualDataResidenceKey: getTrackerModuleKey,
         handler: TrackerModuleModel.fromJson,
       );
 
   @override
   Future<List<TrackerModuleModel>> listTrackerModules() =>
-      call<List<TrackerModuleModel>, List<Map<String, dynamic>>>(
+      call<List<TrackerModuleModel>, List<dynamic>>(
         graphQLDocument: GraphQLDocumentUtil.listTrackerModulesQueryDocument(),
+        actualDataResidenceKey: listTrackerModulesKey,
         handler: (
           jsonList,
         ) =>
             jsonList
                 .map(
-                  TrackerModuleModel.fromJson,
+                  (json) => TrackerModuleModel.fromJson(
+                    json as Map<String, dynamic>,
+                  ),
                 )
                 .toList(),
       );
@@ -56,6 +61,7 @@ class TrackerModuleRemoteDataSourceImplementation
           id: id,
           name: name,
         ),
+        actualDataResidenceKey: updateTrackerModuleNameKey,
         handler: (
           string,
         ) =>

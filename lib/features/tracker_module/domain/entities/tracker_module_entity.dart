@@ -7,7 +7,7 @@ base class TrackerModuleEntity {
     this.name,
   });
 
-  final String id;
+  final int id;
   final List<TrackerModuleDataEntity> data;
   final String? name;
 }

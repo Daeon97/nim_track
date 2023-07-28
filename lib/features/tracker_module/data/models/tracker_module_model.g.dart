@@ -8,7 +8,7 @@ part of 'tracker_module_model.dart';
 
 TrackerModuleModel _$TrackerModuleModelFromJson(Map<String, dynamic> json) =>
     TrackerModuleModel(
-      id: json['id'] as String,
+      id: json['id'] as int,
       mData: (json['data'] as List<dynamic>)
           .map(
               (e) => TrackerModuleDataModel.fromJson(e as Map<String, dynamic>))

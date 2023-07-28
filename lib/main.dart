@@ -3,6 +3,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:nim_track/amplifyconfiguration.dart';
 import 'package:nim_track/app.dart';
 import 'package:nim_track/injection_container.dart';
 import 'package:path_provider/path_provider.dart';
@@ -23,17 +24,19 @@ Future<void> _init() async {
   );
 
   initDependencyInjection();
-  // await _configureAmplify();
+  await _configureAmplify();
 }
 
-// Future<void> _configureAmplify() async {
-//   try {
-//     if (!Amplify.isConfigured) {
-//       await Amplify.addPlugin(
-//         AmplifyAPI(),
-//       );
-//     }
-//   } on AmplifyAlreadyConfiguredException catch (e) {
-//     safePrint(e.message);
-//   }
-// }
+Future<void> _configureAmplify() async {
+  if (!Amplify.isConfigured) {
+    await Amplify.addPlugin(
+      AmplifyAPI(),
+    );
+  }
+
+  try {
+    await Amplify.configure(amplifyconfig);
+  } on AmplifyAlreadyConfiguredException catch (e) {
+    safePrint(e.message);
+  }
+}

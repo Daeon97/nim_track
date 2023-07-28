@@ -18,6 +18,9 @@ const batteryLevelJsonKey = 'battery_level';
 const coordinatesJsonKey = 'coordinates';
 const geohashJsonKey = 'hash';
 const latLngJsonKey = 'lat_lng';
+const getTrackerModuleKey = 'getTrackerModule';
+const listTrackerModulesKey = 'listTrackerModules';
+const updateTrackerModuleNameKey = 'updateTrackerModuleName';
 
 const fakeSeedColorKey = 'fake_seed_color';
 const fakeBrightnessKey = 'fake_brightness';
