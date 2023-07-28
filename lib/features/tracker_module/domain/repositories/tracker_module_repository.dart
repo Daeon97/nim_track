@@ -5,5 +5,14 @@ import 'package:nim_track/core/errors/failure.dart';
 import 'package:nim_track/features/tracker_module/domain/entities/tracker_module_entity.dart';
 
 abstract interface class TrackerModuleRepository {
-  Stream<Either<Failure, TrackerModuleEntity>> call();
+  Future<Either<Failure, TrackerModuleEntity>> getTrackerModule({
+    required int id,
+  });
+
+  Future<Either<Failure, List<TrackerModuleEntity>>> listTrackerModules();
+
+  Future<Either<Failure, String>> updateTrackerModuleName({
+    required int id,
+    required String name,
+  });
 }

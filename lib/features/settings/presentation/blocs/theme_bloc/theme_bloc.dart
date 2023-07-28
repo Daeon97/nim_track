@@ -12,8 +12,9 @@ part 'theme_state.dart';
 
 class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
   ThemeBloc({
-    required this.themeUseCase,
-  }) : super(
+    required ThemeUseCase themeUseCase,
+  })  : _themeUseCase = themeUseCase,
+        super(
           ThemeState(
             themeEntity: themeUseCase(
               fakeSeedColor: enums.SeedColor.blue,
@@ -23,7 +24,7 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
         ) {
     on<ThemeEvent>(
       (event, emit) {
-        final themeEntity = themeUseCase(
+        final themeEntity = _themeUseCase(
           fakeSeedColor: event.fakeSeedColor,
           fakeBrightness: event.fakeBrightness,
         );
@@ -37,14 +38,14 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
     );
   }
 
-  final ThemeUseCase themeUseCase;
+  final ThemeUseCase _themeUseCase;
 
   @override
   ThemeState? fromJson(
     Map<String, dynamic> json,
   ) =>
       ThemeState(
-        themeEntity: themeUseCase.fromJsonToEntity(
+        themeEntity: _themeUseCase.fromJsonToEntity(
           json: json,
         ),
       );
@@ -53,7 +54,7 @@ class ThemeBloc extends HydratedBloc<ThemeEvent, ThemeState> {
   Map<String, dynamic>? toJson(
     ThemeState state,
   ) =>
-      themeUseCase.fromEntityToJson(
+      _themeUseCase.fromEntityToJson(
         themeEntity: state.themeEntity,
       );
 }

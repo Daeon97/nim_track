@@ -6,22 +6,22 @@ import 'package:nim_track/features/settings/domain/repositories/theme_repository
 
 class ThemeUseCase {
   const ThemeUseCase({
-    required this.themeRepository,
-  });
+    required ThemeRepository themeRepository,
+  }) : _themeRepository = themeRepository;
 
-  final ThemeRepository themeRepository;
+  final ThemeRepository _themeRepository;
 
   ThemeEntity fromJsonToEntity({
     required Map<String, dynamic> json,
   }) =>
-      themeRepository.fromJsonToEntity(
+      _themeRepository.fromJsonToEntity(
         json: json,
       );
 
   Map<String, dynamic> fromEntityToJson({
     required ThemeEntity themeEntity,
   }) =>
-      themeRepository.fromEntityToJson(
+      _themeRepository.fromEntityToJson(
         themeEntity: themeEntity,
       );
 
@@ -29,7 +29,7 @@ class ThemeUseCase {
     required enums.SeedColor fakeSeedColor,
     required enums.Brightness fakeBrightness,
   }) =>
-      themeRepository(
+      _themeRepository(
         fakeSeedColor: fakeSeedColor,
         fakeBrightness: fakeBrightness,
       );

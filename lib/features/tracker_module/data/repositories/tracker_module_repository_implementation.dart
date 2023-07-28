@@ -2,20 +2,58 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:nim_track/core/errors/failure.dart';
+import 'package:nim_track/core/utils/clients/tracker_module_repository_transformer.dart';
 import 'package:nim_track/features/tracker_module/data/data_sources/tracker_module_remote_data_source.dart';
+import 'package:nim_track/features/tracker_module/data/models/tracker_module_model.dart';
 import 'package:nim_track/features/tracker_module/domain/entities/tracker_module_entity.dart';
 import 'package:nim_track/features/tracker_module/domain/repositories/tracker_module_repository.dart';
 
-class TrackerModuleRepositoryImplementation implements TrackerModuleRepository {
+class TrackerModuleRepositoryImplementation
+    with TrackerModuleRepositoryTransformer
+    implements TrackerModuleRepository {
   const TrackerModuleRepositoryImplementation({
-    required this.trackerModuleRemoteDataSource,
-  });
+    required TrackerModuleRemoteDataSource trackerModuleRemoteDataSource,
+  }) : _trackerModuleRemoteDataSource = trackerModuleRemoteDataSource;
 
-  final TrackerModuleRemoteDataSource trackerModuleRemoteDataSource;
+  final TrackerModuleRemoteDataSource _trackerModuleRemoteDataSource;
 
   @override
-  Stream<Either<Failure, TrackerModuleEntity>> call() {
-    // TODO: implement call
-    throw UnimplementedError();
-  }
+  Future<Either<Failure, TrackerModuleEntity>> getTrackerModule({
+    required int id,
+  }) =>
+      call<TrackerModuleEntity, TrackerModuleModel>(
+        initiator: _trackerModuleRemoteDataSource.getTrackerModule(
+          id: id,
+        ),
+        transformer: (
+          trackerModuleModel,
+        ) =>
+            trackerModuleModel,
+      );
+
+  @override
+  Future<Either<Failure, List<TrackerModuleEntity>>> listTrackerModules() =>
+      call<List<TrackerModuleEntity>, List<TrackerModuleModel>>(
+        initiator: _trackerModuleRemoteDataSource.listTrackerModules(),
+        transformer: (
+          trackerModuleModel,
+        ) =>
+            trackerModuleModel,
+      );
+
+  @override
+  Future<Either<Failure, String>> updateTrackerModuleName({
+    required int id,
+    required String name,
+  }) =>
+      call<String, String>(
+        initiator: _trackerModuleRemoteDataSource.updateTrackerModuleName(
+          id: id,
+          name: name,
+        ),
+        transformer: (
+          string,
+        ) =>
+            string,
+      );
 }

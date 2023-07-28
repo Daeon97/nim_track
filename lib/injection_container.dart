@@ -2,8 +2,6 @@
 
 import 'package:get_it/get_it.dart';
 import 'package:nim_track/features/settings/data/data_sources/theme_data_source.dart';
-
-// import 'package:nim_track/features/settings/data/data_sources/theme_data_source.dart';
 import 'package:nim_track/features/settings/data/repositories/theme_repository_implementation.dart';
 import 'package:nim_track/features/settings/domain/repositories/theme_repository.dart';
 import 'package:nim_track/features/settings/domain/use_cases/theme_use_case.dart';
@@ -11,7 +9,9 @@ import 'package:nim_track/features/settings/presentation/blocs/theme_bloc/theme_
 import 'package:nim_track/features/tracker_module/data/data_sources/tracker_module_remote_data_source.dart';
 import 'package:nim_track/features/tracker_module/data/repositories/tracker_module_repository_implementation.dart';
 import 'package:nim_track/features/tracker_module/domain/repositories/tracker_module_repository.dart';
-import 'package:nim_track/features/tracker_module/domain/use_cases/tracker_module_data_use_case.dart';
+import 'package:nim_track/features/tracker_module/domain/use_cases/tracker_module_use_case.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
 
 final sl = GetIt.I;
 
@@ -23,10 +23,20 @@ void initDependencyInjection() {
         themeUseCase: sl(),
       ),
     )
+    ..registerFactory(
+      () => TrackerModuleBloc(
+        trackerModuleUseCase: sl(),
+      ),
+    )
+    ..registerFactory(
+      () => TrackerModulesBloc(
+        trackerModuleUseCase: sl(),
+      ),
+    )
 
     // Use cases
     ..registerLazySingleton(
-      () => TrackerModuleDataUseCase(
+      () => TrackerModuleUseCase(
         trackerModuleRepository: sl(),
       ),
     )

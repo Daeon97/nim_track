@@ -10,10 +10,10 @@ import 'package:nim_track/features/settings/domain/repositories/theme_repository
 
 class ThemeRepositoryImplementation implements ThemeRepository {
   const ThemeRepositoryImplementation({
-    required this.themeDataSource,
-  });
+    required ThemeDataSource themeDataSource,
+  }) : _themeDataSource = themeDataSource;
 
-  final ThemeDataSource themeDataSource;
+  final ThemeDataSource _themeDataSource;
 
   @override
   Map<String, dynamic> fromEntityToJson({
@@ -24,7 +24,7 @@ class ThemeRepositoryImplementation implements ThemeRepository {
       fakeBrightness: themeEntity.fakeBrightness,
     );
 
-    final themeJson = themeDataSource.fromModelToJson(
+    final themeJson = _themeDataSource.fromModelToJson(
       themeModel: themeModel,
     );
 
@@ -35,7 +35,7 @@ class ThemeRepositoryImplementation implements ThemeRepository {
   ThemeEntity fromJsonToEntity({
     required Map<String, dynamic> json,
   }) {
-    final themeModel = themeDataSource.fromJsonToModel(
+    final themeModel = _themeDataSource.fromJsonToModel(
       json: json,
     );
     final fakeSeedColor = themeModel.fakeSeedColor;
