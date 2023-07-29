@@ -1,7 +1,11 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nim_track/core/resources/numbers.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer/node_data_top_card_shimmer_child.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer/shimmer_widget.dart';
 
 class NodeDataTopCard extends StatelessWidget {
   const NodeDataTopCard({
@@ -32,49 +36,61 @@ class NodeDataTopCard extends StatelessWidget {
               spacing,
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsetsDirectional.all(
-              smallSpacing,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  icon,
-                  size: spacing + smallSpacing,
-                  color: iconColor,
+          child: BlocBuilder<TrackerModulesBloc, TrackerModulesState>(
+            builder: (_, trackerModulesState) =>
+                switch (trackerModulesState.runtimeType) {
+              ListingTrackerModulesState => const ShimmerWidget(
+                  child: NodeDataTopCardShimmerChild(),
                 ),
-                const SizedBox(
-                  width: smallSpacing,
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      headerText,
-                      maxLines: veryTinySpacing.toInt(),
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodySmall?.merge(
-                            TextStyle(
-                              color: Theme.of(context).dividerColor,
-                            ),
+              ListedTrackerModulesState => Padding(
+                  padding: const EdgeInsetsDirectional.all(
+                    smallSpacing,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        icon,
+                        size: spacing + smallSpacing,
+                        color: iconColor,
+                      ),
+                      const SizedBox(
+                        width: smallSpacing,
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            headerText,
+                            maxLines: veryTinySpacing.toInt(),
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.bodySmall?.merge(
+                                  TextStyle(
+                                    color: Theme.of(context).dividerColor,
+                                  ),
+                                ),
                           ),
-                    ),
-                    Text(
-                      valueText,
-                      maxLines: veryTinySpacing.toInt(),
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodyLarge?.merge(
-                            const TextStyle(
-                              fontWeight: FontWeight.w600,
-                            ),
+                          Text(
+                            valueText,
+                            maxLines: veryTinySpacing.toInt(),
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.bodyLarge?.merge(
+                                  const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                           ),
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              _ => const ShimmerWidget(
+                  stopShimmer: true,
+                  child: NodeDataTopCardShimmerChild(),
+                ),
+            },
           ),
         ),
       );

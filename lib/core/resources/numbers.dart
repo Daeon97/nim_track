@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, lines_longer_than_80_chars
 
 // Dashboard sheet dimensions
 const initialChildSize = minChildSize;
@@ -19,6 +19,12 @@ const veryLargeSpacing = 128.0;
 const defaultLat = 8.9397816;
 const defaultLng = 7.3182521;
 const defaultZoom = 16.0;
+
+// Other doubles
+const shimmerDurationMilliseconds = 1000;
+const nodeSummaryCardFirstCardListWheelScrollViewAnimationDurationMilliseconds =
+    500;
+const shimmerBaseColorOpacity = 0.38;
 
 // Placeholders to be removed later
 const placeholderTimestamp = 1689779361;
