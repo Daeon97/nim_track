@@ -12,14 +12,12 @@ class NodeDataTopCard extends StatelessWidget {
     required this.icon,
     required this.iconColor,
     required this.headerText,
-    required this.valueText,
     super.key,
   });
 
   final IconData icon;
   final Color iconColor;
   final String headerText;
-  final String valueText;
 
   @override
   Widget build(BuildContext context) => InkWell(
@@ -37,17 +35,18 @@ class NodeDataTopCard extends StatelessWidget {
             ),
           ),
           child: BlocBuilder<TrackerModulesBloc, TrackerModulesState>(
-            builder: (_, trackerModulesState) =>
-                switch (trackerModulesState.runtimeType) {
-              ListingTrackerModulesState => const ShimmerWidget(
+            builder: (_, trackerModulesState) => switch (trackerModulesState) {
+              ListingTrackerModulesState() => const ShimmerWidget(
                   child: NodeDataTopCardShimmerChild(),
                 ),
-              ListedTrackerModulesState => Padding(
+              ListedTrackerModulesState(
+                trackerModuleEntities: final entities,
+              ) =>
+                Padding(
                   padding: const EdgeInsetsDirectional.all(
                     smallSpacing,
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
                         icon,
@@ -55,7 +54,7 @@ class NodeDataTopCard extends StatelessWidget {
                         color: iconColor,
                       ),
                       const SizedBox(
-                        width: smallSpacing,
+                        width: spacing,
                       ),
                       Column(
                         mainAxisSize: MainAxisSize.min,
@@ -72,7 +71,7 @@ class NodeDataTopCard extends StatelessWidget {
                                 ),
                           ),
                           Text(
-                            valueText,
+                            entities.length.toString(),
                             maxLines: veryTinySpacing.toInt(),
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context).textTheme.bodyLarge?.merge(

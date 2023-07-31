@@ -1,11 +1,14 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nim_track/core/resources/colors.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_data_node_details_card.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_data_top_card.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer/shimmer_widget.dart';
 
 class NodeDataCard extends StatelessWidget {
   const NodeDataCard({super.key});
@@ -20,7 +23,6 @@ class NodeDataCard extends StatelessWidget {
                   icon: Icons.developer_board,
                   iconColor: nodeAvailableColor,
                   headerText: availableLiteral,
-                  valueText: smallSpacing.toInt().toString(),
                 ),
               ),
               const SizedBox(
@@ -31,7 +33,6 @@ class NodeDataCard extends StatelessWidget {
                   icon: Icons.developer_board_off,
                   iconColor: nodeProblemsColor,
                   headerText: problemsLiteral,
-                  valueText: veryTinySpacing.toInt().toString(),
                 ),
               ),
             ],
@@ -39,40 +40,29 @@ class NodeDataCard extends StatelessWidget {
           const SizedBox(
             height: spacing,
           ),
-          ...List<Widget>.generate(
-            (veryTinySpacing + tinySpacing + tinySpacing).toInt(),
-            (index) => NodeDataNodeDetailsCard(
-              nodeName: switch (index) {
-                nil => placeholderId1.toString(),
-                veryTinySpacing => placeholderName2,
-                tinySpacing => placeholderId3.toString(),
-                const (veryTinySpacing + tinySpacing) =>
-                  placeholderId4.toString(),
-                const (tinySpacing + tinySpacing) => placeholderName5,
-                const (veryTinySpacing + tinySpacing + tinySpacing) =>
-                  placeholderId6.toString(),
-                const (tinySpacing + tinySpacing + tinySpacing) =>
-                  placeholderId7.toString(),
-                _ => placeholderName8
-              },
-              lastTransmissionDate: placeholderTimestamp,
-              healthy: index != tinySpacing,
-            ),
-            growable: false,
+          BlocBuilder<TrackerModulesBloc, TrackerModulesState>(
+            builder: (_, trackerModulesState) => switch (trackerModulesState) {
+              ListingTrackerModulesState() => const ShimmerWidget(),
+              ListedTrackerModulesState(
+                trackerModuleEntities: final entities,
+              ) =>
+                Column(
+                  children: List<Widget>.generate(
+                    entities.length,
+                    (index) => NodeDataNodeDetailsCard(
+                      nodeName: entities[index].name ??
+                          '$nodeLiteral ${entities[index].id}',
+                      lastTransmissionDate: entities[index].data.last.timestamp,
+                      healthy: true,
+                    ),
+                    growable: false,
+                  ),
+                ),
+              _ => const ShimmerWidget()
+            },
           ),
           const SizedBox(
             height: spacing,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: spacing,
-            ),
-            child: TextButton(
-              onPressed: () {},
-              child: const Text(
-                viewAllLiteral,
-              ),
-            ),
           ),
         ],
       );

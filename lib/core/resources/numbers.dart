@@ -2,7 +2,7 @@
 
 // Dashboard sheet dimensions
 const initialChildSize = minChildSize;
-const minChildSize = 0.225;
+const minChildSize = 0.23;
 const maxChildSize = 0.565;
 
 // Spacing values
@@ -25,19 +25,3 @@ const shimmerDurationMilliseconds = 1000;
 const nodeSummaryCardFirstCardListWheelScrollViewAnimationDurationMilliseconds =
     500;
 const shimmerBaseColorOpacity = 0.38;
-
-// Placeholders to be removed later
-const placeholderTimestamp = 1689779361;
-const placeholderBatteryLevel1 = 10;
-const placeholderBatteryLevel2 = 20;
-const placeholderBatteryLevel3 = 30;
-const placeholderBatteryLevel4 = 40;
-const placeholderBatteryLevel5 = 50;
-const placeholderBatteryLevel6 = 60;
-const placeholderBatteryLevel7 = 70;
-const placeholderBatteryLevel8 = 80;
-const placeholderId1 = 1;
-const placeholderId3 = 3;
-const placeholderId4 = 4;
-const placeholderId6 = 6;
-const placeholderId7 = 7;
