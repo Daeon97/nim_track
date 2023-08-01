@@ -10,6 +10,7 @@ import 'package:nim_track/features/tracker_module/data/data_sources/tracker_modu
 import 'package:nim_track/features/tracker_module/data/repositories/tracker_module_repository_implementation.dart';
 import 'package:nim_track/features/tracker_module/domain/repositories/tracker_module_repository.dart';
 import 'package:nim_track/features/tracker_module/domain/use_cases/tracker_module_use_case.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/all_tracker_modules_or_one_tracker_module/all_tracker_modules_or_one_tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
 
@@ -32,6 +33,9 @@ void initDependencyInjection() {
       () => TrackerModulesBloc(
         trackerModuleUseCase: sl(),
       ),
+    )
+    ..registerFactory(
+      AllTrackerModulesOrOneTrackerModuleBloc.new,
     )
 
     // Use cases
@@ -65,8 +69,4 @@ void initDependencyInjection() {
     ..registerLazySingleton<ThemeDataSource>(
       ThemeDataSourceImplementation.new,
     );
-
-  // Core
-  // External
-  // Primitives
 }

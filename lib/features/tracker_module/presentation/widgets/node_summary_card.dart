@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nim_track/core/resources/colors.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/all_tracker_modules_or_one_tracker_module/all_tracker_modules_or_one_tracker_module_bloc.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_data_top_card.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_summary_bottom_card.dart';
@@ -80,26 +82,28 @@ class _NodeSummaryCardState extends State<NodeSummaryCard> {
                               entities.length,
                               (index) => RotatedBox(
                                 quarterTurns: veryTinySpacing.toInt(),
-                                child: InkWell(
-                                  onTap: () {},
-                                  borderRadius: BorderRadius.circular(
-                                    spacing,
-                                  ),
-                                  child: ValueListenableBuilder<int?>(
-                                    valueListenable: _selectedNode,
-                                    builder: (_, selectedNodeValue, __) =>
-                                        ChoiceChip(
-                                      label: Text(
-                                        entities[index].name ??
-                                            '$nodeLiteral ${entities[index].id}',
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: tinySpacing.toInt(),
-                                      ),
-                                      selected: selectedNodeValue == index,
-                                      onSelected: (selected) => _selectedNode
-                                          .value = selected ? index : null,
+                                child: ValueListenableBuilder<int?>(
+                                  valueListenable: _selectedNode,
+                                  builder: (_, selectedNodeValue, __) =>
+                                      ChoiceChip(
+                                    label: Text(
+                                      entities[index].name ??
+                                          '$nodeLiteral ${entities[index].id}',
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: tinySpacing.toInt(),
                                     ),
+                                    selected: selectedNodeValue == index,
+                                    onSelected: (selected) => context
+                                        .read<
+                                            AllTrackerModulesOrOneTrackerModuleBloc>()
+                                        .add(
+                                          GetOneTrackerModuleEvent(
+                                            id: entities[index].id,
+                                          ),
+                                        ),
+                                    // _selectedNode
+                                    //     .value = selected ? index : null,
                                   ),
                                 ),
                               ),

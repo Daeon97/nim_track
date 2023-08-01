@@ -37,9 +37,6 @@ class NodeDataCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(
-            height: spacing,
-          ),
           BlocBuilder<TrackerModulesBloc, TrackerModulesState>(
             builder: (_, trackerModulesState) => switch (trackerModulesState) {
               ListingTrackerModulesState() => const ShimmerWidget(),
