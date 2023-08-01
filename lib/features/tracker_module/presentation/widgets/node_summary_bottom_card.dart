@@ -24,7 +24,9 @@ class NodeSummaryBottomCard extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: Theme.of(context).dividerColor,
+            color: bodyText == null
+                ? Theme.of(context).dividerColor
+                : Theme.of(context).textTheme.bodyMedium!.color!,
           ),
           borderRadius: BorderRadius.circular(
             spacing,

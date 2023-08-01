@@ -50,7 +50,8 @@ class NodeDataCard extends StatelessWidget {
                   children: List<Widget>.generate(
                     entities.length,
                     (index) => NodeDataNodeDetailsCard(
-                      nodeName: entities[index].name ??
+                      id: entities[index].id,
+                      name: entities[index].name ??
                           '$nodeLiteral ${entities[index].id}',
                       batteryLevel: entities[index].data.last.batteryLevel,
                       faulty: false,

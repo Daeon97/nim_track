@@ -48,7 +48,9 @@ class App extends StatelessWidget {
   Route<String> _routes(RouteSettings settings) => MaterialPageRoute(
         builder: (_) => switch (settings.name) {
           settingsScreenRoute => const SettingsScreen(),
-          nodeDetailScreenRoute => const NodeDetailScreen(),
+          nodeDetailScreenRoute => NodeDetailScreen(
+              id: settings.arguments! as int,
+            ),
           _ => const HomeScreen()
         },
       );

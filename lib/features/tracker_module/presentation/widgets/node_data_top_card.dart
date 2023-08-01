@@ -23,7 +23,7 @@ class NodeDataTopCard extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: Theme.of(context).dividerColor,
+            color: Theme.of(context).textTheme.bodyMedium!.color!,
           ),
           borderRadius: BorderRadius.circular(
             spacing,
@@ -45,7 +45,6 @@ class NodeDataTopCard extends StatelessWidget {
                   children: [
                     Icon(
                       icon,
-                      size: spacing + smallSpacing,
                       color: iconColor,
                     ),
                     const SizedBox(
@@ -59,11 +58,6 @@ class NodeDataTopCard extends StatelessWidget {
                           headerText,
                           maxLines: veryTinySpacing.toInt(),
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodySmall?.merge(
-                                TextStyle(
-                                  color: Theme.of(context).dividerColor,
-                                ),
-                              ),
                         ),
                         Text(
                           entities.length.toString(),

@@ -9,14 +9,16 @@ import 'package:nim_track/core/utils/helpers/timestamp_util.dart';
 
 class NodeDataNodeDetailsCard extends StatelessWidget {
   const NodeDataNodeDetailsCard({
-    required this.nodeName,
+    required this.id,
+    required this.name,
     required this.batteryLevel,
     required this.faulty,
     required this.lastTransmissionDate,
     super.key,
   });
 
-  final String nodeName;
+  final int id;
+  final String name;
   final int batteryLevel;
   final bool faulty;
   final int lastTransmissionDate;
@@ -26,7 +28,10 @@ class NodeDataNodeDetailsCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(
           spacing,
         ),
-        onTap: () {},
+        onTap: () => Navigator.of(context).pushNamed(
+          nodeDetailScreenRoute,
+          arguments: id,
+        ),
         child: Padding(
           padding: const EdgeInsetsDirectional.all(
             smallSpacing,
@@ -36,7 +41,6 @@ class NodeDataNodeDetailsCard extends StatelessWidget {
               children: [
                 Icon(
                   Icons.developer_board,
-                  size: spacing + smallSpacing,
                   color: !faulty ? nodeAvailableColor : nodeProblemsColor,
                 ),
                 const SizedBox(
@@ -47,7 +51,7 @@ class NodeDataNodeDetailsCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        nodeName,
+                        name,
                         maxLines: veryTinySpacing.toInt(),
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodyMedium?.merge(
