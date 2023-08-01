@@ -1,14 +1,17 @@
 // ignore_for_file: public_member_api_docs
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:nim_track/core/resources/colors.dart';
+import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 
 extension Marker on MapboxMap {
-  Future<PointAnnotation> addMarker({
+  Future<PointAnnotation> addMarkerFromImage({
     required num lng,
     required num lat,
+    required String imagePath,
   }) async =>
       (await annotations.createPointAnnotationManager()).create(
         PointAnnotationOptions(
@@ -19,7 +22,7 @@ extension Marker on MapboxMap {
             ),
           ).toJson(),
           image: (await rootBundle.load(
-            markerGreenImagePath,
+            imagePath,
           ))
               .buffer
               .asUint8List(),
@@ -28,23 +31,4 @@ extension Marker on MapboxMap {
           // iconColor: Colors.red.value,
         ),
       );
-
-  // Future<PointAnnotationOptions> _getAnnotation({
-  //   required num lng,
-  //   required num lat,
-  // }) async =>
-  //     PointAnnotationOptions(
-  //       geometry: Point(
-  //         coordinates: Position(
-  //           lng,
-  //           lat,
-  //         ),
-  //       ).toJson(),
-  //       image: (await rootBundle.load(
-  //         markerYellowImagePath,
-  //       ))
-  //           .buffer
-  //           .asUint8List(),
-  //       // iconColor: Colors.red.value,
-  //     );
 }

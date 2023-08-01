@@ -5,7 +5,6 @@ const defaultScreenRoute = '/';
 const homeScreenRoute = '/home';
 const settingsScreenRoute = '/settings';
 const nodeDetailScreenRoute = '/nodeDetail';
-const allNodesScreenRoute = '/allNodes';
 
 // Widget keys
 const mapboxMapKey = 'mapboxMap';
@@ -34,6 +33,7 @@ const _assets = 'assets';
 const _images = '$_assets/images';
 const markerGreenImagePath = '$_images/marker_green.png';
 const markerRedImagePath = '$_images/marker_red.png';
+const trailImagePath = '$_images/trail.png';
 
 // Literals
 const nodeDataLiteral = 'Node Data';
@@ -62,6 +62,7 @@ const applicationShortDescriptionLiteral =
     "A prototype for a mobile app interface for an IoT-enabled animal tracking system built by Engels Immanuel for TETFAIR, powered by Flutter, Clean Architecture, AWS Amplify, GraphQL, Felix Angelov's BLoC/Hydrated BLoC, Get It and several other open source flutter packages/libraries. No animals were harmed in the development of this app";
 const nodeLiteral = 'Node';
 const batteryLevelLiteral = 'Battery Level';
+const batteryLiteral = 'Battery';
 const coordinatesLiteral = 'Coordinates';
 const timestampLiteral = 'Timestamp';
 const notApplicableLiteral = 'N/A';

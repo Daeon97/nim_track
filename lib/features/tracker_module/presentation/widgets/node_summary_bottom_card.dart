@@ -12,13 +12,13 @@ class NodeSummaryBottomCard extends StatelessWidget {
   const NodeSummaryBottomCard({
     required this.icon,
     required this.headerText,
-    required this.bodyText,
+    this.bodyText,
     super.key,
   });
 
   final IconData icon;
   final String headerText;
-  final String bodyText;
+  final String? bodyText;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -44,7 +44,7 @@ class NodeSummaryBottomCard extends StatelessWidget {
                   children: [
                     Icon(
                       icon,
-                      color: bodyText == notApplicableLiteral
+                      color: bodyText == null
                           ? Theme.of(context).dividerColor
                           : null,
                     ),
@@ -57,7 +57,7 @@ class NodeSummaryBottomCard extends StatelessWidget {
                         children: [
                           Text(
                             headerText,
-                            style: bodyText == notApplicableLiteral
+                            style: bodyText == null
                                 ? Theme.of(context).textTheme.bodyMedium?.merge(
                                       TextStyle(
                                         color: Theme.of(context).dividerColor,
@@ -66,8 +66,8 @@ class NodeSummaryBottomCard extends StatelessWidget {
                                 : null,
                           ),
                           Text(
-                            bodyText,
-                            style: bodyText == notApplicableLiteral
+                            bodyText ?? notApplicableLiteral,
+                            style: bodyText == null
                                 ? Theme.of(context).textTheme.bodyMedium?.merge(
                                       TextStyle(
                                         color: Theme.of(context).dividerColor,

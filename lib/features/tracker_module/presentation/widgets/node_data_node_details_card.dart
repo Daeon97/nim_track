@@ -3,19 +3,23 @@
 import 'package:flutter/material.dart';
 import 'package:nim_track/core/resources/colors.dart';
 import 'package:nim_track/core/resources/numbers.dart';
+import 'package:nim_track/core/resources/strings.dart';
+import 'package:nim_track/core/utils/extensions.dart';
 import 'package:nim_track/core/utils/helpers/timestamp_util.dart';
 
 class NodeDataNodeDetailsCard extends StatelessWidget {
   const NodeDataNodeDetailsCard({
     required this.nodeName,
+    required this.batteryLevel,
+    required this.faulty,
     required this.lastTransmissionDate,
-    required this.healthy,
     super.key,
   });
 
   final String nodeName;
+  final int batteryLevel;
+  final bool faulty;
   final int lastTransmissionDate;
-  final bool healthy;
 
   @override
   Widget build(BuildContext context) => InkWell(
@@ -33,10 +37,10 @@ class NodeDataNodeDetailsCard extends StatelessWidget {
                 Icon(
                   Icons.developer_board,
                   size: spacing + smallSpacing,
-                  color: healthy ? nodeAvailableColor : nodeProblemsColor,
+                  color: !faulty ? nodeAvailableColor : nodeProblemsColor,
                 ),
                 const SizedBox(
-                  width: smallSpacing,
+                  width: spacing,
                 ),
                 Expanded(
                   child: Column(
@@ -52,18 +56,24 @@ class NodeDataNodeDetailsCard extends StatelessWidget {
                               ),
                             ),
                       ),
-                      Text(
-                        TimestampUtil.computeDate(
-                          lastTransmissionDate,
-                        ),
-                        maxLines: veryTinySpacing.toInt(),
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyMedium?.merge(
-                              TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: Theme.of(context).dividerColor,
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.access_time,
+                          ),
+                          const SizedBox(
+                            width: tinySpacing + tinySpacing,
+                          ),
+                          Expanded(
+                            child: Text(
+                              TimestampUtil.computeDate(
+                                lastTransmissionDate,
                               ),
+                              maxLines: veryTinySpacing.toInt(),
+                              overflow: TextOverflow.ellipsis,
                             ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -73,74 +83,63 @@ class NodeDataNodeDetailsCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        nodeName,
-                        maxLines: veryTinySpacing.toInt(),
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyMedium?.merge(
-                              const TextStyle(
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
+                      const Text(
+                        batteryLevelLiteral,
                       ),
-                      Text(
-                        TimestampUtil.computeDate(
-                          lastTransmissionDate,
-                        ),
-                        maxLines: veryTinySpacing.toInt(),
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyMedium?.merge(
-                              TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: Theme.of(context).dividerColor,
-                              ),
+                      Row(
+                        children: [
+                          Icon(
+                            _getBatteryLevelIcon(
+                              batteryLevel: batteryLevel,
                             ),
-                      ),
-                    ],
-                  ),
-                ),
-                const VerticalDivider(),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        nodeName,
-                        maxLines: veryTinySpacing.toInt(),
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyMedium?.merge(
-                              const TextStyle(
-                                fontWeight: FontWeight.w400,
-                              ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              '$batteryLevel$percentage',
+                              maxLines: veryTinySpacing.toInt(),
+                              overflow: TextOverflow.ellipsis,
                             ),
-                      ),
-                      Text(
-                        TimestampUtil.computeDate(
-                          lastTransmissionDate,
-                        ),
-                        maxLines: veryTinySpacing.toInt(),
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyMedium?.merge(
-                              TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: Theme.of(context).dividerColor,
-                              ),
-                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(
-                  width: smallSpacing,
+                  width: spacing,
                 ),
-                Icon(
+                const Icon(
                   Icons.navigate_next,
-                  size: spacing + tinySpacing,
-                  color: Theme.of(context).dividerColor,
                 ),
               ],
             ),
           ),
         ),
       );
+
+  IconData _getBatteryLevelIcon({
+    required int batteryLevel,
+  }) {
+    late IconData iconData;
+
+    if (batteryLevel < twentyPercent) {
+      iconData = Icons.battery_0_bar;
+    } else if (batteryLevel >= twentyPercent && batteryLevel < thirtyPercent) {
+      iconData = Icons.battery_1_bar;
+    } else if (batteryLevel >= thirtyPercent && batteryLevel < fortyPercent) {
+      iconData = Icons.battery_2_bar;
+    } else if (batteryLevel >= fortyPercent && batteryLevel < fiftyPercent) {
+      iconData = Icons.battery_3_bar;
+    } else if (batteryLevel >= fiftyPercent && batteryLevel < sixtyPercent) {
+      iconData = Icons.battery_4_bar;
+    } else if (batteryLevel >= sixtyPercent && batteryLevel < seventyPercent) {
+      iconData = Icons.battery_5_bar;
+    } else if (batteryLevel >= seventyPercent && batteryLevel < eightyPercent) {
+      iconData = Icons.battery_6_bar;
+    } else {
+      iconData = Icons.battery_full;
+    }
+
+    return iconData;
+  }
 }

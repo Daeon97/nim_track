@@ -25,3 +25,14 @@ const shimmerDurationMilliseconds = 1000;
 const nodeSummaryCardFirstCardListWheelScrollViewAnimationDurationMilliseconds =
     500;
 const shimmerBaseColorOpacity = 0.38;
+
+// Battery levels
+const tenPercent = 10;
+const twentyPercent = 20;
+const thirtyPercent = 30;
+const fortyPercent = 40;
+const fiftyPercent = 50;
+const sixtyPercent = 60;
+const seventyPercent = 70;
+const eightyPercent = 80;
+const ninetyPercent = 90;

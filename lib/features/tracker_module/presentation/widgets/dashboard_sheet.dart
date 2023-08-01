@@ -71,17 +71,34 @@ class _DashboardSheetState extends State<DashboardSheet> {
                 ),
               ),
             ),
-            child: ValueListenableBuilder<bool>(
-              valueListenable: _isAttachedListenable,
-              builder: (_, isAttachedValue, __) =>
-                  ValueListenableBuilder<double>(
-                valueListenable: _sizeListenable,
-                builder: (_, sizeValue, __) => switch (isAttachedValue) {
-                  true when sizeValue > minChildSize =>
-                    const NodeDataCard(),
-                  _ => const NodeSummaryCard()
-                },
-              ),
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).dividerColor,
+                    borderRadius: BorderRadius.circular(
+                      spacing,
+                    ),
+                  ),
+                  height: veryTinySpacing + tinySpacing,
+                  width: largeSpacing,
+                ),
+                const SizedBox(
+                  height: spacing,
+                ),
+                ValueListenableBuilder<bool>(
+                  valueListenable: _isAttachedListenable,
+                  builder: (_, isAttachedValue, __) =>
+                      ValueListenableBuilder<double>(
+                    valueListenable: _sizeListenable,
+                    builder: (_, sizeValue, __) => switch (isAttachedValue) {
+                      true when sizeValue > minChildSize =>
+                        const NodeDataCard(),
+                      _ => const NodeSummaryCard()
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ),

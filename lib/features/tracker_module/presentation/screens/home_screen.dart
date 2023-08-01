@@ -54,9 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
             if (trackerModulesState is ListedTrackerModulesState) {
               for (final trackerModuleEntity
                   in trackerModulesState.trackerModuleEntities) {
-                await _mapboxMapController?.addMarker(
+                await _mapboxMapController?.addMarkerFromImage(
                   lng: trackerModuleEntity.data.last.coordinates.latLng.last,
                   lat: trackerModuleEntity.data.last.coordinates.latLng.first,
+                  imagePath: markerGreenImagePath,
                 );
               }
             }

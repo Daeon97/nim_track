@@ -20,77 +20,71 @@ class NodeDataTopCard extends StatelessWidget {
   final String headerText;
 
   @override
-  Widget build(BuildContext context) => InkWell(
-        borderRadius: BorderRadius.circular(
-          spacing,
+  Widget build(BuildContext context) => Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Theme.of(context).dividerColor,
+          ),
+          borderRadius: BorderRadius.circular(
+            spacing,
+          ),
         ),
-        onTap: () {},
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Theme.of(context).dividerColor,
-            ),
-            borderRadius: BorderRadius.circular(
-              spacing,
-            ),
-          ),
-          child: BlocBuilder<TrackerModulesBloc, TrackerModulesState>(
-            builder: (_, trackerModulesState) => switch (trackerModulesState) {
-              ListingTrackerModulesState() => const ShimmerWidget(
-                  child: NodeDataTopCardShimmerChild(),
+        child: BlocBuilder<TrackerModulesBloc, TrackerModulesState>(
+          builder: (_, trackerModulesState) => switch (trackerModulesState) {
+            ListingTrackerModulesState() => const ShimmerWidget(
+                child: NodeDataTopCardShimmerChild(),
+              ),
+            ListedTrackerModulesState(
+              trackerModuleEntities: final entities,
+            ) =>
+              Padding(
+                padding: const EdgeInsetsDirectional.all(
+                  smallSpacing,
                 ),
-              ListedTrackerModulesState(
-                trackerModuleEntities: final entities,
-              ) =>
-                Padding(
-                  padding: const EdgeInsetsDirectional.all(
-                    smallSpacing,
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        icon,
-                        size: spacing + smallSpacing,
-                        color: iconColor,
-                      ),
-                      const SizedBox(
-                        width: spacing,
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            headerText,
-                            maxLines: veryTinySpacing.toInt(),
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.bodySmall?.merge(
-                                  TextStyle(
-                                    color: Theme.of(context).dividerColor,
-                                  ),
+                child: Row(
+                  children: [
+                    Icon(
+                      icon,
+                      size: spacing + smallSpacing,
+                      color: iconColor,
+                    ),
+                    const SizedBox(
+                      width: spacing,
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          headerText,
+                          maxLines: veryTinySpacing.toInt(),
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.bodySmall?.merge(
+                                TextStyle(
+                                  color: Theme.of(context).dividerColor,
                                 ),
-                          ),
-                          Text(
-                            entities.length.toString(),
-                            maxLines: veryTinySpacing.toInt(),
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.bodyLarge?.merge(
-                                  const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                              ),
+                        ),
+                        Text(
+                          entities.length.toString(),
+                          maxLines: veryTinySpacing.toInt(),
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.bodyLarge?.merge(
+                                const TextStyle(
+                                  fontWeight: FontWeight.w600,
                                 ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                              ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              _ => const ShimmerWidget(
-                  stopShimmer: true,
-                  child: NodeDataTopCardShimmerChild(),
-                ),
-            },
-          ),
+              ),
+            _ => const ShimmerWidget(
+                stopShimmer: true,
+                child: NodeDataTopCardShimmerChild(),
+              ),
+          },
         ),
       );
 }

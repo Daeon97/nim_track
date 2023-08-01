@@ -7,7 +7,6 @@ import 'package:nim_track/features/settings/presentation/blocs/theme_bloc/theme_
 import 'package:nim_track/features/settings/presentation/screens/settings_screen.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
-import 'package:nim_track/features/tracker_module/presentation/screens/all_nodes_screen.dart';
 import 'package:nim_track/features/tracker_module/presentation/screens/home_screen.dart';
 import 'package:nim_track/features/tracker_module/presentation/screens/node_detail_screen.dart';
 import 'package:nim_track/injection_container.dart';
@@ -50,7 +49,6 @@ class App extends StatelessWidget {
         builder: (_) => switch (settings.name) {
           settingsScreenRoute => const SettingsScreen(),
           nodeDetailScreenRoute => const NodeDetailScreen(),
-          allNodesScreenRoute => const AllNodesScreen(),
           _ => const HomeScreen()
         },
       );

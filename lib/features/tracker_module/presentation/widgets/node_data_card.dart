@@ -52,17 +52,15 @@ class NodeDataCard extends StatelessWidget {
                     (index) => NodeDataNodeDetailsCard(
                       nodeName: entities[index].name ??
                           '$nodeLiteral ${entities[index].id}',
+                      batteryLevel: entities[index].data.last.batteryLevel,
+                      faulty: false,
                       lastTransmissionDate: entities[index].data.last.timestamp,
-                      healthy: true,
                     ),
                     growable: false,
                   ),
                 ),
               _ => const ShimmerWidget()
             },
-          ),
-          const SizedBox(
-            height: spacing,
           ),
         ],
       );

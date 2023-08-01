@@ -151,7 +151,7 @@ class _NodeSummaryCardState extends State<NodeSummaryCard> {
               ),
               Expanded(
                 child: NodeSummaryBottomCard(
-                  icon: Icons.access_time_filled,
+                  icon: Icons.access_time,
                   headerText: timestampLiteral,
                   bodyText: '7:29pm',
                 ),
