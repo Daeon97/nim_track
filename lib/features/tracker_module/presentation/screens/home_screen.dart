@@ -135,6 +135,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 _pointAnnotationManagers.clear();
               }
 
+              if (_polylineAnnotationManager != null) {
+                await _polylineAnnotationManager?.deleteAll();
+              }
+
               if (trackerModulesState is ListedTrackerModulesState) {
                 for (final trackerModuleEntity
                     in trackerModulesState.trackerModuleEntities) {
