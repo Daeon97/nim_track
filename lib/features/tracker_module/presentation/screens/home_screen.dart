@@ -26,6 +26,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   MapboxMap? _mapboxMap;
   late final List<PointAnnotationManager> _pointAnnotationManagers;
+  PolylineAnnotationManager? _polylineAnnotationManager;
 
   @override
   void initState() {
@@ -87,6 +88,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 _pointAnnotationManagers.clear();
               }
 
+              if (_polylineAnnotationManager != null) {
+                await _polylineAnnotationManager?.deleteAll();
+              }
+
               if (trackerModuleState is GotTrackerModuleState) {
                 final trackerModuleDataEntities =
                     trackerModuleState.trackerModuleEntity.data;
@@ -107,6 +112,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     pointAnnotationManager!,
                   );
                 }
+
+                _polylineAnnotationManager = await _mapboxMap?.drawPolyline(
+                  lngLats: trackerModuleDataEntities
+                      .map(
+                        (trackerModuleDataEntity) => [
+                          trackerModuleDataEntity.coordinates.latLng.last,
+                          trackerModuleDataEntity.coordinates.latLng.first,
+                        ],
+                      )
+                      .toList(),
+                );
               }
             },
           ),

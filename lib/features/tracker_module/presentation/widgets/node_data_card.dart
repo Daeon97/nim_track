@@ -16,7 +16,7 @@ class NodeDataCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          Row(
+          const Row(
             children: [
               Expanded(
                 child: NodeDataTopCard(
@@ -25,7 +25,7 @@ class NodeDataCard extends StatelessWidget {
                   headerText: availableLiteral,
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 width: spacing,
               ),
               Expanded(
@@ -57,7 +57,9 @@ class NodeDataCard extends StatelessWidget {
                     growable: false,
                   ),
                 ),
-              _ => const ShimmerWidget()
+              _ => const ShimmerWidget(
+                  stopShimmer: true,
+                )
             },
           ),
         ],

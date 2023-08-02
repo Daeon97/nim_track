@@ -7,7 +7,7 @@ import 'package:nim_track/core/resources/colors.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 
-extension Marker on MapboxMap {
+extension MapboxConvenienceUtils on MapboxMap {
   Future<PointAnnotationManager> addMarker({
     required num lng,
     required num lat,
@@ -35,5 +35,31 @@ extension Marker on MapboxMap {
     );
 
     return pointAnnotationManager;
+  }
+
+  Future<PolylineAnnotationManager> drawPolyline({
+    required List<List<num>> lngLats,
+  }) async {
+    final polylineAnnotationManager =
+        await annotations.createPolylineAnnotationManager();
+    await polylineAnnotationManager.create(
+      PolylineAnnotationOptions(
+        geometry: MultiPoint(
+          coordinates: lngLats
+              .map(
+                (lngLat) => Position(
+                  lngLat.first,
+                  lngLat.last,
+                ),
+              )
+              .toList(),
+        ).toJson(),
+        lineColor: nodeAvailableColor.value,
+        lineJoin: LineJoin.ROUND,
+        lineWidth: veryTinySpacing + tinySpacing,
+      ),
+    );
+
+    return polylineAnnotationManager;
   }
 }
