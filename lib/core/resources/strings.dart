@@ -64,7 +64,7 @@ const nodeLiteral = 'Node';
 const batteryLevelLiteral = 'Battery Level';
 const batteryLiteral = 'Battery';
 const coordinatesLiteral = 'Coordinates';
-const timestampLiteral = 'Timestamp';
+const timeLiteral = 'Time';
 const notApplicableLiteral = 'N/A';
 
 // Special characters

@@ -28,7 +28,7 @@ class NodeSummaryBottomCardShimmerChild extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    timestampLiteral,
+                    timeLiteral,
                     style: TextStyle(
                       color: Colors.transparent,
                     ),

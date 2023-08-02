@@ -8,13 +8,14 @@ import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 
 extension Marker on MapboxMap {
-  Future<PointAnnotation> addMarker({
+  Future<PointAnnotationManager> addMarker({
     required num lng,
     required num lat,
     required String imagePath,
   }) async {
-    // await (await annotations.createPointAnnotationManager()).deleteAll();
-    return (await annotations.createPointAnnotationManager()).create(
+    final pointAnnotationManager =
+        await annotations.createPointAnnotationManager();
+    await pointAnnotationManager.create(
       PointAnnotationOptions(
         geometry: Point(
           coordinates: Position(
@@ -32,5 +33,7 @@ extension Marker on MapboxMap {
         // iconColor: Colors.red.value,
       ),
     );
+
+    return pointAnnotationManager;
   }
 }

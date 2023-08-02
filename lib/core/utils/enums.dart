@@ -3,3 +3,5 @@
 enum Brightness { light, dark }
 
 enum SeedColor { blue, yellow, purple, orange }
+
+enum NodeSummaryBottomCardType { batteryLevel, time }

@@ -2,15 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nim_track/core/resources/colors.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
+import 'package:nim_track/core/utils/enums.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/all_tracker_modules_or_one_tracker_module/all_tracker_modules_or_one_tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/node_data_top_card.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_summary_bottom_card.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer/node_summary_bottom_card_shimmer_child.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer/shimmer_widget.dart';
 
 class NodeSummaryCard extends StatefulWidget {
@@ -22,19 +20,16 @@ class NodeSummaryCard extends StatefulWidget {
 
 class _NodeSummaryCardState extends State<NodeSummaryCard> {
   late final FixedExtentScrollController _listWheelScrollViewController;
-  late final ValueNotifier<int?> _selectedNode;
 
   @override
   void initState() {
     _listWheelScrollViewController = FixedExtentScrollController();
-    _selectedNode = ValueNotifier<int?>(null);
     super.initState();
   }
 
   @override
   void dispose() {
     _listWheelScrollViewController.dispose();
-    _selectedNode.dispose();
     super.dispose();
   }
 
@@ -82,28 +77,54 @@ class _NodeSummaryCardState extends State<NodeSummaryCard> {
                               entities.length,
                               (index) => RotatedBox(
                                 quarterTurns: veryTinySpacing.toInt(),
-                                child: ValueListenableBuilder<int?>(
-                                  valueListenable: _selectedNode,
-                                  builder: (_, selectedNodeValue, __) =>
-                                      ChoiceChip(
-                                    label: Text(
-                                      entities[index].name ??
-                                          '$nodeLiteral ${entities[index].id}',
-                                      textAlign: TextAlign.center,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: tinySpacing.toInt(),
+                                child: BlocBuilder<
+                                    AllTrackerModulesOrOneTrackerModuleBloc,
+                                    AllTrackerModulesOrOneTrackerModuleState>(
+                                  builder: (
+                                    _,
+                                    allTrackerModulesOrOneTrackerModuleState,
+                                  ) =>
+                                      BlocBuilder<TrackerModuleBloc,
+                                          TrackerModuleState>(
+                                    builder: (_, trackerModuleState) =>
+                                        ChoiceChip(
+                                      label: Text(
+                                        entities[index].name ??
+                                            '$nodeLiteral ${entities[index].id}',
+                                        textAlign: TextAlign.center,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: tinySpacing.toInt(),
+                                      ),
+                                      selected:
+                                          allTrackerModulesOrOneTrackerModuleState
+                                                  is OneTrackerModuleState &&
+                                              trackerModuleState
+                                                  is GotTrackerModuleState &&
+                                              trackerModuleState
+                                                      .trackerModuleEntity.id ==
+                                                  entities[index].id,
+                                      onSelected: (selected) =>
+                                          trackerModuleState
+                                                  is GettingTrackerModuleState
+                                              ? null
+                                              : switch (selected) {
+                                                  true => context
+                                                      .read<
+                                                          AllTrackerModulesOrOneTrackerModuleBloc>()
+                                                      .add(
+                                                        GetOneTrackerModuleEvent(
+                                                          id: entities[index]
+                                                              .id,
+                                                        ),
+                                                      ),
+                                                  false => context
+                                                      .read<
+                                                          AllTrackerModulesOrOneTrackerModuleBloc>()
+                                                      .add(
+                                                        const GetAllTrackerModulesEvent(),
+                                                      )
+                                                },
                                     ),
-                                    selected: selectedNodeValue == index,
-                                    onSelected: (selected) => context
-                                        .read<
-                                            AllTrackerModulesOrOneTrackerModuleBloc>()
-                                        .add(
-                                          GetOneTrackerModuleEvent(
-                                            id: entities[index].id,
-                                          ),
-                                        ),
-                                    // _selectedNode
-                                    //     .value = selected ? index : null,
                                   ),
                                 ),
                               ),
@@ -141,23 +162,20 @@ class _NodeSummaryCardState extends State<NodeSummaryCard> {
           const SizedBox(
             height: spacing,
           ),
-          Row(
+          const Row(
             children: [
               Expanded(
                 child: NodeSummaryBottomCard(
-                  icon: Icons.battery_2_bar_rounded,
-                  headerText: batteryLevelLiteral,
-                  bodyText: '87%',
+                  nodeSummaryBottomCardType:
+                      NodeSummaryBottomCardType.batteryLevel,
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 width: spacing,
               ),
               Expanded(
                 child: NodeSummaryBottomCard(
-                  icon: Icons.access_time,
-                  headerText: timestampLiteral,
-                  bodyText: '7:29pm',
+                  nodeSummaryBottomCardType: NodeSummaryBottomCardType.time,
                 ),
               ),
             ],

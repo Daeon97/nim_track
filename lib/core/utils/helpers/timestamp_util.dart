@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 // Reference this class from BLOC not UI
 final class TimestampUtil {
-  static String computeDate(int timestamp) => DateFormat.yMMMEd().format(
+  static String computeDate(int timestamp) => DateFormat.jm().format(
         DateTime.fromMillisecondsSinceEpoch(
           timestamp,
         ),

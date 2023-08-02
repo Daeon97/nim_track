@@ -24,10 +24,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  MapboxMap? _mapboxMapController;
+  MapboxMap? _mapboxMap;
+  late final List<PointAnnotationManager> _pointAnnotationManagers;
 
   @override
   void initState() {
+    _pointAnnotationManagers = [];
     BlocProvider.of<AllTrackerModulesOrOneTrackerModuleBloc>(
       context,
     ).add(
@@ -38,42 +40,53 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    _mapboxMapController?.dispose();
+    _mapboxMap?.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) => BlocListener<ThemeBloc, ThemeState>(
-        listener: (_, themeState) {
-          _mapboxMapController?.loadStyleURI(
-            switch (themeState.themeEntity.fakeBrightness) {
-              enums.Brightness.light => MapboxStyles.MAPBOX_STREETS,
-              enums.Brightness.dark => MapboxStyles.DARK
+  Widget build(BuildContext context) => MultiBlocListener(
+        listeners: [
+          BlocListener<ThemeBloc, ThemeState>(
+            listener: (_, themeState) {
+              _mapboxMap?.loadStyleURI(
+                switch (themeState.themeEntity.fakeBrightness) {
+                  enums.Brightness.light => MapboxStyles.MAPBOX_STREETS,
+                  enums.Brightness.dark => MapboxStyles.DARK
+                },
+              );
             },
-          );
-        },
-        child: BlocListener<AllTrackerModulesOrOneTrackerModuleBloc,
-            AllTrackerModulesOrOneTrackerModuleState>(
-          listener: (
-            _,
-            allTrackerModulesOrOneTrackerModuleState,
-          ) {
-            if (allTrackerModulesOrOneTrackerModuleState
-                is AllTrackerModulesState) {
-              context.read<TrackerModulesBloc>().add(
-                    const ListTrackerModulesEvent(),
-                  );
-            } else if (allTrackerModulesOrOneTrackerModuleState
-                is OneTrackerModuleState) {
-              context.read<TrackerModuleBloc>().add(
-                    GetTrackerModuleEvent(
-                      id: allTrackerModulesOrOneTrackerModuleState.id,
-                    ),
-                  );
-            }
-          },
-          child: BlocListener<TrackerModuleBloc, TrackerModuleState>(
+          ),
+          BlocListener<AllTrackerModulesOrOneTrackerModuleBloc,
+              AllTrackerModulesOrOneTrackerModuleState>(
+            listener: (
+              _,
+              allTrackerModulesOrOneTrackerModuleState,
+            ) {
+              if (allTrackerModulesOrOneTrackerModuleState
+                  is AllTrackerModulesState) {
+                context.read<TrackerModulesBloc>().add(
+                      const ListTrackerModulesEvent(),
+                    );
+              } else if (allTrackerModulesOrOneTrackerModuleState
+                  is OneTrackerModuleState) {
+                context.read<TrackerModuleBloc>().add(
+                      GetTrackerModuleEvent(
+                        id: allTrackerModulesOrOneTrackerModuleState.id,
+                      ),
+                    );
+              }
+            },
+          ),
+          BlocListener<TrackerModuleBloc, TrackerModuleState>(
             listener: (_, trackerModuleState) async {
+              if (_pointAnnotationManagers.isNotEmpty) {
+                for (final pointAnnotationManager in _pointAnnotationManagers) {
+                  await pointAnnotationManager.deleteAll();
+                }
+                _pointAnnotationManagers.clear();
+              }
+
               if (trackerModuleState is GotTrackerModuleState) {
                 final trackerModuleDataEntities =
                     trackerModuleState.trackerModuleEntity.data;
@@ -81,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 for (var i = nil.toInt();
                     i < trackerModuleDataEntities.length;
                     i++) {
-                  await _mapboxMapController?.addMarker(
+                  final pointAnnotationManager = await _mapboxMap?.addMarker(
                     lng: trackerModuleDataEntities[i].coordinates.latLng.last,
                     lat: trackerModuleDataEntities[i].coordinates.latLng.first,
                     imagePath: i ==
@@ -90,75 +103,85 @@ class _HomeScreenState extends State<HomeScreen> {
                         ? markerGreenImagePath
                         : trailImagePath,
                   );
+                  _pointAnnotationManagers.add(
+                    pointAnnotationManager!,
+                  );
                 }
               }
             },
-            child: BlocListener<TrackerModulesBloc, TrackerModulesState>(
-              listener: (_, trackerModulesState) async {
-                // if (trackerModulesState is ListedTrackerModulesState) {
-                //   for (final trackerModuleEntity
-                //       in trackerModulesState.trackerModuleEntities) {
-                //     await _mapboxMapController?.addMarker(
-                //       lng:
-                //           trackerModuleEntity.data.last.coordinates.latLng.last,
-                //       lat: trackerModuleEntity
-                //           .data.last.coordinates.latLng.first,
-                //       imagePath: markerGreenImagePath,
-                //     );
-                //   }
-                // }
-              },
-              child: Scaffold(
-                body: SafeArea(
-                  child: Stack(
-                    alignment: AlignmentDirectional.topEnd,
-                    children: [
-                      MapWidget(
-                        onMapCreated: (mapboxMap) =>
-                            _mapboxMapController = mapboxMap,
-                        cameraOptions: CameraOptions(
-                          center: Point(
-                            coordinates: Position(
-                              defaultLng,
-                              defaultLat,
-                            ),
-                          ).toJson(),
-                          zoom: defaultZoom,
-                        ),
-                        key: const ValueKey(
-                          mapboxMapKey,
-                        ),
-                        resourceOptions: ResourceOptions(
-                          accessToken: dotenv.env[mapboxSecretTokenKeyName]!,
-                        ),
-                        styleUri: BlocProvider.of<ThemeBloc>(context)
-                                    .state
-                                    .themeEntity
-                                    .fakeBrightness ==
-                                enums.Brightness.light
-                            ? MapboxStyles.MAPBOX_STREETS
-                            : MapboxStyles.DARK,
+          ),
+          BlocListener<TrackerModulesBloc, TrackerModulesState>(
+            listener: (_, trackerModulesState) async {
+              if (_pointAnnotationManagers.isNotEmpty) {
+                for (final pointAnnotationManager in _pointAnnotationManagers) {
+                  await pointAnnotationManager.deleteAll();
+                }
+                _pointAnnotationManagers.clear();
+              }
+
+              if (trackerModulesState is ListedTrackerModulesState) {
+                for (final trackerModuleEntity
+                    in trackerModulesState.trackerModuleEntities) {
+                  final pointAnnotationManager = await _mapboxMap?.addMarker(
+                    lng: trackerModuleEntity.data.last.coordinates.latLng.last,
+                    lat: trackerModuleEntity.data.last.coordinates.latLng.first,
+                    imagePath: markerGreenImagePath,
+                  );
+                  _pointAnnotationManagers.add(
+                    pointAnnotationManager!,
+                  );
+                }
+              }
+            },
+          ),
+        ],
+        child: Scaffold(
+          body: SafeArea(
+            child: Stack(
+              alignment: AlignmentDirectional.topEnd,
+              children: [
+                MapWidget(
+                  onMapCreated: (mapboxMap) => _mapboxMap = mapboxMap,
+                  cameraOptions: CameraOptions(
+                    center: Point(
+                      coordinates: Position(
+                        defaultLng,
+                        defaultLat,
                       ),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.all(
-                          spacing,
-                        ),
-                        child: IconButton(
-                          onPressed: () => Navigator.of(context).pushNamed(
-                            settingsScreenRoute,
-                          ),
-                          icon: const Icon(
-                            Icons.settings,
-                          ),
-                        ),
-                      ),
-                    ],
+                    ).toJson(),
+                    zoom: defaultZoom,
+                  ),
+                  key: const ValueKey(
+                    mapboxMapKey,
+                  ),
+                  resourceOptions: ResourceOptions(
+                    accessToken: dotenv.env[mapboxSecretTokenKeyName]!,
+                  ),
+                  styleUri: BlocProvider.of<ThemeBloc>(context)
+                              .state
+                              .themeEntity
+                              .fakeBrightness ==
+                          enums.Brightness.light
+                      ? MapboxStyles.MAPBOX_STREETS
+                      : MapboxStyles.DARK,
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.all(
+                    spacing,
+                  ),
+                  child: IconButton(
+                    onPressed: () => Navigator.of(context).pushNamed(
+                      settingsScreenRoute,
+                    ),
+                    icon: const Icon(
+                      Icons.settings,
+                    ),
                   ),
                 ),
-                bottomSheet: const DashboardSheet(),
-              ),
+              ],
             ),
           ),
+          bottomSheet: const DashboardSheet(),
         ),
       );
 }
