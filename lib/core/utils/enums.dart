@@ -16,10 +16,3 @@ enum NodeSummaryBottomCardType {
   batteryLevel,
   time,
 }
-
-enum NodeDetailSectionType {
-  overview,
-  batteryLevelOverTime,
-  nodeDistances,
-  areaCovered,
-}

@@ -62,4 +62,32 @@ extension MapboxConvenienceUtils on MapboxMap {
 
     return polylineAnnotationManager;
   }
+
+  Future<PolygonAnnotationManager> drawPolygon({
+    required List<List<num>> lngLats,
+    required Color fillColor,
+  }) async {
+    final polygonAnnotationManager =
+        await annotations.createPolygonAnnotationManager();
+    await polygonAnnotationManager.create(
+      PolygonAnnotationOptions(
+        geometry: Polygon(
+          coordinates: [
+            lngLats
+                .map(
+                  (lngLat) => Position(
+                    lngLat.first,
+                    lngLat.last,
+                  ),
+                )
+                .toList(),
+          ],
+        ).toJson(),
+        fillOutlineColor: fillColor.value,
+        fillColor: fillColor.value,
+      ),
+    );
+
+    return polygonAnnotationManager;
+  }
 }

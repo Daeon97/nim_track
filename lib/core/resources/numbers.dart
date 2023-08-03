@@ -20,11 +20,12 @@ const defaultLat = 8.9397816;
 const defaultLng = 7.3182521;
 const defaultZoom = 16.0;
 
-// Other doubles
+// Other ints/doubles
 const shimmerDurationMilliseconds = 1000;
 const nodeSummaryCardFirstCardListWheelScrollViewAnimationDurationMilliseconds =
     500;
 const shimmerBaseColorOpacity = 0.38;
+const areaCoveredSectionMapHeight = 200.0;
 
 // Battery levels
 const tenPercent = 10;

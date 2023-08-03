@@ -7,7 +7,7 @@ import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/core/utils/enums.dart' as enums;
-import 'package:nim_track/core/utils/extensions.dart';
+import 'package:nim_track/core/utils/extensions/mapbox_convenience_utils.dart';
 import 'package:nim_track/features/settings/presentation/blocs/theme_bloc/theme_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/all_tracker_modules_or_one_tracker_module/all_tracker_modules_or_one_tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
