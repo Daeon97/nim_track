@@ -39,8 +39,8 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
             ),
           ),
         ),
-        body: Center(
-          child: CircularProgressIndicator(),
+        body: Column(
+          children: [],
         ),
       );
 }

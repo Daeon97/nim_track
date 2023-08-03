@@ -5,7 +5,7 @@ import 'package:nim_track/core/resources/colors.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/core/utils/helpers/timestamp_util.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/battery_level_icon_widget.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/battery_level_icon_widget.dart';
 
 class NodeDataNodeDetailsCard extends StatelessWidget {
   const NodeDataNodeDetailsCard({

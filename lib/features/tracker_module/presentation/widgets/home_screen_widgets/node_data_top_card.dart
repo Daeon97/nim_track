@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer/node_data_top_card_shimmer_child.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer/shimmer_widget.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/shimmer/node_data_top_card_shimmer_child.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/shimmer/shimmer_widget.dart';
 
 class NodeDataTopCard extends StatelessWidget {
   const NodeDataTopCard({

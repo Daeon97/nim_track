@@ -66,6 +66,10 @@ const batteryLiteral = 'Battery';
 const coordinatesLiteral = 'Coordinates';
 const timeLiteral = 'Time';
 const notApplicableLiteral = 'N/A';
+const overviewLiteral = 'Overview';
+const batteryLevelOverTimeLiteral = 'Battery level over time';
+const nodeDistancesLiteral = 'Node distances';
+const areaCoveredLiteral = 'Area covered';
 
 // Special characters
 const percentage = '%';

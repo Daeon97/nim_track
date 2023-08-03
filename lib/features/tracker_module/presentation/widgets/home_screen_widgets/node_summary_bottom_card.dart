@@ -9,9 +9,9 @@ import 'package:nim_track/core/utils/helpers/timestamp_util.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/all_tracker_modules_or_one_tracker_module/all_tracker_modules_or_one_tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/battery_level_icon_widget.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer/node_summary_bottom_card_shimmer_child.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer/shimmer_widget.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/battery_level_icon_widget.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/shimmer/node_summary_bottom_card_shimmer_child.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/shimmer/shimmer_widget.dart';
 
 class NodeSummaryBottomCard extends StatelessWidget {
   const NodeSummaryBottomCard({

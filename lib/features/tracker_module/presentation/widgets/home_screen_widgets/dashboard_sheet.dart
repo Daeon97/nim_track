@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:nim_track/core/resources/numbers.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/node_data_card.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/node_summary_card.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/node_data_card.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/node_summary_card.dart';
 
 class DashboardSheet extends StatefulWidget {
   const DashboardSheet({super.key});

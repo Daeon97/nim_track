@@ -12,7 +12,7 @@ import 'package:nim_track/features/settings/presentation/blocs/theme_bloc/theme_
 import 'package:nim_track/features/tracker_module/presentation/blocs/all_tracker_modules_or_one_tracker_module/all_tracker_modules_or_one_tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/dashboard_sheet.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/dashboard_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({

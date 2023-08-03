@@ -6,9 +6,9 @@ import 'package:nim_track/core/resources/colors.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/node_data_node_details_card.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/node_data_top_card.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer/shimmer_widget.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/node_data_node_details_card.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/node_data_top_card.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/shimmer/shimmer_widget.dart';
 
 class NodeDataCard extends StatelessWidget {
   const NodeDataCard({super.key});
