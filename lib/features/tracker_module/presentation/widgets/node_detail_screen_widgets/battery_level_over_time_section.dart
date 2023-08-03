@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/features/tracker_module/domain/entities/tracker_module_entity.dart';
-import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_detail_bloc/tracker_module_detail_bloc.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class BatteryLevelOverTimeSection extends StatelessWidget {
@@ -56,59 +56,73 @@ class BatteryLevelOverTimeSection extends StatelessWidget {
             const SizedBox(
               height: largeSpacing,
             ),
-            BlocBuilder<TrackerModuleBloc, TrackerModuleState>(
-              builder: (_, trackerModuleState) => switch (trackerModuleState) {
-                GettingTrackerModuleState() => const SizedBox.shrink(),
-                GotTrackerModuleState(
-                  trackerModuleEntity: final entity,
-                ) =>
-                  SfCartesianChart(
-                    margin: EdgeInsets.zero,
-                    tooltipBehavior: TooltipBehavior(
-                      activationMode: ActivationMode.singleTap,
-                      enable: true,
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      elevation: smallSpacing,
-                      textStyle: Theme.of(context).textTheme.bodySmall,
+            SizedBox(
+              height: batteryLevelOverTimeSectionGraphHeight,
+              child: BlocBuilder<TrackerModuleDetailBloc,
+                  TrackerModuleDetailState>(
+                builder: (_, trackerModuleDetailState) =>
+                    switch (trackerModuleDetailState) {
+                  GettingTrackerModuleDetailState() => const Center(
+                      child: CircularProgressIndicator(),
                     ),
-                    crosshairBehavior: CrosshairBehavior(
-                      activationMode: ActivationMode.singleTap,
-                      enable: true,
-                      lineColor: Theme.of(context).textTheme.bodyMedium?.color,
+                  GotTrackerModuleDetailState(
+                    trackerModuleEntity: final entity,
+                  ) =>
+                    SfCartesianChart(
+                      margin: EdgeInsets.zero,
+                      tooltipBehavior: TooltipBehavior(
+                        activationMode: ActivationMode.singleTap,
+                        enable: true,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        elevation: smallSpacing,
+                        textStyle: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      crosshairBehavior: CrosshairBehavior(
+                        activationMode: ActivationMode.singleTap,
+                        enable: true,
+                        lineColor:
+                            Theme.of(context).textTheme.bodyMedium?.color,
+                      ),
+                      legend: const Legend(
+                        isVisible: true,
+                        position: LegendPosition.bottom,
+                      ),
+                      series: <LineSeries<TrackerModuleDataEntity, int>>[
+                        LineSeries<TrackerModuleDataEntity, int>(
+                          dataSource: entity.data,
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                          xAxisName: batteryLevelLiteral,
+                          yAxisName: timeLiteral,
+                          xValueMapper: (trackerModuleDataEntity, _) =>
+                              trackerModuleDataEntity.timestamp,
+                          yValueMapper: (trackerModuleDataEntity, _) =>
+                              trackerModuleDataEntity.batteryLevel,
+                          width: tinySpacing,
+                          markerSettings: MarkerSettings(
+                            isVisible: true,
+                            height: tinySpacing + tinySpacing,
+                            width: tinySpacing + tinySpacing,
+                            shape: DataMarkerType.circle,
+                            borderWidth: veryTinySpacing + tinySpacing,
+                            borderColor:
+                                Theme.of(context).textTheme.bodyMedium?.color,
+                            color:
+                                Theme.of(context).textTheme.bodyMedium?.color,
+                          ),
+                          dataLabelSettings: const DataLabelSettings(
+                            isVisible: true,
+                          ),
+                        )
+                      ],
                     ),
-                    legend: const Legend(
-                      isVisible: true,
-                      position: LegendPosition.bottom,
+                  _ => const Center(
+                      child: Icon(
+                        Icons.warning,
+                        size: largeSpacing + spacing,
+                      ),
                     ),
-                    series: <LineSeries<TrackerModuleDataEntity, int>>[
-                      LineSeries<TrackerModuleDataEntity, int>(
-                        dataSource: entity.data,
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                        xAxisName: batteryLevelLiteral,
-                        yAxisName: timeLiteral,
-                        xValueMapper: (trackerModuleDataEntity, _) =>
-                            trackerModuleDataEntity.timestamp,
-                        yValueMapper: (trackerModuleDataEntity, _) =>
-                            trackerModuleDataEntity.batteryLevel,
-                        width: tinySpacing,
-                        markerSettings: MarkerSettings(
-                          isVisible: true,
-                          height: tinySpacing + tinySpacing,
-                          width: tinySpacing + tinySpacing,
-                          shape: DataMarkerType.circle,
-                          borderWidth: veryTinySpacing + tinySpacing,
-                          borderColor:
-                              Theme.of(context).textTheme.bodyMedium?.color,
-                          color: Theme.of(context).textTheme.bodyMedium?.color,
-                        ),
-                        dataLabelSettings: const DataLabelSettings(
-                          isVisible: true,
-                        ),
-                      )
-                    ],
-                  ),
-                _ => const SizedBox.shrink()
-              },
+                },
+              ),
             ),
           ],
         ),

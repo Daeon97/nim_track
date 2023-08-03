@@ -7,6 +7,7 @@ import 'package:nim_track/features/settings/presentation/blocs/theme_bloc/theme_
 import 'package:nim_track/features/settings/presentation/screens/settings_screen.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/all_tracker_modules_or_one_tracker_module/all_tracker_modules_or_one_tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_detail_bloc/tracker_module_detail_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/screens/home_screen.dart';
 import 'package:nim_track/features/tracker_module/presentation/screens/node_detail_screen.dart';
@@ -45,6 +46,9 @@ class App extends StatelessWidget {
           create: (_) => sl(),
         ),
         BlocProvider<AllTrackerModulesOrOneTrackerModuleBloc>(
+          create: (_) => sl(),
+        ),
+        BlocProvider<TrackerModuleDetailBloc>(
           create: (_) => sl(),
         ),
       ];

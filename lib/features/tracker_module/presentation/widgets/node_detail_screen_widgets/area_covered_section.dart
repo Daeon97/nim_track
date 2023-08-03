@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, use_build_context_synchronously
+// ignore_for_file: public_member_api_docs, use_build_context_synchronously, must_be_immutable, lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,36 +9,25 @@ import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/core/utils/enums.dart' as enums;
 import 'package:nim_track/core/utils/extensions/mapbox_convenience_utils.dart';
 import 'package:nim_track/features/settings/presentation/blocs/theme_bloc/theme_bloc.dart';
-import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_detail_bloc/tracker_module_detail_bloc.dart';
 
-class AreaCoveredSection extends StatefulWidget {
-  const AreaCoveredSection({super.key});
+class AreaCoveredSection extends StatelessWidget {
+  AreaCoveredSection({super.key});
 
-  @override
-  State<AreaCoveredSection> createState() => _AreaCoveredSectionState();
-}
-
-class _AreaCoveredSectionState extends State<AreaCoveredSection> {
   MapboxMap? _mapboxMap;
   PolygonAnnotationManager? _polygonAnnotationManager;
 
-  // @override
-  // void dispose() {
-  //   _mapboxMap?.dispose();
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) =>
-      BlocListener<TrackerModuleBloc, TrackerModuleState>(
-        listener: (_, trackerModuleState) async {
+      BlocListener<TrackerModuleDetailBloc, TrackerModuleDetailState>(
+        listener: (_, trackerModuleDetailState) async {
           if (_polygonAnnotationManager != null) {
             await _polygonAnnotationManager?.deleteAll();
           }
 
-          if (trackerModuleState is GotTrackerModuleState) {
+          if (trackerModuleDetailState is GotTrackerModuleDetailState) {
             final trackerModuleDataEntities =
-                trackerModuleState.trackerModuleEntity.data;
+                trackerModuleDetailState.trackerModuleEntity.data;
             _polygonAnnotationManager = await _mapboxMap?.drawPolygon(
               lngLats: trackerModuleDataEntities
                   .map(
@@ -98,30 +87,51 @@ class _AreaCoveredSectionState extends State<AreaCoveredSection> {
               ),
               SizedBox(
                 height: areaCoveredSectionMapHeight,
-                child: MapWidget(
-                  onMapCreated: (mapboxMap) => _mapboxMap = mapboxMap,
-                  cameraOptions: CameraOptions(
-                    center: Point(
-                      coordinates: Position(
-                        defaultLng,
-                        defaultLat,
+                child: Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    MapWidget(
+                      onMapCreated: (mapboxMap) => _mapboxMap = mapboxMap,
+                      cameraOptions: CameraOptions(
+                        center: Point(
+                          coordinates: Position(
+                            defaultLng,
+                            defaultLat,
+                          ),
+                        ).toJson(),
+                        zoom: defaultZoom,
                       ),
-                    ).toJson(),
-                    zoom: defaultZoom,
-                  ),
-                  key: const ValueKey(
-                    mapboxMapKey,
-                  ),
-                  resourceOptions: ResourceOptions(
-                    accessToken: dotenv.env[mapboxSecretTokenKeyName]!,
-                  ),
-                  styleUri: BlocProvider.of<ThemeBloc>(context)
-                              .state
-                              .themeEntity
-                              .fakeBrightness ==
-                          enums.Brightness.light
-                      ? MapboxStyles.MAPBOX_STREETS
-                      : MapboxStyles.DARK,
+                      key: const ValueKey(
+                        mapboxMapKey,
+                      ),
+                      resourceOptions: ResourceOptions(
+                        accessToken: dotenv.env[mapboxSecretTokenKeyName]!,
+                      ),
+                      styleUri: BlocProvider.of<ThemeBloc>(context)
+                                  .state
+                                  .themeEntity
+                                  .fakeBrightness ==
+                              enums.Brightness.light
+                          ? MapboxStyles.MAPBOX_STREETS
+                          : MapboxStyles.DARK,
+                    ),
+                    BlocBuilder<TrackerModuleDetailBloc,
+                        TrackerModuleDetailState>(
+                      builder: (_, trackerModuleDetailState) =>
+                          switch (trackerModuleDetailState) {
+                        GettingTrackerModuleDetailState() =>
+                          const CircularProgressIndicator(),
+                        FailedToGetTrackerModuleDetailState(
+                          failure: final _,
+                        ) =>
+                          const Icon(
+                            Icons.warning,
+                            size: largeSpacing + spacing,
+                          ),
+                        _ => const SizedBox.shrink(),
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -23,9 +23,6 @@ class TrackerModulesBloc
         emit(
           const ListingTrackerModulesState(),
         );
-        // await Future.delayed(Duration(seconds: 5));
-        // emit(FailedToListTrackerModulesState(failure: Failure()));
-
         final failureOrTrackerModuleEntities =
             await _trackerModuleUseCase.listTrackerModules();
         failureOrTrackerModuleEntities.fold(

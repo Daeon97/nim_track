@@ -26,6 +26,7 @@ const nodeSummaryCardFirstCardListWheelScrollViewAnimationDurationMilliseconds =
     500;
 const shimmerBaseColorOpacity = 0.38;
 const areaCoveredSectionMapHeight = 200.0;
+const batteryLevelOverTimeSectionGraphHeight = 300.0;
 
 // Battery levels
 const tenPercent = 10;
