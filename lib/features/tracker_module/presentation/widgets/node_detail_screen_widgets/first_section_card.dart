@@ -73,18 +73,18 @@ class FirstSectionCard extends StatelessWidget {
                   const SizedBox(
                     width: tinySpacing + tinySpacing,
                   ),
-                  switch (trackerModuleDetailState) {
-                    GettingTrackerModuleDetailState() => ShimmerWidget(
-                        radius: nil,
-                        child: FirstSectionCardShimmerChild(
-                          cardType: cardType,
+                  Expanded(
+                    child: switch (trackerModuleDetailState) {
+                      GettingTrackerModuleDetailState() => ShimmerWidget(
+                          radius: nil,
+                          child: FirstSectionCardShimmerChild(
+                            cardType: cardType,
+                          ),
                         ),
-                      ),
-                    GotTrackerModuleDetailState(
-                      trackerModuleEntity: final entity,
-                    ) =>
-                      Expanded(
-                        child: Text(
+                      GotTrackerModuleDetailState(
+                        trackerModuleEntity: final entity,
+                      ) =>
+                        Text(
                           switch (cardType) {
                             CardType.batteryLevel =>
                               '${entity.data.last.batteryLevel}$percentage',
@@ -96,15 +96,15 @@ class FirstSectionCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
-                      ),
-                    _ => ShimmerWidget(
-                        stopShimmer: true,
-                        radius: nil,
-                        child: FirstSectionCardShimmerChild(
-                          cardType: cardType,
+                      _ => ShimmerWidget(
+                          stopShimmer: true,
+                          radius: nil,
+                          child: FirstSectionCardShimmerChild(
+                            cardType: cardType,
+                          ),
                         ),
-                      ),
-                  },
+                    },
+                  ),
                 ],
               ),
             ),
