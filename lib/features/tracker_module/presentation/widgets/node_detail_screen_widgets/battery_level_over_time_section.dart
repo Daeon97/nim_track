@@ -54,7 +54,7 @@ class BatteryLevelOverTimeSection extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: largeSpacing,
+              height: spacing + smallSpacing,
             ),
             SizedBox(
               height: batteryLevelOverTimeSectionGraphHeight,
@@ -67,7 +67,8 @@ class BatteryLevelOverTimeSection extends StatelessWidget {
                     ),
                   GotTrackerModuleDetailState(
                     trackerModuleEntity: final entity,
-                  ) =>
+                  )
+                      when entity.data.length > veryTinySpacing.toInt() =>
                     SfCartesianChart(
                       margin: EdgeInsets.zero,
                       tooltipBehavior: TooltipBehavior(
@@ -115,10 +116,42 @@ class BatteryLevelOverTimeSection extends StatelessWidget {
                         )
                       ],
                     ),
+                  GotTrackerModuleDetailState(
+                    trackerModuleEntity: final entity,
+                  )
+                      when entity.data.length <= veryTinySpacing.toInt() =>
+                    const Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.warning,
+                            size: largeSpacing + spacing,
+                          ),
+                          SizedBox(
+                            height: smallSpacing,
+                          ),
+                          Text(
+                            notEnoughDataLiteral,
+                          ),
+                        ],
+                      ),
+                    ),
                   _ => const Center(
-                      child: Icon(
-                        Icons.warning,
-                        size: largeSpacing + spacing,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.error,
+                            size: largeSpacing + spacing,
+                          ),
+                          SizedBox(
+                            height: smallSpacing,
+                          ),
+                          Text(
+                            errorDisplayingDataLiteral,
+                          ),
+                        ],
                       ),
                     ),
                 },

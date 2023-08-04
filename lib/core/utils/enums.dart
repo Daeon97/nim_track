@@ -12,7 +12,7 @@ enum SeedColor {
   orange,
 }
 
-enum NodeSummaryBottomCardType {
+enum CardType {
   batteryLevel,
   time,
 }

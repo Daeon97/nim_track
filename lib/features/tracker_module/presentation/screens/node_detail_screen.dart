@@ -3,9 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nim_track/core/resources/numbers.dart';
+import 'package:nim_track/core/utils/enums.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_detail_bloc/tracker_module_detail_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/area_covered_section.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/battery_level_over_time_section.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/battery_level_warning_section.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/first_section_card.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/node_distances_section.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/overview_section.dart';
 
@@ -49,10 +52,35 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
           ),
           child: Column(
             children: [
+              const SizedBox(
+                height: spacing,
+              ),
+              const Row(
+                children: [
+                  Expanded(
+                    child: FirstSectionCard(
+                      cardType: CardType.batteryLevel,
+                    ),
+                  ),
+                  SizedBox(
+                    width: spacing,
+                  ),
+                  Expanded(
+                    child: FirstSectionCard(
+                      cardType: CardType.time,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: spacing,
+              ),
+              // const BatteryLevelWarningSection(),
+              // OverviewSection(),
               // const SizedBox(
               //   height: spacing,
               // ),
-              // OverviewSection(),
+              AreaCoveredSection(),
               const SizedBox(
                 height: spacing,
               ),
@@ -64,13 +92,6 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
               // const SizedBox(
               //   height: spacing,
               // ),
-              AreaCoveredSection(),
-              const SizedBox(
-                height: spacing,
-              ),
-              const SizedBox(
-                height: spacing,
-              ),
             ],
           ),
         ),

@@ -10,16 +10,16 @@ import 'package:nim_track/features/tracker_module/presentation/blocs/all_tracker
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/battery_level_icon_widget.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/shimmer/node_summary_bottom_card_shimmer_child.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/shimmer/shimmer_widget.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer_widgets/node_summary_bottom_card_shimmer_child.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer_widgets/shimmer_widget.dart';
 
 class NodeSummaryBottomCard extends StatelessWidget {
   const NodeSummaryBottomCard({
-    required this.nodeSummaryBottomCardType,
+    required this.cardType,
     super.key,
   });
 
-  final NodeSummaryBottomCardType nodeSummaryBottomCardType;
+  final CardType cardType;
 
   @override
   Widget build(BuildContext context) => BlocBuilder<
@@ -62,25 +62,22 @@ class NodeSummaryBottomCard extends StatelessWidget {
                           OneTrackerModuleState(id: final _)
                               when trackerModuleState
                                   is GotTrackerModuleState =>
-                            switch (nodeSummaryBottomCardType) {
-                              NodeSummaryBottomCardType.batteryLevel =>
-                                BatteryLevelIconWidget(
+                            switch (cardType) {
+                              CardType.batteryLevel => BatteryLevelIconWidget(
                                   batteryLevel: trackerModuleState
                                       .trackerModuleEntity
                                       .data
                                       .last
                                       .batteryLevel,
                                 ),
-                              NodeSummaryBottomCardType.time => const Icon(
+                              CardType.time => const Icon(
                                   Icons.access_time,
                                 )
                             },
                           _ => Icon(
-                              switch (nodeSummaryBottomCardType) {
-                                NodeSummaryBottomCardType.batteryLevel =>
-                                  Icons.battery_unknown,
-                                NodeSummaryBottomCardType.time =>
-                                  Icons.access_time
+                              switch (cardType) {
+                                CardType.batteryLevel => Icons.battery_unknown,
+                                CardType.time => Icons.access_time
                               },
                               color: Theme.of(context).dividerColor,
                             ),
@@ -93,10 +90,9 @@ class NodeSummaryBottomCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                switch (nodeSummaryBottomCardType) {
-                                  NodeSummaryBottomCardType.batteryLevel =>
-                                    batteryLevelLiteral,
-                                  NodeSummaryBottomCardType.time => timeLiteral
+                                switch (cardType) {
+                                  CardType.batteryLevel => batteryLevelLiteral,
+                                  CardType.time => timeLiteral
                                 },
                                 style: allTrackerModulesOrOneTrackerModuleState
                                         is AllTrackerModulesState
@@ -117,10 +113,10 @@ class NodeSummaryBottomCard extends StatelessWidget {
                                   OneTrackerModuleState(id: final _)
                                       when trackerModuleState
                                           is GotTrackerModuleState =>
-                                    switch (nodeSummaryBottomCardType) {
-                                      NodeSummaryBottomCardType.batteryLevel =>
+                                    switch (cardType) {
+                                      CardType.batteryLevel =>
                                         '${trackerModuleState.trackerModuleEntity.data.last.batteryLevel}$percentage',
-                                      NodeSummaryBottomCardType.time =>
+                                      CardType.time =>
                                         TimestampUtil.computeDate(
                                           trackerModuleState.trackerModuleEntity
                                               .data.last.timestamp,

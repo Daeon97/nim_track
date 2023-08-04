@@ -70,9 +70,16 @@ const overviewLiteral = 'Overview';
 const batteryLevelOverTimeLiteral = 'Battery level over time';
 const nodeDistancesLiteral = 'Node distances';
 const areaCoveredLiteral = 'Area covered';
+const batteryCriticalLiteral = 'Battery Critical';
+const batteryLowLiteral = 'Battery Low';
+const batteryGettingLowLiteral = 'Battery getting low';
+const notEnoughDataLiteral = 'Not enough data';
+const errorDisplayingDataLiteral = 'Error displaying data';
+const pmLiteral = 'PM';
 
 // Special characters
 const percentage = '%';
 const bullet = '•';
 const tabSpace = ' ';
 const verticalBar = '|';
+const colon = ':';

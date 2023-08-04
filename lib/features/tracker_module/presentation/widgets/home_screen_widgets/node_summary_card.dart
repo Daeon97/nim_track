@@ -9,7 +9,7 @@ import 'package:nim_track/features/tracker_module/presentation/blocs/all_tracker
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/node_summary_bottom_card.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/shimmer/shimmer_widget.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer_widgets/shimmer_widget.dart';
 
 class NodeSummaryCard extends StatefulWidget {
   const NodeSummaryCard({super.key});
@@ -166,8 +166,7 @@ class _NodeSummaryCardState extends State<NodeSummaryCard> {
             children: [
               Expanded(
                 child: NodeSummaryBottomCard(
-                  nodeSummaryBottomCardType:
-                      NodeSummaryBottomCardType.batteryLevel,
+                  cardType: CardType.batteryLevel,
                 ),
               ),
               SizedBox(
@@ -175,7 +174,7 @@ class _NodeSummaryCardState extends State<NodeSummaryCard> {
               ),
               Expanded(
                 child: NodeSummaryBottomCard(
-                  nodeSummaryBottomCardType: NodeSummaryBottomCardType.time,
+                  cardType: CardType.time,
                 ),
               ),
             ],

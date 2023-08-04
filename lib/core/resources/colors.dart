@@ -8,3 +8,7 @@ const baseColorPurple = Color(0xFFB075F0);
 const baseColorOrange = Color(0xFFF09675);
 const nodeAvailableColor = Colors.green;
 const nodeProblemsColor = Colors.red;
+const batteryHighColor = Colors.green;
+const batteryMidHighColor = Colors.lightGreenAccent;
+const batteryMidLowColor = Colors.deepOrangeAccent;
+const batteryLowColor = Colors.red;

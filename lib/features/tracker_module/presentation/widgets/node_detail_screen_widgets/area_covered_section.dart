@@ -25,7 +25,9 @@ class AreaCoveredSection extends StatelessWidget {
             await _polygonAnnotationManager?.deleteAll();
           }
 
-          if (trackerModuleDetailState is GotTrackerModuleDetailState) {
+          if (trackerModuleDetailState is GotTrackerModuleDetailState &&
+              trackerModuleDetailState.trackerModuleEntity.data.length >
+                  veryTinySpacing.toInt()) {
             final trackerModuleDataEntities =
                 trackerModuleDetailState.trackerModuleEntity.data;
             _polygonAnnotationManager = await _mapboxMap?.drawPolygon(
@@ -83,7 +85,7 @@ class AreaCoveredSection extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: largeSpacing,
+                height: spacing + smallSpacing,
               ),
               SizedBox(
                 height: areaCoveredSectionMapHeight,
@@ -121,14 +123,50 @@ class AreaCoveredSection extends StatelessWidget {
                           switch (trackerModuleDetailState) {
                         GettingTrackerModuleDetailState() =>
                           const CircularProgressIndicator(),
-                        FailedToGetTrackerModuleDetailState(
-                          failure: final _,
-                        ) =>
-                          const Icon(
-                            Icons.warning,
-                            size: largeSpacing + spacing,
+                        GotTrackerModuleDetailState(
+                          trackerModuleEntity: final entity,
+                        )
+                            when entity.data.length > veryTinySpacing.toInt() =>
+                          const SizedBox.shrink(),
+                        GotTrackerModuleDetailState(
+                          trackerModuleEntity: final entity,
+                        )
+                            when entity.data.length <=
+                                veryTinySpacing.toInt() =>
+                          const Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.warning,
+                                  size: largeSpacing + spacing,
+                                ),
+                                SizedBox(
+                                  height: smallSpacing,
+                                ),
+                                Text(
+                                  notEnoughDataLiteral,
+                                ),
+                              ],
+                            ),
                           ),
-                        _ => const SizedBox.shrink(),
+                        _ => const Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.error,
+                                  size: largeSpacing + spacing,
+                                ),
+                                SizedBox(
+                                  height: smallSpacing,
+                                ),
+                                Text(
+                                  errorDisplayingDataLiteral,
+                                ),
+                              ],
+                            ),
+                          ),
                       },
                     ),
                   ],
