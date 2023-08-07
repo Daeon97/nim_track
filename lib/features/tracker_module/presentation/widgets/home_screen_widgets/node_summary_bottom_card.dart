@@ -117,7 +117,7 @@ class NodeSummaryBottomCard extends StatelessWidget {
                                       CardType.batteryLevel =>
                                         '${trackerModuleState.trackerModuleEntity.data.last.batteryLevel}$percentage',
                                       CardType.time =>
-                                        TimestampUtil.computeDate(
+                                        TimestampUtil.computeHourMinuteAmPm(
                                           trackerModuleState.trackerModuleEntity
                                               .data.last.timestamp,
                                         )

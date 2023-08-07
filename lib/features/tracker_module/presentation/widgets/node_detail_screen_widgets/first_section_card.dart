@@ -88,7 +88,7 @@ class FirstSectionCard extends StatelessWidget {
                           switch (cardType) {
                             CardType.batteryLevel =>
                               '${entity.data.last.batteryLevel}$percentage',
-                            CardType.time => TimestampUtil.computeDate(
+                            CardType.time => TimestampUtil.computeMonthYear(
                                 entity.data.last.timestamp,
                               )
                           },

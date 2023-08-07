@@ -84,7 +84,7 @@ class NodeDataNodeDetailsCard extends StatelessWidget {
                               ),
                               Expanded(
                                 child: Text(
-                                  TimestampUtil.computeDate(
+                                  TimestampUtil.computeHourMinuteAmPm(
                                     lastTransmissionDate,
                                   ),
                                   maxLines: veryTinySpacing.toInt(),

@@ -136,4 +136,36 @@ extension MapboxConvenienceUtils on MapboxMap {
 
     return totalDistanceKilometer;
   }
+
+  Future<void> easeToBounds({
+    required List<List<num>> lngLats,
+  }) async {
+    final cameraOptions = await cameraForCoordinates(
+      lngLats
+          .map(
+            (lngLat) => Point(
+              coordinates: Position(
+                lngLat.first,
+                lngLat.last,
+              ),
+            ).toJson(),
+          )
+          .toList(),
+      MbxEdgeInsets(
+        top: veryLargeSpacing,
+        left: veryLargeSpacing + veryLargeSpacing,
+        bottom: veryLargeSpacing,
+        right: veryLargeSpacing + veryLargeSpacing,
+      ),
+      null,
+      null,
+    );
+
+    await easeTo(
+      cameraOptions,
+      null,
+    );
+
+    return;
+  }
 }

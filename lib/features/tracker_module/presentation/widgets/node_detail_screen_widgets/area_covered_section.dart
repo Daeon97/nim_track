@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, use_build_context_synchronously, must_be_immutable, lines_longer_than_80_chars
+// ignore_for_file: public_member_api_docs, must_be_immutable, lines_longer_than_80_chars, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,6 +40,17 @@ class AreaCoveredSection extends StatelessWidget {
                   )
                   .toList(),
               fillColor: Theme.of(context).colorScheme.inversePrimary,
+            );
+
+            await _mapboxMap?.easeToBounds(
+              lngLats: trackerModuleDetailState.trackerModuleEntity.data
+                  .map(
+                    (trackerModuleDataEntity) => [
+                      trackerModuleDataEntity.coordinates.latLng.last,
+                      trackerModuleDataEntity.coordinates.latLng.first,
+                    ],
+                  )
+                  .toList(),
             );
           }
         },

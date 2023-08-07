@@ -113,15 +113,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
 
+                final lngLats = trackerModuleDataEntities
+                    .map(
+                      (trackerModuleDataEntity) => [
+                        trackerModuleDataEntity.coordinates.latLng.last,
+                        trackerModuleDataEntity.coordinates.latLng.first,
+                      ],
+                    )
+                    .toList();
+
                 _polylineAnnotationManager = await _mapboxMap?.drawPolyline(
-                  lngLats: trackerModuleDataEntities
-                      .map(
-                        (trackerModuleDataEntity) => [
-                          trackerModuleDataEntity.coordinates.latLng.last,
-                          trackerModuleDataEntity.coordinates.latLng.first,
-                        ],
-                      )
-                      .toList(),
+                  lngLats: lngLats,
+                );
+
+                await _mapboxMap?.easeToBounds(
+                  lngLats: lngLats,
                 );
               }
             },
@@ -151,6 +157,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     pointAnnotationManager!,
                   );
                 }
+
+                await _mapboxMap?.easeToBounds(
+                  lngLats: trackerModulesState.trackerModuleEntities
+                      .map(
+                        (trackerModuleEntity) => [
+                          trackerModuleEntity.data.last.coordinates.latLng.last,
+                          trackerModuleEntity
+                              .data.last.coordinates.latLng.first,
+                        ],
+                      )
+                      .toList(),
+                );
               }
             },
           ),
@@ -177,13 +195,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   resourceOptions: ResourceOptions(
                     accessToken: dotenv.env[mapboxSecretTokenKeyName]!,
                   ),
-                  styleUri: BlocProvider.of<ThemeBloc>(context)
-                              .state
-                              .themeEntity
-                              .fakeBrightness ==
-                          enums.Brightness.light
-                      ? MapboxStyles.MAPBOX_STREETS
-                      : MapboxStyles.DARK,
+                  styleUri: switch (context
+                      .read<ThemeBloc>()
+                      .state
+                      .themeEntity
+                      .fakeBrightness) {
+                    enums.Brightness.light => MapboxStyles.MAPBOX_STREETS,
+                    enums.Brightness.dark => MapboxStyles.DARK
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.all(
