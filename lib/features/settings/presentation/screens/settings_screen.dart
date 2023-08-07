@@ -21,8 +21,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           actions: [
             IconButton(
-              onPressed: () => _onAboutClicked(
+              onPressed: () => showAboutDialog(
                 context: context,
+                applicationName: applicationNameLiteral,
+                applicationLegalese: applicationShortDescriptionLiteral,
               ),
               icon: const Icon(
                 Icons.info,
@@ -48,14 +50,4 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
       );
-
-  void _onAboutClicked({
-    required BuildContext context,
-  }) {
-    showAboutDialog(
-      context: context,
-      applicationName: applicationNameLiteral,
-      applicationLegalese: applicationShortDescriptionLiteral,
-    );
-  }
 }

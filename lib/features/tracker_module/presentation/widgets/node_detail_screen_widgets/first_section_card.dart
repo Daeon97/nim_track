@@ -88,13 +88,24 @@ class FirstSectionCard extends StatelessWidget {
                           switch (cardType) {
                             CardType.batteryLevel =>
                               '${entity.data.last.batteryLevel}$percentage',
-                            CardType.time => TimestampUtil.computeMonthYear(
+                            CardType.time =>
+                              '${TimestampUtil.computeDayMonthDate(
                                 entity.data.last.timestamp,
-                              )
+                              )} ${TimestampUtil.computeHourMinuteAmPm(
+                                entity.data.last.timestamp,
+                              )}',
                           },
-                          maxLines: veryTinySpacing.toInt(),
+                          maxLines: switch (cardType) {
+                            CardType.batteryLevel => veryTinySpacing.toInt(),
+                            CardType.time => tinySpacing.toInt(),
+                          },
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.headlineSmall,
+                          style: switch (cardType) {
+                            CardType.batteryLevel =>
+                              Theme.of(context).textTheme.headlineSmall,
+                            CardType.time =>
+                              Theme.of(context).textTheme.bodySmall,
+                          },
                         ),
                       _ => ShimmerWidget(
                           stopShimmer: true,

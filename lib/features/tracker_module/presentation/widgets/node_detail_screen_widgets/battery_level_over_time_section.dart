@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
+import 'package:nim_track/core/utils/helpers/timestamp_util.dart';
 import 'package:nim_track/features/tracker_module/domain/entities/tracker_module_entity.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_detail_bloc/tracker_module_detail_bloc.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -71,6 +73,10 @@ class BatteryLevelOverTimeSection extends StatelessWidget {
                       when entity.data.length > veryTinySpacing.toInt() =>
                     SfCartesianChart(
                       margin: EdgeInsets.zero,
+                      primaryXAxis: DateTimeAxis(
+                        isVisible: true,
+                        dateFormat: DateFormat.MMMd().add_jm(),
+                      ),
                       tooltipBehavior: TooltipBehavior(
                         activationMode: ActivationMode.singleTap,
                         enable: true,
@@ -88,14 +94,16 @@ class BatteryLevelOverTimeSection extends StatelessWidget {
                         isVisible: true,
                         position: LegendPosition.bottom,
                       ),
-                      series: <LineSeries<TrackerModuleDataEntity, int>>[
-                        LineSeries<TrackerModuleDataEntity, int>(
+                      series: <LineSeries<TrackerModuleDataEntity, DateTime>>[
+                        LineSeries<TrackerModuleDataEntity, DateTime>(
                           dataSource: entity.data,
                           color: Theme.of(context).colorScheme.inversePrimary,
                           xAxisName: batteryLevelLiteral,
                           yAxisName: timeLiteral,
                           xValueMapper: (trackerModuleDataEntity, _) =>
-                              trackerModuleDataEntity.timestamp,
+                              TimestampUtil.computeDateTime(
+                            trackerModuleDataEntity.timestamp,
+                          ),
                           yValueMapper: (trackerModuleDataEntity, _) =>
                               trackerModuleDataEntity.batteryLevel,
                           width: tinySpacing,

@@ -10,9 +10,22 @@ final class TimestampUtil {
         ),
       );
 
-  static String computeMonthYear(int timestamp) => DateFormat.yMMM().format(
+  static String computeDayMonthDate(int timestamp) => '${DateFormat.E().format(
         DateTime.fromMillisecondsSinceEpoch(
           timestamp,
         ),
+      )} ${DateFormat.LLL().format(
+        DateTime.fromMillisecondsSinceEpoch(
+          timestamp,
+        ),
+      )} ${DateFormat.d().format(
+        DateTime.fromMillisecondsSinceEpoch(
+          timestamp,
+        ),
+      )}';
+
+  static DateTime computeDateTime(int timestamp) =>
+      DateTime.fromMillisecondsSinceEpoch(
+        timestamp,
       );
 }

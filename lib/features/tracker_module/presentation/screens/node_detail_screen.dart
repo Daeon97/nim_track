@@ -3,13 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nim_track/core/resources/numbers.dart';
+import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/core/utils/enums.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_detail_bloc/tracker_module_detail_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/area_covered_section.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/battery_level_over_time_section.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/first_section_card.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/node_distances_section.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/overview_section.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer_widgets/first_section_card_shimmer_child.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer_widgets/shimmer_widget.dart';
 
 class NodeDetailScreen extends StatefulWidget {
   const NodeDetailScreen({
@@ -44,6 +46,28 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
               ),
             ),
           ),
+          title: BlocBuilder<TrackerModuleDetailBloc, TrackerModuleDetailState>(
+            builder: (_, trackerModuleDetailState) =>
+                switch (trackerModuleDetailState) {
+              GettingTrackerModuleDetailState() => const ShimmerWidget(
+                  radius: nil,
+                  child: FirstSectionCardShimmerChild(),
+                ),
+              GotTrackerModuleDetailState(
+                trackerModuleEntity: final entity,
+              ) =>
+                Text(
+                  entity.name ?? '$nodeLiteral ${entity.id}',
+                  maxLines: veryTinySpacing.toInt(),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              _ => const ShimmerWidget(
+                  stopShimmer: true,
+                  radius: nil,
+                  child: FirstSectionCardShimmerChild(),
+                ),
+            },
+          ),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsetsDirectional.symmetric(
@@ -74,10 +98,10 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
               const SizedBox(
                 height: spacing,
               ),
-              // OverviewSection(),
-              // const SizedBox(
-              //   height: spacing,
-              // ),
+              const OverviewSection(),
+              const SizedBox(
+                height: spacing,
+              ),
               AreaCoveredSection(),
               const SizedBox(
                 height: spacing,
@@ -86,10 +110,6 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
               const SizedBox(
                 height: spacing,
               ),
-              // NodeDistancesSection(),
-              // const SizedBox(
-              //   height: spacing,
-              // ),
             ],
           ),
         ),

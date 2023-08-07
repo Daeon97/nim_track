@@ -7,15 +7,16 @@ import 'package:nim_track/core/utils/enums.dart';
 
 class FirstSectionCardShimmerChild extends StatelessWidget {
   const FirstSectionCardShimmerChild({
-    required this.cardType,
+    this.cardType,
     super.key,
   });
 
-  final CardType cardType;
+  final CardType? cardType;
 
   @override
   Widget build(BuildContext context) => Text(
         switch (cardType) {
+          null => '${tinySpacing.toInt()}$colon$thirtyPercent $pmLiteral',
           CardType.batteryLevel => '$twentyPercent$percentage',
           CardType.time =>
             '${tinySpacing.toInt()}$colon$thirtyPercent $pmLiteral'
