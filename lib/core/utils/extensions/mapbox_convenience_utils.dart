@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/services.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:nim_track/core/resources/colors.dart';
 import 'package:nim_track/core/resources/numbers.dart';
@@ -85,56 +84,6 @@ extension MapboxConvenienceUtils on MapboxMap {
     );
 
     return polygonAnnotationManager;
-  }
-
-  double calculateTotalDistanceKilometer({
-    required List<List<num>> lngLats,
-  }) {
-    var totalDistanceKilometer = nil;
-    var previousLatLng = const LatLng(nil, nil);
-
-    for (var i = nil.toInt(); i < lngLats.length; i++) {
-      if (i % tinySpacing.toInt() == nil.toInt()) {
-        final distanceKilometer = const Distance(
-          roundResult: false,
-        ).as(
-          LengthUnit.Kilometer,
-          previousLatLng,
-          LatLng(
-            lngLats[i].last.toDouble(),
-            lngLats[i].first.toDouble(),
-          ),
-        );
-        totalDistanceKilometer += distanceKilometer;
-        if (i != lngLats.length - veryTinySpacing.toInt()) {
-          previousLatLng = LatLng(
-            lngLats[i].last.toDouble(),
-            lngLats[i].first.toDouble(),
-          );
-        }
-      } else {
-        if (i == lngLats.length - veryTinySpacing.toInt()) {
-          final distanceKilometer = const Distance(
-            roundResult: false,
-          ).as(
-            LengthUnit.Kilometer,
-            previousLatLng,
-            LatLng(
-              lngLats[i].last.toDouble(),
-              lngLats[i].first.toDouble(),
-            ),
-          );
-          totalDistanceKilometer += distanceKilometer;
-        } else {
-          previousLatLng = LatLng(
-            lngLats[i].last.toDouble(),
-            lngLats[i].first.toDouble(),
-          );
-        }
-      }
-    }
-
-    return totalDistanceKilometer;
   }
 
   Future<void> easeToBounds({

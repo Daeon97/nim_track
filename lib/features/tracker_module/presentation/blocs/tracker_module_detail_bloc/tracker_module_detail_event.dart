@@ -2,7 +2,7 @@
 
 part of 'tracker_module_detail_bloc.dart';
 
-abstract class TrackerModuleDetailEvent extends Equatable {
+abstract final class TrackerModuleDetailEvent extends Equatable {
   const TrackerModuleDetailEvent();
 }
 

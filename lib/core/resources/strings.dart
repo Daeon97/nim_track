@@ -68,7 +68,7 @@ const timeLiteral = 'Time';
 const notApplicableLiteral = 'N/A';
 const overviewLiteral = 'Overview';
 const batteryLevelOverTimeLiteral = 'Battery level over time';
-const nodeDistancesLiteral = 'Node distances';
+const distancesTravelledLiteral = 'Distances travelled';
 const areaCoveredLiteral = 'Area covered';
 const batteryCriticalLiteral = 'Battery Critical';
 const batteryLowLiteral = 'Battery Low';
@@ -76,6 +76,7 @@ const batteryGettingLowLiteral = 'Battery getting low';
 const notEnoughDataLiteral = 'Not enough data';
 const errorDisplayingDataLiteral = 'Error displaying data';
 const pmLiteral = 'PM';
+const kmLiteral = 'KM';
 
 // Special characters
 const percentage = '%';
@@ -83,3 +84,5 @@ const bullet = '•';
 const tabSpace = ' ';
 const verticalBar = '|';
 const colon = ':';
+const newLine = '\n';
+const distancesTravelledSectionExplodeOffset = '20%';

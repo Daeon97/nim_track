@@ -77,6 +77,10 @@ class BatteryLevelOverTimeSection extends StatelessWidget {
                         isVisible: true,
                         dateFormat: DateFormat.MMMd().add_jm(),
                       ),
+                      primaryYAxis: NumericAxis(
+                        isVisible: true,
+                        numberFormat: NumberFormat.percentPattern(),
+                      ),
                       tooltipBehavior: TooltipBehavior(
                         activationMode: ActivationMode.singleTap,
                         enable: true,
@@ -90,10 +94,6 @@ class BatteryLevelOverTimeSection extends StatelessWidget {
                         lineColor:
                             Theme.of(context).textTheme.bodyMedium?.color,
                       ),
-                      legend: const Legend(
-                        isVisible: true,
-                        position: LegendPosition.bottom,
-                      ),
                       series: <LineSeries<TrackerModuleDataEntity, DateTime>>[
                         LineSeries<TrackerModuleDataEntity, DateTime>(
                           dataSource: entity.data,
@@ -105,7 +105,8 @@ class BatteryLevelOverTimeSection extends StatelessWidget {
                             trackerModuleDataEntity.timestamp,
                           ),
                           yValueMapper: (trackerModuleDataEntity, _) =>
-                              trackerModuleDataEntity.batteryLevel,
+                              trackerModuleDataEntity.batteryLevel /
+                              hundredPercent,
                           width: tinySpacing,
                           markerSettings: MarkerSettings(
                             isVisible: true,

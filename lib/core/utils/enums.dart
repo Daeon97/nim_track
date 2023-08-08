@@ -16,3 +16,11 @@ enum CardType {
   batteryLevel,
   time,
 }
+
+enum Field {
+  name,
+  batteryLevel,
+  hash,
+  latLng,
+  timestamp,
+}

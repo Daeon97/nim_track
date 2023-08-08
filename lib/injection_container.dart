@@ -14,6 +14,7 @@ import 'package:nim_track/features/tracker_module/presentation/blocs/all_tracker
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_detail_bloc/tracker_module_detail_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_detail_bloc/tracker_modules_detail_bloc.dart';
 
 final sl = GetIt.I;
 
@@ -40,6 +41,11 @@ void initDependencyInjection() {
     )
     ..registerFactory(
       () => TrackerModuleDetailBloc(
+        trackerModuleUseCase: sl(),
+      ),
+    )
+    ..registerFactory(
+      () => TrackerModulesDetailBloc(
         trackerModuleUseCase: sl(),
       ),
     )

@@ -6,10 +6,11 @@ import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/core/utils/enums.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_detail_bloc/tracker_module_detail_bloc.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_detail_bloc/tracker_modules_detail_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/area_covered_section.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/battery_level_over_time_section.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/distances_travelled_section.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/first_section_card.dart';
-import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/overview_section.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer_widgets/first_section_card_shimmer_child.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer_widgets/shimmer_widget.dart';
 
@@ -32,6 +33,9 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
       GetTrackerModuleDetailEvent(
         id: widget.id,
       ),
+    );
+    BlocProvider.of<TrackerModulesDetailBloc>(context).add(
+      const ListTrackerModulesDetailEvent(),
     );
     super.initState();
   }
@@ -98,7 +102,9 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
               const SizedBox(
                 height: spacing,
               ),
-              const OverviewSection(),
+              DistancesTravelledSection(
+                id: widget.id,
+              ),
               const SizedBox(
                 height: spacing,
               ),

@@ -96,7 +96,7 @@ class AreaCoveredSection extends StatelessWidget {
                 ],
               ),
               const SizedBox(
-                height: spacing + smallSpacing,
+                height: spacing,
               ),
               SizedBox(
                 height: areaCoveredSectionMapHeight,

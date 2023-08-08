@@ -2,11 +2,11 @@
 
 part of 'tracker_module_detail_bloc.dart';
 
-abstract class TrackerModuleDetailState extends Equatable {
+abstract final class TrackerModuleDetailState extends Equatable {
   const TrackerModuleDetailState();
 }
 
-class TrackerModuleDetailInitialState extends TrackerModuleDetailState {
+final class TrackerModuleDetailInitialState extends TrackerModuleDetailState {
   const TrackerModuleDetailInitialState();
 
   @override
