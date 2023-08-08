@@ -24,3 +24,13 @@ enum Field {
   latLng,
   timestamp,
 }
+
+enum Problem {
+  noTransmissionWithinlastHour,
+  latestTransmissionBehindOthers,
+}
+
+enum Indicator {
+  available,
+  faulty,
+}

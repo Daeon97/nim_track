@@ -1,23 +1,23 @@
-// ignore_for_file: public_member_api_docs
+// ignore_for_file: public_member_api_docs, lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nim_track/core/resources/colors.dart';
 import 'package:nim_track/core/resources/numbers.dart';
+import 'package:nim_track/core/resources/strings.dart';
+import 'package:nim_track/core/utils/enums.dart';
+import 'package:nim_track/core/utils/extensions/tracker_module_related_entities_convenience_utils.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets//shimmer_widgets/shimmer_widget.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer_widgets/node_data_top_card_shimmer_child.dart';
 
 class NodeDataTopCard extends StatelessWidget {
   const NodeDataTopCard({
-    required this.icon,
-    required this.iconColor,
-    required this.headerText,
+    required this.indicator,
     super.key,
   });
 
-  final IconData icon;
-  final Color iconColor;
-  final String headerText;
+  final Indicator indicator;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -44,8 +44,14 @@ class NodeDataTopCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(
-                      icon,
-                      color: iconColor,
+                      switch (indicator) {
+                        Indicator.available => Icons.developer_board,
+                        Indicator.faulty => Icons.developer_board_off
+                      },
+                      color: switch (indicator) {
+                        Indicator.available => nodeAvailableColor,
+                        Indicator.faulty => nodeProblemsColor
+                      },
                     ),
                     const SizedBox(
                       width: spacing,
@@ -55,12 +61,18 @@ class NodeDataTopCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          headerText,
+                          switch (indicator) {
+                            Indicator.available => availableLiteral,
+                            Indicator.faulty => problemsLiteral
+                          },
                           maxLines: veryTinySpacing.toInt(),
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
-                          entities.length.toString(),
+                          switch (indicator) {
+                            Indicator.available => '${entities.length}',
+                            Indicator.faulty => '${entities.faultyNodes}'
+                          },
                           maxLines: veryTinySpacing.toInt(),
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.bodyLarge?.merge(

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
-import 'package:nim_track/core/utils/extensions/tracker_module_data_entities_convenience_utils.dart';
+import 'package:nim_track/core/utils/extensions/tracker_module_related_entities_convenience_utils.dart';
 import 'package:nim_track/features/tracker_module/domain/entities/tracker_module_entity.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_detail_bloc/tracker_modules_detail_bloc.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';

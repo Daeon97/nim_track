@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nim_track/core/resources/colors.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
+import 'package:nim_track/core/utils/enums.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/node_data_node_details_card.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/node_data_top_card.dart';
@@ -20,9 +20,7 @@ class NodeDataCard extends StatelessWidget {
             children: [
               Expanded(
                 child: NodeDataTopCard(
-                  icon: Icons.developer_board,
-                  iconColor: nodeAvailableColor,
-                  headerText: availableLiteral,
+                  indicator: Indicator.available,
                 ),
               ),
               SizedBox(
@@ -30,9 +28,7 @@ class NodeDataCard extends StatelessWidget {
               ),
               Expanded(
                 child: NodeDataTopCard(
-                  icon: Icons.developer_board_off,
-                  iconColor: nodeProblemsColor,
-                  headerText: problemsLiteral,
+                  indicator: Indicator.faulty,
                 ),
               ),
             ],

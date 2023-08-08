@@ -4,6 +4,12 @@ import 'package:latlong2/latlong.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/features/tracker_module/domain/entities/tracker_module_entity.dart';
 
+extension TrackerModuleEntitiesConvenienceUtils on List<TrackerModuleEntity> {
+  int get faultyNodes {
+    return 3;
+  }
+}
+
 extension TrackerModuleDataEntitiesConvenienceUtils
     on List<TrackerModuleDataEntity> {
   double get totalDistanceKilometer {
