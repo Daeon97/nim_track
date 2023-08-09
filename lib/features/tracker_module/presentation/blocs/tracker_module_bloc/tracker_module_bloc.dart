@@ -28,12 +28,12 @@ class TrackerModuleBloc extends Bloc<TrackerModuleEvent, TrackerModuleState> {
         );
         failureOrTrackerModuleEntity.fold(
           (failure) => add(
-            FailedToGetTrackerModuleEvent(
+            _FailedToGetTrackerModuleEvent(
               failure: failure,
             ),
           ),
           (trackerModuleEntity) => add(
-            GotTrackerModuleEvent(
+            _GotTrackerModuleEvent(
               trackerModuleEntity: trackerModuleEntity,
             ),
           ),
@@ -41,7 +41,7 @@ class TrackerModuleBloc extends Bloc<TrackerModuleEvent, TrackerModuleState> {
       },
     );
 
-    on<GotTrackerModuleEvent>(
+    on<_GotTrackerModuleEvent>(
       (event, emit) => emit(
         GotTrackerModuleState(
           trackerModuleEntity: event.trackerModuleEntity,
@@ -49,9 +49,11 @@ class TrackerModuleBloc extends Bloc<TrackerModuleEvent, TrackerModuleState> {
       ),
     );
 
-    on<FailedToGetTrackerModuleEvent>(
-      (event, emit) => FailedToGetTrackerModuleEvent(
-        failure: event.failure,
+    on<_FailedToGetTrackerModuleEvent>(
+      (event, emit) => emit(
+        FailedToGetTrackerModuleState(
+          failure: event.failure,
+        ),
       ),
     );
   }

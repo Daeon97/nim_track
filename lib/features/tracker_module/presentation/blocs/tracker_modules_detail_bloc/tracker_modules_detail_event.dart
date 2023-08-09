@@ -13,8 +13,8 @@ final class ListTrackerModulesDetailEvent extends TrackerModulesDetailEvent {
   List<Object?> get props => [];
 }
 
-final class ListedTrackerModulesDetailEvent extends TrackerModulesDetailEvent {
-  const ListedTrackerModulesDetailEvent({
+final class _ListedTrackerModulesDetailEvent extends TrackerModulesDetailEvent {
+  const _ListedTrackerModulesDetailEvent({
     required this.trackerModuleEntities,
   });
 
@@ -26,9 +26,9 @@ final class ListedTrackerModulesDetailEvent extends TrackerModulesDetailEvent {
       ];
 }
 
-final class FailedToListTrackerModulesDetailEvent
+final class _FailedToListTrackerModulesDetailEvent
     extends TrackerModulesDetailEvent {
-  const FailedToListTrackerModulesDetailEvent({
+  const _FailedToListTrackerModulesDetailEvent({
     required this.failure,
   });
 

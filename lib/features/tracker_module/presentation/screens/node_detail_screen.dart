@@ -29,16 +29,22 @@ class NodeDetailScreen extends StatefulWidget {
 class _NodeDetailScreenState extends State<NodeDetailScreen> {
   @override
   void initState() {
-    BlocProvider.of<TrackerModuleDetailBloc>(context).add(
-      GetTrackerModuleDetailEvent(
-        id: widget.id,
-      ),
-    );
-    BlocProvider.of<TrackerModulesDetailBloc>(context).add(
-      const ListTrackerModulesDetailEvent(),
-    );
+    _getTrackerModuleDetail();
+    _listTrackerModulesDetail();
     super.initState();
   }
+
+  void _getTrackerModuleDetail() =>
+      BlocProvider.of<TrackerModuleDetailBloc>(context).add(
+        GetTrackerModuleDetailEvent(
+          id: widget.id,
+        ),
+      );
+
+  void _listTrackerModulesDetail() =>
+      BlocProvider.of<TrackerModulesDetailBloc>(context).add(
+        const ListTrackerModulesDetailEvent(),
+      );
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -72,6 +78,74 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
                 ),
             },
           ),
+          actions: [
+            BlocBuilder<TrackerModuleDetailBloc, TrackerModuleDetailState>(
+              builder: (_, trackerModuleDetailState) => BlocBuilder<
+                  TrackerModulesDetailBloc, TrackerModulesDetailState>(
+                builder: (_, trackerModulesDetailState) {
+                  if ((trackerModuleDetailState
+                              is FailedToGetTrackerModuleDetailState &&
+                          trackerModulesDetailState
+                              is FailedToListTrackerModulesDetailState) ||
+                      (trackerModuleDetailState
+                              is FailedToGetTrackerModuleDetailState &&
+                          trackerModulesDetailState
+                              is ListedTrackerModulesDetailState) ||
+                      (trackerModuleDetailState
+                              is GotTrackerModuleDetailState &&
+                          trackerModulesDetailState
+                              is FailedToListTrackerModulesDetailState)) {
+                    return IconButton(
+                      onPressed: () {
+                        if (trackerModuleDetailState
+                                is FailedToGetTrackerModuleDetailState &&
+                            trackerModulesDetailState
+                                is FailedToListTrackerModulesDetailState) {
+                          _getTrackerModuleDetail();
+                          _listTrackerModulesDetail();
+                        } else if (trackerModuleDetailState
+                                is FailedToGetTrackerModuleDetailState &&
+                            trackerModulesDetailState
+                                is ListedTrackerModulesDetailState) {
+                          _getTrackerModuleDetail();
+                        } else if (trackerModuleDetailState
+                                is GotTrackerModuleDetailState &&
+                            trackerModulesDetailState
+                                is FailedToListTrackerModulesDetailState) {
+                          _listTrackerModulesDetail();
+                        }
+                      },
+                      icon: const Icon(
+                        Icons.refresh,
+                      ),
+                    );
+                  }
+
+                  return const SizedBox.shrink();
+                },
+              ),
+            ),
+            BlocBuilder<TrackerModuleDetailBloc, TrackerModuleDetailState>(
+              builder: (_, trackerModuleDetailState) =>
+                  switch (trackerModuleDetailState) {
+                GotTrackerModuleDetailState(
+                  trackerModuleEntity: final entity,
+                ) =>
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.edit,
+                    ),
+                  ),
+                _ => const IconButton(
+                    onPressed: null,
+                    icon: Icon(
+                      Icons.edit,
+                    ),
+                  ),
+              },
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsetsDirectional.symmetric(

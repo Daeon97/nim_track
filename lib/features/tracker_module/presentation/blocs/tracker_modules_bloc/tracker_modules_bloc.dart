@@ -27,12 +27,12 @@ class TrackerModulesBloc
             await _trackerModuleUseCase.listTrackerModules();
         failureOrTrackerModuleEntities.fold(
           (failure) => add(
-            FailedToListTrackerModulesEvent(
+            _FailedToListTrackerModulesEvent(
               failure: failure,
             ),
           ),
           (trackerModuleEntities) => add(
-            ListedTrackerModulesEvent(
+            _ListedTrackerModulesEvent(
               trackerModuleEntities: trackerModuleEntities,
             ),
           ),
@@ -40,7 +40,7 @@ class TrackerModulesBloc
       },
     );
 
-    on<ListedTrackerModulesEvent>(
+    on<_ListedTrackerModulesEvent>(
       (event, emit) => emit(
         ListedTrackerModulesState(
           trackerModuleEntities: event.trackerModuleEntities,
@@ -48,7 +48,7 @@ class TrackerModulesBloc
       ),
     );
 
-    on<FailedToListTrackerModulesEvent>(
+    on<_FailedToListTrackerModulesEvent>(
       (event, emit) => emit(
         FailedToListTrackerModulesState(
           failure: event.failure,

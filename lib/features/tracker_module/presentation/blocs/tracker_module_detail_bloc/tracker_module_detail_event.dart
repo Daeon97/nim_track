@@ -19,8 +19,8 @@ final class GetTrackerModuleDetailEvent extends TrackerModuleDetailEvent {
       ];
 }
 
-final class GotTrackerModuleDetailEvent extends TrackerModuleDetailEvent {
-  const GotTrackerModuleDetailEvent({
+final class _GotTrackerModuleDetailEvent extends TrackerModuleDetailEvent {
+  const _GotTrackerModuleDetailEvent({
     required this.trackerModuleEntity,
   });
 
@@ -32,9 +32,9 @@ final class GotTrackerModuleDetailEvent extends TrackerModuleDetailEvent {
       ];
 }
 
-final class FailedToGetTrackerModuleDetailEvent
+final class _FailedToGetTrackerModuleDetailEvent
     extends TrackerModuleDetailEvent {
-  const FailedToGetTrackerModuleDetailEvent({
+  const _FailedToGetTrackerModuleDetailEvent({
     required this.failure,
   });
 
