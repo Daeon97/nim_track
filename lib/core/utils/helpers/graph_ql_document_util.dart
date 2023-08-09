@@ -44,7 +44,7 @@ final class GraphQLDocumentUtil {
   }) =>
       '''
         mutation UpdateTrackerModuleNameMutation {
-          updateTrackerModuleName(input: {id: $id, name: $name})
+          updateTrackerModuleName(input: {id: $id, name: "$name"})
         }
       ''';
 }

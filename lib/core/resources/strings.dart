@@ -77,6 +77,16 @@ const notEnoughDataLiteral = 'Not enough data';
 const errorDisplayingDataLiteral = 'Error displaying data';
 const pmLiteral = 'PM';
 const kmLiteral = 'KM';
+const okayLiteral = 'Okay';
+const nodeNameLiteral = 'Node name';
+const enterValidNameLiteral = 'Please enter a valid name';
+const enterDifferentNameLiteral =
+    'Please enter a different name from the already existing name';
+const couldNotUpdateNodeNameLiteral = 'Node name could not be updated';
+const nodeNameUpdatedToLiteral = 'Node name updated to';
+const refreshToSeeLatestChanges = 'Please refresh to see latest changes';
+const updatingLiteral = 'Updating';
+const retryLiteral = 'Retry';
 
 // Special characters
 const percentage = '%';
@@ -86,3 +96,5 @@ const verticalBar = '|';
 const colon = ':';
 const newLine = '\n';
 const distancesTravelledSectionExplodeOffset = '20%';
+const singleQuote = "'";
+const fullStop = '.';
