@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/core/utils/enums.dart';
-import 'package:nim_track/core/utils/helpers/timestamp_util.dart';
+import 'package:nim_track/core/utils/helpers/time_util.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/all_tracker_modules_or_one_tracker_module/all_tracker_modules_or_one_tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
@@ -117,7 +117,7 @@ class NodeSummaryBottomCard extends StatelessWidget {
                                       CardType.batteryLevel =>
                                         '${trackerModuleState.trackerModuleEntity.data.last.batteryLevel}$percentage',
                                       CardType.time =>
-                                        TimestampUtil.computeHourMinuteAmPm(
+                                        TimeUtil.computeHourMinuteAmPm(
                                           trackerModuleState.trackerModuleEntity
                                               .data.last.timestamp,
                                         )

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nim_track/core/resources/colors.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
-import 'package:nim_track/core/utils/helpers/timestamp_util.dart';
+import 'package:nim_track/core/utils/helpers/time_util.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/battery_level_icon_widget.dart';
 
 class NodeDataNodeDetailsCard extends StatelessWidget {
@@ -53,7 +53,10 @@ class NodeDataNodeDetailsCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(
-                      Icons.developer_board,
+                      switch (faulty) {
+                        true => Icons.developer_board_off,
+                        false => Icons.developer_board
+                      },
                       color: !faulty ? nodeAvailableColor : nodeProblemsColor,
                     ),
                     const SizedBox(
@@ -84,7 +87,7 @@ class NodeDataNodeDetailsCard extends StatelessWidget {
                               ),
                               Expanded(
                                 child: Text(
-                                  TimestampUtil.computeHourMinuteAmPm(
+                                  TimeUtil.computeHourMinuteAmPm(
                                     lastTransmissionDate,
                                   ),
                                   maxLines: veryTinySpacing.toInt(),

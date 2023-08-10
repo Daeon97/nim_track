@@ -2,8 +2,7 @@
 
 import 'package:intl/intl.dart';
 
-// Reference this class from BLOC not UI
-final class TimestampUtil {
+final class TimeUtil {
   static String computeHourMinuteAmPm(int timestamp) => DateFormat.jm().format(
         DateTime.fromMillisecondsSinceEpoch(
           timestamp,
@@ -28,4 +27,6 @@ final class TimestampUtil {
       DateTime.fromMillisecondsSinceEpoch(
         timestamp,
       );
+
+  static DateTime get currentDateTime => DateTime.now();
 }

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/core/utils/enums.dart';
+import 'package:nim_track/core/utils/extensions/tracker_module_related_entities_convenience_utils.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/node_data_node_details_card.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/node_data_top_card.dart';
@@ -47,7 +48,7 @@ class NodeDataCard extends StatelessWidget {
                       name: entities[index].name ??
                           '$nodeLiteral ${entities[index].id}',
                       batteryLevel: entities[index].data.last.batteryLevel,
-                      faulty: false,
+                      faulty: entities[index].faulty,
                       lastTransmissionDate: entities[index].data.last.timestamp,
                     ),
                     growable: false,

@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/core/utils/enums.dart';
-import 'package:nim_track/core/utils/helpers/timestamp_util.dart';
+import 'package:nim_track/core/utils/helpers/time_util.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_detail_bloc/tracker_module_detail_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/battery_level_icon_widget.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer_widgets/first_section_card_shimmer_child.dart';
@@ -89,9 +89,9 @@ class FirstSectionCard extends StatelessWidget {
                             CardType.batteryLevel =>
                               '${entity.data.last.batteryLevel}$percentage',
                             CardType.time =>
-                              '${TimestampUtil.computeDayMonthDate(
+                              '${TimeUtil.computeDayMonthDate(
                                 entity.data.last.timestamp,
-                              )} ${TimestampUtil.computeHourMinuteAmPm(
+                              )} ${TimeUtil.computeHourMinuteAmPm(
                                 entity.data.last.timestamp,
                               )}',
                           },

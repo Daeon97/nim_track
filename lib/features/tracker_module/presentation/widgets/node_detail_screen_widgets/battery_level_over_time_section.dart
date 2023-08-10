@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
-import 'package:nim_track/core/utils/helpers/timestamp_util.dart';
+import 'package:nim_track/core/utils/helpers/time_util.dart';
 import 'package:nim_track/features/tracker_module/domain/entities/tracker_module_entity.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_detail_bloc/tracker_module_detail_bloc.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -101,7 +101,7 @@ class BatteryLevelOverTimeSection extends StatelessWidget {
                           xAxisName: batteryLevelLiteral,
                           yAxisName: timeLiteral,
                           xValueMapper: (trackerModuleDataEntity, _) =>
-                              TimestampUtil.computeDateTime(
+                              TimeUtil.computeDateTime(
                             trackerModuleDataEntity.timestamp,
                           ),
                           yValueMapper: (trackerModuleDataEntity, _) =>

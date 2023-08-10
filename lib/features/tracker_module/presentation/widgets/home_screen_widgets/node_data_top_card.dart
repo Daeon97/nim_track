@@ -71,7 +71,7 @@ class NodeDataTopCard extends StatelessWidget {
                         Text(
                           switch (indicator) {
                             Indicator.available => '${entities.length}',
-                            Indicator.faulty => '${entities.faultyNodes}'
+                            Indicator.faulty => '${entities.faultyNodesCount}'
                           },
                           maxLines: veryTinySpacing.toInt(),
                           overflow: TextOverflow.ellipsis,
