@@ -89,6 +89,8 @@ const updatingLiteral = 'Updating';
 const retryLiteral = 'Retry';
 const noTransmissionWithinlastHourLiteral =
     'This node has not sent new data within the last hour. It may be faulty';
+const noNodesLiteral = 'There are no nodes to display at this time';
+const noDataLiteral = 'No data';
 
 // Special characters
 const percentage = '%';

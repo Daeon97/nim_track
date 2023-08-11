@@ -47,110 +47,123 @@ class _NodeSummaryCardState extends State<NodeSummaryCard> {
                 ) =>
                   Row(
                     children: [
-                      IconButton(
-                        onPressed: () {
-                          if (_listWheelScrollViewController.selectedItem >
-                              _listWheelScrollViewController.initialItem) {
-                            _listWheelScrollViewController.animateToItem(
-                              _listWheelScrollViewController.selectedItem -
-                                  veryTinySpacing.toInt(),
-                              duration: const Duration(
-                                milliseconds:
-                                    nodeSummaryCardFirstCardListWheelScrollViewAnimationDurationMilliseconds,
-                              ),
-                              curve: Curves.easeIn,
-                            );
-                          }
-                        },
-                        icon: const Icon(
-                          Icons.arrow_left,
+                      if (entities.isEmpty)
+                        const SizedBox.shrink()
+                      else
+                        IconButton(
+                          onPressed: () {
+                            if (_listWheelScrollViewController.selectedItem >
+                                _listWheelScrollViewController.initialItem) {
+                              _listWheelScrollViewController.animateToItem(
+                                _listWheelScrollViewController.selectedItem -
+                                    veryTinySpacing.toInt(),
+                                duration: const Duration(
+                                  milliseconds:
+                                      nodeSummaryCardFirstCardListWheelScrollViewAnimationDurationMilliseconds,
+                                ),
+                                curve: Curves.easeIn,
+                              );
+                            }
+                          },
+                          icon: const Icon(
+                            Icons.arrow_left,
+                          ),
                         ),
-                      ),
                       Expanded(
-                        child: RotatedBox(
-                          quarterTurns: -veryTinySpacing.toInt(),
-                          child: ListWheelScrollView(
-                            controller: _listWheelScrollViewController,
-                            itemExtent: extraLargeSpacing + largeSpacing,
-                            diameterRatio: tinySpacing + veryTinySpacing,
-                            children: List<Widget>.generate(
-                              entities.length,
-                              (index) => RotatedBox(
-                                quarterTurns: veryTinySpacing.toInt(),
-                                child: BlocBuilder<
-                                    AllTrackerModulesOrOneTrackerModuleBloc,
-                                    AllTrackerModulesOrOneTrackerModuleState>(
-                                  builder: (
-                                    _,
-                                    allTrackerModulesOrOneTrackerModuleState,
-                                  ) =>
-                                      BlocBuilder<TrackerModuleBloc,
-                                          TrackerModuleState>(
-                                    builder: (_, trackerModuleState) =>
-                                        ChoiceChip(
-                                      label: Text(
-                                        entities[index].name ??
-                                            '$nodeLiteral ${entities[index].id}',
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: tinySpacing.toInt(),
+                        child: entities.isEmpty
+                            ? Icon(
+                                Icons.developer_board_off,
+                                size: largeSpacing + spacing,
+                                color: Theme.of(context).dividerColor,
+                              )
+                            : RotatedBox(
+                                quarterTurns: -veryTinySpacing.toInt(),
+                                child: ListWheelScrollView(
+                                  controller: _listWheelScrollViewController,
+                                  itemExtent: extraLargeSpacing + largeSpacing,
+                                  diameterRatio: tinySpacing + veryTinySpacing,
+                                  children: List<Widget>.generate(
+                                    entities.length,
+                                    (index) => RotatedBox(
+                                      quarterTurns: veryTinySpacing.toInt(),
+                                      child: BlocBuilder<
+                                          AllTrackerModulesOrOneTrackerModuleBloc,
+                                          AllTrackerModulesOrOneTrackerModuleState>(
+                                        builder: (
+                                          _,
+                                          allTrackerModulesOrOneTrackerModuleState,
+                                        ) =>
+                                            BlocBuilder<TrackerModuleBloc,
+                                                TrackerModuleState>(
+                                          builder: (_, trackerModuleState) =>
+                                              ChoiceChip(
+                                            label: Text(
+                                              entities[index].name ??
+                                                  '$nodeLiteral ${entities[index].id}',
+                                              textAlign: TextAlign.center,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: tinySpacing.toInt(),
+                                            ),
+                                            selected: allTrackerModulesOrOneTrackerModuleState
+                                                    is OneTrackerModuleState &&
+                                                trackerModuleState
+                                                    is GotTrackerModuleState &&
+                                                trackerModuleState
+                                                        .trackerModuleEntity
+                                                        .id ==
+                                                    entities[index].id,
+                                            onSelected: (selected) =>
+                                                trackerModuleState
+                                                        is GettingTrackerModuleState
+                                                    ? null
+                                                    : switch (selected) {
+                                                        true => context
+                                                            .read<
+                                                                AllTrackerModulesOrOneTrackerModuleBloc>()
+                                                            .add(
+                                                              GetOneTrackerModuleEvent(
+                                                                id: entities[
+                                                                        index]
+                                                                    .id,
+                                                              ),
+                                                            ),
+                                                        false => context
+                                                            .read<
+                                                                AllTrackerModulesOrOneTrackerModuleBloc>()
+                                                            .add(
+                                                              const GetAllTrackerModulesEvent(),
+                                                            )
+                                                      },
+                                          ),
+                                        ),
                                       ),
-                                      selected:
-                                          allTrackerModulesOrOneTrackerModuleState
-                                                  is OneTrackerModuleState &&
-                                              trackerModuleState
-                                                  is GotTrackerModuleState &&
-                                              trackerModuleState
-                                                      .trackerModuleEntity.id ==
-                                                  entities[index].id,
-                                      onSelected: (selected) =>
-                                          trackerModuleState
-                                                  is GettingTrackerModuleState
-                                              ? null
-                                              : switch (selected) {
-                                                  true => context
-                                                      .read<
-                                                          AllTrackerModulesOrOneTrackerModuleBloc>()
-                                                      .add(
-                                                        GetOneTrackerModuleEvent(
-                                                          id: entities[index]
-                                                              .id,
-                                                        ),
-                                                      ),
-                                                  false => context
-                                                      .read<
-                                                          AllTrackerModulesOrOneTrackerModuleBloc>()
-                                                      .add(
-                                                        const GetAllTrackerModulesEvent(),
-                                                      )
-                                                },
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
+                      ),
+                      if (entities.isEmpty)
+                        const SizedBox.shrink()
+                      else
+                        IconButton(
+                          onPressed: () {
+                            if (_listWheelScrollViewController.selectedItem <
+                                entities.length - veryTinySpacing.toInt()) {
+                              _listWheelScrollViewController.animateToItem(
+                                _listWheelScrollViewController.selectedItem +
+                                    veryTinySpacing.toInt(),
+                                duration: const Duration(
+                                  milliseconds:
+                                      nodeSummaryCardFirstCardListWheelScrollViewAnimationDurationMilliseconds,
+                                ),
+                                curve: Curves.easeIn,
+                              );
+                            }
+                          },
+                          icon: const Icon(
+                            Icons.arrow_right,
                           ),
                         ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          if (_listWheelScrollViewController.selectedItem <
-                              entities.length - veryTinySpacing.toInt()) {
-                            _listWheelScrollViewController.animateToItem(
-                              _listWheelScrollViewController.selectedItem +
-                                  veryTinySpacing.toInt(),
-                              duration: const Duration(
-                                milliseconds:
-                                    nodeSummaryCardFirstCardListWheelScrollViewAnimationDurationMilliseconds,
-                              ),
-                              curve: Curves.easeIn,
-                            );
-                          }
-                        },
-                        icon: const Icon(
-                          Icons.arrow_right,
-                        ),
-                      ),
                     ],
                   ),
                 _ => const ShimmerWidget(

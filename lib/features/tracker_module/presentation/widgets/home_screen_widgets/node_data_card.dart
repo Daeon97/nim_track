@@ -39,7 +39,8 @@ class NodeDataCard extends StatelessWidget {
               ListingTrackerModulesState() => const ShimmerWidget(),
               ListedTrackerModulesState(
                 trackerModuleEntities: final entities,
-              ) =>
+              )
+                  when entities.isNotEmpty =>
                 Column(
                   children: List<Widget>.generate(
                     entities.length,
@@ -52,6 +53,37 @@ class NodeDataCard extends StatelessWidget {
                       lastTransmissionDate: entities[index].data.last.timestamp,
                     ),
                     growable: false,
+                  ),
+                ),
+              ListedTrackerModulesState(
+                trackerModuleEntities: final entities,
+              )
+                  when entities.isEmpty =>
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / twoDotFive,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: spacing,
+                      ),
+                      Icon(
+                        Icons.developer_board_off,
+                        size: largeSpacing + spacing,
+                        color: Theme.of(context).dividerColor,
+                      ),
+                      const SizedBox(
+                        height: smallSpacing,
+                      ),
+                      Text(
+                        noNodesLiteral,
+                        style: Theme.of(context).textTheme.bodyMedium?.merge(
+                              TextStyle(
+                                color: Theme.of(context).dividerColor,
+                              ),
+                            ),
+                      ),
+                    ],
                   ),
                 ),
               _ => const ShimmerWidget(

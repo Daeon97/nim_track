@@ -145,7 +145,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 await _polylineAnnotationManager?.deleteAll();
               }
 
-              if (trackerModulesState is ListedTrackerModulesState) {
+              if (trackerModulesState is ListedTrackerModulesState &&
+                  trackerModulesState.trackerModuleEntities.isNotEmpty) {
                 for (final trackerModuleEntity
                     in trackerModulesState.trackerModuleEntities) {
                   final pointAnnotationManager = await _mapboxMap?.addMarker(

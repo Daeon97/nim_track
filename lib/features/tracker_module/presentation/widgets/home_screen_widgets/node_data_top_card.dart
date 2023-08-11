@@ -43,6 +43,8 @@ class NodeDataTopCard extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(
                   color: switch (indicator) {
+                    Indicator.available when entities.isEmpty =>
+                      Theme.of(context).dividerColor,
                     Indicator.potentiallyFaulty
                         when entities.potentiallyFaultyNodes == nil.toInt() =>
                       Theme.of(context).dividerColor,
@@ -61,6 +63,8 @@ class NodeDataTopCard extends StatelessWidget {
                   children: [
                     Icon(
                       switch (indicator) {
+                        Indicator.available when entities.isEmpty =>
+                          Icons.developer_board_off,
                         Indicator.potentiallyFaulty
                             when entities.potentiallyFaultyNodes ==
                                 nil.toInt() =>
@@ -68,7 +72,10 @@ class NodeDataTopCard extends StatelessWidget {
                         _ => Icons.developer_board
                       },
                       color: switch (indicator) {
-                        Indicator.available => availableNodesColor,
+                        Indicator.available when entities.isNotEmpty =>
+                          availableNodesColor,
+                        Indicator.available when entities.isEmpty =>
+                          noAvailableNodesColor,
                         Indicator.potentiallyFaulty
                             when entities.potentiallyFaultyNodes >
                                 nil.toInt() =>
@@ -93,6 +100,8 @@ class NodeDataTopCard extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyMedium?.merge(
                                 TextStyle(
                                   color: switch (indicator) {
+                                    Indicator.available when entities.isEmpty =>
+                                      Theme.of(context).dividerColor,
                                     Indicator.potentiallyFaulty
                                         when entities.potentiallyFaultyNodes ==
                                             nil.toInt() =>
@@ -114,6 +123,8 @@ class NodeDataTopCard extends StatelessWidget {
                                 TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: switch (indicator) {
+                                    Indicator.available when entities.isEmpty =>
+                                      Theme.of(context).dividerColor,
                                     Indicator.potentiallyFaulty
                                         when entities.potentiallyFaultyNodes ==
                                             nil.toInt() =>
