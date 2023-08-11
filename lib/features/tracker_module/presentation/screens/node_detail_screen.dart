@@ -6,7 +6,8 @@ import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/core/utils/enums.dart' as enums;
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_detail_bloc/tracker_module_detail_bloc.dart';
-import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_name_bloc/tracker_module_name_bloc.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_name_get_bloc/tracker_module_name_get_bloc.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_name_update_bloc/tracker_module_name_update_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_detail_bloc/tracker_modules_detail_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/area_covered_section.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/battery_level_over_time_section.dart';
@@ -32,10 +33,21 @@ class NodeDetailScreen extends StatefulWidget {
 class _NodeDetailScreenState extends State<NodeDetailScreen> {
   @override
   void initState() {
+    _getTrackerModuleName();
     _getTrackerModuleDetail();
     _listTrackerModulesDetail();
     super.initState();
   }
+
+  void _getTrackerModuleName() =>
+      BlocProvider.of<TrackerModuleNameGetBloc>(context).add(
+        GetTrackerModuleNameEvent(
+          id: widget.id,
+          fields: const [
+            enums.Field.name,
+          ],
+        ),
+      );
 
   void _getTrackerModuleDetail() =>
       BlocProvider.of<TrackerModuleDetailBloc>(context).add(
@@ -61,18 +73,19 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
 
   @override
   Widget build(BuildContext context) =>
-      BlocListener<TrackerModuleNameBloc, TrackerModuleNameState>(
-        listener: (trackerModuleNameContext, trackerModuleNameState) {
-          if (trackerModuleNameState is UpdatedTrackerModuleNameState) {
+      BlocListener<TrackerModuleNameUpdateBloc, TrackerModuleNameUpdateState>(
+        listener: (_, trackerModuleNameUpdateState) {
+          if (trackerModuleNameUpdateState is UpdatedTrackerModuleNameState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  '$nodeNameUpdatedToLiteral $singleQuote${trackerModuleNameState.result}$singleQuote$fullStop $refreshToSeeLatestChanges',
+                  '$nodeNameUpdatedToLiteral $singleQuote${trackerModuleNameUpdateState.result}$singleQuote',
                 ),
                 dismissDirection: DismissDirection.horizontal,
               ),
             );
-          } else if (trackerModuleNameState
+            _getTrackerModuleName();
+          } else if (trackerModuleNameUpdateState
               is FailedToUpdateTrackerModuleNameState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -87,10 +100,10 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
                 action: SnackBarAction(
                   label: retryLiteral,
                   onPressed: () {
-                    trackerModuleNameContext.read<TrackerModuleNameBloc>().add(
+                    context.read<TrackerModuleNameUpdateBloc>().add(
                           UpdateTrackerModuleNameEvent(
-                            id: trackerModuleNameState.id,
-                            name: trackerModuleNameState.name,
+                            id: trackerModuleNameUpdateState.id,
+                            name: trackerModuleNameUpdateState.name,
                           ),
                         );
                     ScaffoldMessenger.of(context).clearSnackBars();
@@ -109,19 +122,19 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
                 ),
               ),
             ),
-            title:
-                BlocBuilder<TrackerModuleDetailBloc, TrackerModuleDetailState>(
-              builder: (_, trackerModuleDetailState) =>
-                  switch (trackerModuleDetailState) {
-                GettingTrackerModuleDetailState() => const ShimmerWidget(
+            title: BlocBuilder<TrackerModuleNameGetBloc,
+                TrackerModuleNameGetState>(
+              builder: (_, trackerModuleNameGetState) =>
+                  switch (trackerModuleNameGetState) {
+                GettingTrackerModuleNameState() => const ShimmerWidget(
                     radius: nil,
                     child: FirstSectionCardShimmerChild(),
                   ),
-                GotTrackerModuleDetailState(
-                  trackerModuleEntity: final entity,
+                GotTrackerModuleNameState(
+                  result: final name,
                 ) =>
                   Text(
-                    entity.name ?? '$nodeLiteral ${entity.id}',
+                    name ?? '$nodeLiteral ${widget.id}',
                     maxLines: veryTinySpacing.toInt(),
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -136,58 +149,123 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
               BlocBuilder<TrackerModuleDetailBloc, TrackerModuleDetailState>(
                 builder: (_, trackerModuleDetailState) => BlocBuilder<
                     TrackerModulesDetailBloc, TrackerModulesDetailState>(
-                  builder: (_, trackerModulesDetailState) {
-                    if ((trackerModuleDetailState
-                                is FailedToGetTrackerModuleDetailState &&
-                            trackerModulesDetailState
-                                is FailedToListTrackerModulesDetailState) ||
-                        (trackerModuleDetailState
-                                is FailedToGetTrackerModuleDetailState &&
-                            trackerModulesDetailState
-                                is ListedTrackerModulesDetailState) ||
-                        (trackerModuleDetailState
-                                is GotTrackerModuleDetailState &&
-                            trackerModulesDetailState
-                                is FailedToListTrackerModulesDetailState)) {
-                      return IconButton(
-                        onPressed: () {
-                          if (trackerModuleDetailState
+                  builder: (_, trackerModulesDetailState) => BlocBuilder<
+                      TrackerModuleNameGetBloc, TrackerModuleNameGetState>(
+                    builder: (_, trackerModuleNameGetState) {
+                      if ((trackerModuleDetailState is FailedToGetTrackerModuleDetailState && trackerModulesDetailState is FailedToListTrackerModulesDetailState && trackerModuleNameGetState is FailedToGetTrackerModuleNameState) ||
+                          (trackerModuleDetailState
                                   is FailedToGetTrackerModuleDetailState &&
                               trackerModulesDetailState
-                                  is FailedToListTrackerModulesDetailState) {
-                            _getTrackerModuleDetail();
-                            _listTrackerModulesDetail();
-                          } else if (trackerModuleDetailState
+                                  is FailedToListTrackerModulesDetailState &&
+                              trackerModuleNameGetState
+                                  is GotTrackerModuleNameState) ||
+                          (trackerModuleDetailState
                                   is FailedToGetTrackerModuleDetailState &&
                               trackerModulesDetailState
-                                  is ListedTrackerModulesDetailState) {
-                            _getTrackerModuleDetail();
-                          } else if (trackerModuleDetailState
+                                  is ListedTrackerModulesDetailState &&
+                              trackerModuleNameGetState
+                                  is FailedToGetTrackerModuleNameState) ||
+                          (trackerModuleDetailState is FailedToGetTrackerModuleDetailState &&
+                              trackerModulesDetailState
+                                  is ListedTrackerModulesDetailState &&
+                              trackerModuleNameGetState
+                                  is GotTrackerModuleNameState) ||
+                          (trackerModuleDetailState
                                   is GotTrackerModuleDetailState &&
                               trackerModulesDetailState
-                                  is FailedToListTrackerModulesDetailState) {
-                            _listTrackerModulesDetail();
-                          }
-                        },
-                        icon: const Icon(
-                          Icons.refresh,
-                        ),
-                      );
-                    }
+                                  is FailedToListTrackerModulesDetailState &&
+                              trackerModuleNameGetState
+                                  is FailedToGetTrackerModuleNameState) ||
+                          (trackerModuleDetailState
+                                  is GotTrackerModuleDetailState &&
+                              trackerModulesDetailState
+                                  is FailedToListTrackerModulesDetailState &&
+                              trackerModuleNameGetState
+                                  is GotTrackerModuleNameState) ||
+                          (trackerModuleDetailState
+                                  is GotTrackerModuleDetailState &&
+                              trackerModulesDetailState
+                                  is ListedTrackerModulesDetailState &&
+                              trackerModuleNameGetState
+                                  is FailedToGetTrackerModuleNameState)) {
+                        return IconButton(
+                          onPressed: () {
+                            if (trackerModuleDetailState
+                                    is FailedToGetTrackerModuleDetailState &&
+                                trackerModulesDetailState
+                                    is FailedToListTrackerModulesDetailState &&
+                                trackerModuleNameGetState
+                                    is FailedToGetTrackerModuleNameState) {
+                              _getTrackerModuleName();
+                              _getTrackerModuleDetail();
+                              _listTrackerModulesDetail();
+                            } else if (trackerModuleDetailState
+                                    is FailedToGetTrackerModuleDetailState &&
+                                trackerModulesDetailState
+                                    is FailedToListTrackerModulesDetailState &&
+                                trackerModuleNameGetState
+                                    is GotTrackerModuleNameState) {
+                              _getTrackerModuleDetail();
+                              _listTrackerModulesDetail();
+                            } else if (trackerModuleDetailState
+                                    is FailedToGetTrackerModuleDetailState &&
+                                trackerModulesDetailState
+                                    is ListedTrackerModulesDetailState &&
+                                trackerModuleNameGetState
+                                    is FailedToGetTrackerModuleNameState) {
+                              _getTrackerModuleName();
+                              _getTrackerModuleDetail();
+                            } else if (trackerModuleDetailState
+                                    is FailedToGetTrackerModuleDetailState &&
+                                trackerModulesDetailState
+                                    is ListedTrackerModulesDetailState &&
+                                trackerModuleNameGetState
+                                    is GotTrackerModuleNameState) {
+                              _getTrackerModuleDetail();
+                            } else if (trackerModuleDetailState
+                                    is GotTrackerModuleDetailState &&
+                                trackerModulesDetailState
+                                    is FailedToListTrackerModulesDetailState &&
+                                trackerModuleNameGetState
+                                    is FailedToGetTrackerModuleNameState) {
+                              _getTrackerModuleName();
+                              _listTrackerModulesDetail();
+                            } else if (trackerModuleDetailState
+                                    is GotTrackerModuleDetailState &&
+                                trackerModulesDetailState
+                                    is FailedToListTrackerModulesDetailState &&
+                                trackerModuleNameGetState
+                                    is GotTrackerModuleNameState) {
+                              _listTrackerModulesDetail();
+                            } else if (trackerModuleDetailState
+                                    is GotTrackerModuleDetailState &&
+                                trackerModulesDetailState
+                                    is ListedTrackerModulesDetailState &&
+                                trackerModuleNameGetState
+                                    is FailedToGetTrackerModuleNameState) {
+                              _getTrackerModuleName();
+                            }
+                          },
+                          icon: const Icon(
+                            Icons.refresh,
+                          ),
+                        );
+                      }
 
-                    return const SizedBox.shrink();
-                  },
+                      return const SizedBox.shrink();
+                    },
+                  ),
                 ),
               ),
-              BlocBuilder<TrackerModuleDetailBloc, TrackerModuleDetailState>(
-                builder: (_, trackerModuleDetailState) =>
-                    BlocBuilder<TrackerModuleNameBloc, TrackerModuleNameState>(
-                  builder: (_, trackerModuleNameState) =>
-                      switch (trackerModuleDetailState) {
-                    GotTrackerModuleDetailState(
-                      trackerModuleEntity: final entity,
+              BlocBuilder<TrackerModuleNameGetBloc, TrackerModuleNameGetState>(
+                builder: (_, trackerModuleNameGetState) => BlocBuilder<
+                    TrackerModuleNameUpdateBloc, TrackerModuleNameUpdateState>(
+                  builder: (_, trackerModuleNameUpdateState) =>
+                      switch (trackerModuleNameGetState) {
+                    GotTrackerModuleNameState(
+                      result: final name,
                     )
-                        when trackerModuleNameState
+                        when trackerModuleNameUpdateState
                             is! UpdatingTrackerModuleNameState =>
                       IconButton(
                         onPressed: () => showModalBottomSheet<String>(
@@ -199,7 +277,7 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
                             ),
                             child: EditNodeNameSheet(
                               id: widget.id,
-                              name: entity.name,
+                              name: name,
                             ),
                           ),
                         ),

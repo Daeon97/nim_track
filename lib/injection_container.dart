@@ -13,7 +13,8 @@ import 'package:nim_track/features/tracker_module/domain/use_cases/tracker_modul
 import 'package:nim_track/features/tracker_module/presentation/blocs/all_tracker_modules_or_one_tracker_module/all_tracker_modules_or_one_tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_detail_bloc/tracker_module_detail_bloc.dart';
-import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_name_bloc/tracker_module_name_bloc.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_name_get_bloc/tracker_module_name_get_bloc.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_name_update_bloc/tracker_module_name_update_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_detail_bloc/tracker_modules_detail_bloc.dart';
 
@@ -51,7 +52,12 @@ void initDependencyInjection() {
       ),
     )
     ..registerFactory(
-      () => TrackerModuleNameBloc(
+      () => TrackerModuleNameUpdateBloc(
+        trackerModuleUseCase: sl(),
+      ),
+    )
+    ..registerFactory(
+      () => TrackerModuleNameGetBloc(
         trackerModuleUseCase: sl(),
       ),
     )

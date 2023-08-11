@@ -7,17 +7,17 @@ import 'package:equatable/equatable.dart';
 import 'package:nim_track/core/errors/failure.dart';
 import 'package:nim_track/features/tracker_module/domain/use_cases/tracker_module_use_case.dart';
 
-part 'tracker_module_name_event.dart';
+part 'tracker_module_name_update_event.dart';
 
-part 'tracker_module_name_state.dart';
+part 'tracker_module_name_update_state.dart';
 
-class TrackerModuleNameBloc
-    extends Bloc<TrackerModuleNameEvent, TrackerModuleNameState> {
-  TrackerModuleNameBloc({
+class TrackerModuleNameUpdateBloc
+    extends Bloc<TrackerModuleNameUpdateEvent, TrackerModuleNameUpdateState> {
+  TrackerModuleNameUpdateBloc({
     required TrackerModuleUseCase trackerModuleUseCase,
   })  : _trackerModuleUseCase = trackerModuleUseCase,
         super(
-          const TrackerModuleNameInitialState(),
+          const TrackerModuleNameUpdateInitialState(),
         ) {
     on<UpdateTrackerModuleNameEvent>(
       (event, emit) async {

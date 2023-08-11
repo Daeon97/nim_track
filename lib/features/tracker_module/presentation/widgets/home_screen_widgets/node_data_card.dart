@@ -78,6 +78,7 @@ class NodeDataCard extends StatelessWidget {
                       ),
                       Text(
                         noNodesLiteral,
+                        textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium?.merge(
                               TextStyle(
                                 color: Theme.of(context).dividerColor,
