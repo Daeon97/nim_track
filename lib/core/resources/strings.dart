@@ -87,6 +87,8 @@ const nodeNameUpdatedToLiteral = 'Node name updated to';
 const refreshToSeeLatestChanges = 'Please refresh to see latest changes';
 const updatingLiteral = 'Updating';
 const retryLiteral = 'Retry';
+const noTransmissionWithinlastHourLiteral =
+    'This node has not sent new data within the last hour. It may be faulty';
 
 // Special characters
 const percentage = '%';

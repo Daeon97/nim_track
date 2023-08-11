@@ -25,12 +25,7 @@ enum Field {
   timestamp,
 }
 
-enum Problem {
-  noTransmissionWithinlastHour,
-  latestTransmissionBehindOthers,
-}
-
 enum Indicator {
   available,
-  faulty,
+  potentiallyFaulty,
 }

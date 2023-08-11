@@ -29,7 +29,7 @@ class NodeDataCard extends StatelessWidget {
               ),
               Expanded(
                 child: NodeDataTopCard(
-                  indicator: Indicator.faulty,
+                  indicator: Indicator.potentiallyFaulty,
                 ),
               ),
             ],
@@ -48,7 +48,7 @@ class NodeDataCard extends StatelessWidget {
                       name: entities[index].name ??
                           '$nodeLiteral ${entities[index].id}',
                       batteryLevel: entities[index].data.last.batteryLevel,
-                      faulty: entities[index].faulty,
+                      potentiallyFaulty: entities[index].potentiallyFaulty,
                       lastTransmissionDate: entities[index].data.last.timestamp,
                     ),
                     growable: false,

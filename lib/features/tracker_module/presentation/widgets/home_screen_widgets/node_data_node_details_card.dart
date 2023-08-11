@@ -12,7 +12,7 @@ class NodeDataNodeDetailsCard extends StatelessWidget {
     required this.id,
     required this.name,
     required this.batteryLevel,
-    required this.faulty,
+    required this.potentiallyFaulty,
     required this.lastTransmissionDate,
     super.key,
   });
@@ -20,7 +20,7 @@ class NodeDataNodeDetailsCard extends StatelessWidget {
   final int id;
   final String name;
   final int batteryLevel;
-  final bool faulty;
+  final bool potentiallyFaulty;
   final int lastTransmissionDate;
 
   @override
@@ -53,11 +53,10 @@ class NodeDataNodeDetailsCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(
-                      switch (faulty) {
-                        true => Icons.developer_board_off,
-                        false => Icons.developer_board
-                      },
-                      color: !faulty ? nodeAvailableColor : nodeProblemsColor,
+                      Icons.developer_board,
+                      color: !potentiallyFaulty
+                          ? availableNodesColor
+                          : potentiallyFaultyNodesColor,
                     ),
                     const SizedBox(
                       width: spacing,

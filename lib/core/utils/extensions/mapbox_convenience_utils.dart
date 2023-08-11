@@ -49,7 +49,7 @@ extension MapboxConvenienceUtils on MapboxMap {
               )
               .toList(),
         ).toJson(),
-        lineColor: nodeAvailableColor.value,
+        lineColor: availableNodesColor.value,
         lineJoin: LineJoin.ROUND,
         lineWidth: veryTinySpacing + tinySpacing,
       ),

@@ -20,24 +20,40 @@ class NodeDataTopCard extends StatelessWidget {
   final Indicator indicator;
 
   @override
-  Widget build(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Theme.of(context).textTheme.bodyMedium!.color!,
-          ),
-          borderRadius: BorderRadius.circular(
-            spacing,
-          ),
-        ),
-        child: BlocBuilder<TrackerModulesBloc, TrackerModulesState>(
-          builder: (_, trackerModulesState) => switch (trackerModulesState) {
-            ListingTrackerModulesState() => const ShimmerWidget(
+  Widget build(BuildContext context) =>
+      BlocBuilder<TrackerModulesBloc, TrackerModulesState>(
+        builder: (_, trackerModulesState) => switch (trackerModulesState) {
+          ListingTrackerModulesState() => Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Theme.of(context).textTheme.bodyMedium!.color!,
+                ),
+                borderRadius: BorderRadius.circular(
+                  spacing,
+                ),
+              ),
+              child: const ShimmerWidget(
                 child: NodeDataTopCardShimmerChild(),
               ),
-            ListedTrackerModulesState(
-              trackerModuleEntities: final entities,
-            ) =>
-              Padding(
+            ),
+          ListedTrackerModulesState(
+            trackerModuleEntities: final entities,
+          ) =>
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: switch (indicator) {
+                    Indicator.potentiallyFaulty
+                        when entities.potentiallyFaultyNodes == nil.toInt() =>
+                      Theme.of(context).dividerColor,
+                    _ => Theme.of(context).textTheme.bodyMedium!.color!
+                  },
+                ),
+                borderRadius: BorderRadius.circular(
+                  spacing,
+                ),
+              ),
+              child: Padding(
                 padding: const EdgeInsetsDirectional.all(
                   smallSpacing,
                 ),
@@ -45,12 +61,19 @@ class NodeDataTopCard extends StatelessWidget {
                   children: [
                     Icon(
                       switch (indicator) {
-                        Indicator.available => Icons.developer_board,
-                        Indicator.faulty => Icons.developer_board_off
+                        Indicator.potentiallyFaulty
+                            when entities.potentiallyFaultyNodes ==
+                                nil.toInt() =>
+                          Icons.developer_board_off,
+                        _ => Icons.developer_board
                       },
                       color: switch (indicator) {
-                        Indicator.available => nodeAvailableColor,
-                        Indicator.faulty => nodeProblemsColor
+                        Indicator.available => availableNodesColor,
+                        Indicator.potentiallyFaulty
+                            when entities.potentiallyFaultyNodes >
+                                nil.toInt() =>
+                          potentiallyFaultyNodesColor,
+                        _ => noPotentiallyFaultyNodesColor
                       },
                     ),
                     const SizedBox(
@@ -63,21 +86,40 @@ class NodeDataTopCard extends StatelessWidget {
                         Text(
                           switch (indicator) {
                             Indicator.available => availableLiteral,
-                            Indicator.faulty => problemsLiteral
+                            Indicator.potentiallyFaulty => problemsLiteral
                           },
                           maxLines: veryTinySpacing.toInt(),
                           overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.bodyMedium?.merge(
+                                TextStyle(
+                                  color: switch (indicator) {
+                                    Indicator.potentiallyFaulty
+                                        when entities.potentiallyFaultyNodes ==
+                                            nil.toInt() =>
+                                      Theme.of(context).dividerColor,
+                                    _ => null,
+                                  },
+                                ),
+                              ),
                         ),
                         Text(
                           switch (indicator) {
                             Indicator.available => '${entities.length}',
-                            Indicator.faulty => '${entities.faultyNodesCount}'
+                            Indicator.potentiallyFaulty =>
+                              '${entities.potentiallyFaultyNodes}'
                           },
                           maxLines: veryTinySpacing.toInt(),
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.bodyLarge?.merge(
-                                const TextStyle(
+                                TextStyle(
                                   fontWeight: FontWeight.w600,
+                                  color: switch (indicator) {
+                                    Indicator.potentiallyFaulty
+                                        when entities.potentiallyFaultyNodes ==
+                                            nil.toInt() =>
+                                      Theme.of(context).dividerColor,
+                                    _ => null,
+                                  },
                                 ),
                               ),
                         ),
@@ -86,11 +128,21 @@ class NodeDataTopCard extends StatelessWidget {
                   ],
                 ),
               ),
-            _ => const ShimmerWidget(
+            ),
+          _ => Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Theme.of(context).textTheme.bodyMedium!.color!,
+                ),
+                borderRadius: BorderRadius.circular(
+                  spacing,
+                ),
+              ),
+              child: const ShimmerWidget(
                 stopShimmer: true,
                 child: NodeDataTopCardShimmerChild(),
               ),
-          },
-        ),
+            ),
+        },
       );
 }

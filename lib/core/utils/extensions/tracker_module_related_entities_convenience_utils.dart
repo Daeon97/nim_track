@@ -7,74 +7,38 @@ import 'package:nim_track/core/utils/helpers/time_util.dart';
 import 'package:nim_track/features/tracker_module/domain/entities/tracker_module_entity.dart';
 
 extension TrackerModuleEntityConvenienceUtils on TrackerModuleEntity {
-  bool get faulty => true;
-
-  List<enums.Problem> get faults => [
-        enums.Problem.noTransmissionWithinlastHour,
-        enums.Problem.latestTransmissionBehindOthers,
-      ];
+  bool get potentiallyFaulty => TimeUtil.computeDateTime(
+        data.last.timestamp,
+      ).isBefore(
+        TimeUtil.currentDateTime.subtract(
+          Duration(
+            hours: veryTinySpacing.toInt(),
+          ),
+        ),
+      );
 }
 
 extension TrackerModuleEntitiesConvenienceUtils on List<TrackerModuleEntity> {
-  int get faultyNodesCount {
-    var nodesWithLatestTransmissionBehindOthers = nil.toInt();
-    var nodesWithNoTransmissionWithinLastHour = nil.toInt();
+  int get potentiallyFaultyNodes {
+    var potentiallyFaultyNodesCount = nil.toInt();
 
-    if (length > tinySpacing.toInt()) {
-      final latestTransmissionDateTime = <DateTime>[];
-      var highestLatestDateTime = TimeUtil.computeDateTime(
-        first.data.last.timestamp,
+    final anHourAgo = TimeUtil.currentDateTime.subtract(
+      Duration(
+        hours: veryTinySpacing.toInt(),
+      ),
+    );
+
+    for (final trackerModuleEntity in this) {
+      final latestTransmissionDate = TimeUtil.computeDateTime(
+        trackerModuleEntity.data.last.timestamp,
       );
 
-      for (var i = nil.toInt(); i < length; i++) {
-        final ithLatestDateTime = TimeUtil.computeDateTime(
-          this[i].data.last.timestamp,
-        );
-
-        if (i > nil.toInt() &&
-            ithLatestDateTime.isAfter(
-              TimeUtil.computeDateTime(
-                this[i - veryTinySpacing.toInt()].data.last.timestamp,
-              ),
-            )) {
-          highestLatestDateTime = ithLatestDateTime;
-        }
-
-        latestTransmissionDateTime.add(
-          ithLatestDateTime,
-        );
-      }
-
-      nodesWithLatestTransmissionBehindOthers = latestTransmissionDateTime
-          .where(
-            (dateTime) => dateTime.isBefore(
-              highestLatestDateTime,
-            ),
-          )
-          .toList()
-          .length;
-    } else {
-      final anHourAgo = TimeUtil.currentDateTime.subtract(
-        Duration(
-          hours: veryTinySpacing.toInt(),
-        ),
-      );
-
-      for (final trackerModuleEntity in this) {
-        final latestTransmissionDate = TimeUtil.computeDateTime(
-          trackerModuleEntity.data.last.timestamp,
-        );
-
-        if (latestTransmissionDate.isBefore(anHourAgo)) {
-          nodesWithNoTransmissionWithinLastHour++;
-        }
+      if (latestTransmissionDate.isBefore(anHourAgo)) {
+        potentiallyFaultyNodesCount++;
       }
     }
 
-    return nodesWithLatestTransmissionBehindOthers >
-            nodesWithNoTransmissionWithinLastHour
-        ? nodesWithLatestTransmissionBehindOthers
-        : nodesWithNoTransmissionWithinLastHour;
+    return potentiallyFaultyNodesCount;
   }
 }
 

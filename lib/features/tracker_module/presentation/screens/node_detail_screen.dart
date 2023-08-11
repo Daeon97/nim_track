@@ -13,6 +13,7 @@ import 'package:nim_track/features/tracker_module/presentation/widgets/node_deta
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/distances_travelled_section.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/edit_node_name_sheet.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/first_section_card.dart';
+import 'package:nim_track/features/tracker_module/presentation/widgets/node_detail_screen_widgets/problems_section.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer_widgets/first_section_card_shimmer_child.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/shimmer_widgets/shimmer_widget.dart';
 
@@ -213,6 +214,10 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
             ),
             child: Column(
               children: [
+                const SizedBox(
+                  height: spacing,
+                ),
+                const ProblemsSection(),
                 const SizedBox(
                   height: spacing,
                 ),
