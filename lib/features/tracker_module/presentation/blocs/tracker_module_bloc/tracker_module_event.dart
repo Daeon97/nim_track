@@ -9,13 +9,16 @@ abstract final class TrackerModuleEvent extends Equatable {
 final class GetTrackerModuleEvent extends TrackerModuleEvent {
   const GetTrackerModuleEvent({
     required this.id,
+    this.fields,
   });
 
   final int id;
+  final List<enums.Field>? fields;
 
   @override
   List<Object?> get props => [
         id,
+        fields,
       ];
 }
 

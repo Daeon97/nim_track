@@ -8,7 +8,7 @@ import 'package:nim_track/features/tracker_module/domain/entities/tracker_module
 
 extension TrackerModuleEntityConvenienceUtils on TrackerModuleEntity {
   bool get potentiallyFaulty => TimeUtil.computeDateTime(
-        data.last.timestamp,
+        data!.last.timestamp!,
       ).isBefore(
         TimeUtil.currentDateTime.subtract(
           Duration(
@@ -30,7 +30,7 @@ extension TrackerModuleEntitiesConvenienceUtils on List<TrackerModuleEntity> {
 
     for (final trackerModuleEntity in this) {
       final latestTransmissionDate = TimeUtil.computeDateTime(
-        trackerModuleEntity.data.last.timestamp,
+        trackerModuleEntity.data!.last.timestamp!,
       );
 
       if (latestTransmissionDate.isBefore(anHourAgo)) {
@@ -47,8 +47,8 @@ extension TrackerModuleDataEntitiesConvenienceUtils
   double get totalDistanceKilometer {
     final latLngs = map(
       (trackerModuleDataEntity) => [
-        trackerModuleDataEntity.coordinates.latLng.first,
-        trackerModuleDataEntity.coordinates.latLng.last,
+        trackerModuleDataEntity.coordinates!.latLng!.first,
+        trackerModuleDataEntity.coordinates!.latLng!.last,
       ],
     ).toList();
 

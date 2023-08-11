@@ -26,16 +26,16 @@ class AreaCoveredSection extends StatelessWidget {
           }
 
           if (trackerModuleDetailState is GotTrackerModuleDetailState &&
-              trackerModuleDetailState.trackerModuleEntity.data.length >
+              trackerModuleDetailState.trackerModuleEntity.data!.length >
                   veryTinySpacing.toInt()) {
             final trackerModuleDataEntities =
-                trackerModuleDetailState.trackerModuleEntity.data;
+                trackerModuleDetailState.trackerModuleEntity.data!;
             _polygonAnnotationManager = await _mapboxMap?.drawPolygon(
               lngLats: trackerModuleDataEntities
                   .map(
                     (trackerModuleDataEntity) => [
-                      trackerModuleDataEntity.coordinates.latLng.last,
-                      trackerModuleDataEntity.coordinates.latLng.first,
+                      trackerModuleDataEntity.coordinates!.latLng!.last,
+                      trackerModuleDataEntity.coordinates!.latLng!.first,
                     ],
                   )
                   .toList(),
@@ -43,11 +43,11 @@ class AreaCoveredSection extends StatelessWidget {
             );
 
             await _mapboxMap?.easeToBounds(
-              lngLats: trackerModuleDetailState.trackerModuleEntity.data
+              lngLats: trackerModuleDetailState.trackerModuleEntity.data!
                   .map(
                     (trackerModuleDataEntity) => [
-                      trackerModuleDataEntity.coordinates.latLng.last,
-                      trackerModuleDataEntity.coordinates.latLng.first,
+                      trackerModuleDataEntity.coordinates!.latLng!.last,
+                      trackerModuleDataEntity.coordinates!.latLng!.first,
                     ],
                   )
                   .toList(),
@@ -137,12 +137,12 @@ class AreaCoveredSection extends StatelessWidget {
                         GotTrackerModuleDetailState(
                           trackerModuleEntity: final entity,
                         )
-                            when entity.data.length > veryTinySpacing.toInt() =>
+                            when entity.data!.length > veryTinySpacing.toInt() =>
                           const SizedBox.shrink(),
                         GotTrackerModuleDetailState(
                           trackerModuleEntity: final entity,
                         )
-                            when entity.data.length <=
+                            when entity.data!.length <=
                                 veryTinySpacing.toInt() =>
                           const Center(
                             child: Column(

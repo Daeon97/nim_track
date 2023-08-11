@@ -3,33 +3,33 @@
 base class TrackerModuleEntity {
   const TrackerModuleEntity({
     required this.id,
-    required this.data,
+    this.data,
     this.name,
   });
 
   final int id;
-  final List<TrackerModuleDataEntity> data;
+  final List<TrackerModuleDataEntity>? data;
   final String? name;
 }
 
 base class TrackerModuleDataEntity {
   const TrackerModuleDataEntity({
-    required this.batteryLevel,
-    required this.coordinates,
-    required this.timestamp,
+    this.batteryLevel,
+    this.coordinates,
+    this.timestamp,
   });
 
-  final int batteryLevel;
-  final TrackerModuleCoordinatesEntity coordinates;
-  final int timestamp;
+  final int? batteryLevel;
+  final TrackerModuleCoordinatesEntity? coordinates;
+  final int? timestamp;
 }
 
 base class TrackerModuleCoordinatesEntity {
   const TrackerModuleCoordinatesEntity({
-    required this.geohash,
-    required this.latLng,
+    this.geohash,
+    this.latLng,
   });
 
-  final String geohash;
-  final List<num> latLng;
+  final String? geohash;
+  final List<num>? latLng;
 }

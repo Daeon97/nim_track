@@ -10,7 +10,7 @@ part 'tracker_module_model.g.dart';
 final class TrackerModuleModel extends TrackerModuleEntity {
   TrackerModuleModel({
     required super.id,
-    required this.mData,
+    this.mData,
     super.name,
   }) : super(
           data: mData,
@@ -20,7 +20,7 @@ final class TrackerModuleModel extends TrackerModuleEntity {
       _$TrackerModuleModelFromJson(json);
 
   @JsonKey(name: dataJsonKey)
-  final List<TrackerModuleDataModel> mData;
+  final List<TrackerModuleDataModel>? mData;
 
   Map<String, dynamic> toJson() => _$TrackerModuleModelToJson(this);
 }
@@ -40,10 +40,10 @@ final class TrackerModuleDataModel extends TrackerModuleDataEntity {
       _$TrackerModuleDataModelFromJson(json);
 
   @JsonKey(name: batteryLevelJsonKey)
-  final int mBatteryLevel;
+  final int? mBatteryLevel;
 
   @JsonKey(name: coordinatesJsonKey)
-  final TrackerModuleCoordinatesModel mCoordinates;
+  final TrackerModuleCoordinatesModel? mCoordinates;
 
   Map<String, dynamic> toJson() => _$TrackerModuleDataModelToJson(this);
 }
@@ -63,10 +63,10 @@ final class TrackerModuleCoordinatesModel
       _$TrackerModuleCoordinatesModelFromJson(json);
 
   @JsonKey(name: geohashJsonKey)
-  final String mGeohash;
+  final String? mGeohash;
 
   @JsonKey(name: latLngJsonKey)
-  final List<num> mLatLng;
+  final List<num>? mLatLng;
 
   Map<String, dynamic> toJson() => _$TrackerModuleCoordinatesModelToJson(this);
 }

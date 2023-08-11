@@ -66,9 +66,9 @@ class NodeSummaryBottomCard extends StatelessWidget {
                               CardType.batteryLevel => BatteryLevelIconWidget(
                                   batteryLevel: trackerModuleState
                                       .trackerModuleEntity
-                                      .data
+                                      .data!
                                       .last
-                                      .batteryLevel,
+                                      .batteryLevel!,
                                 ),
                               CardType.time => const Icon(
                                   Icons.access_time,
@@ -115,11 +115,11 @@ class NodeSummaryBottomCard extends StatelessWidget {
                                           is GotTrackerModuleState =>
                                     switch (cardType) {
                                       CardType.batteryLevel =>
-                                        '${trackerModuleState.trackerModuleEntity.data.last.batteryLevel}$percentage',
+                                        '${trackerModuleState.trackerModuleEntity.data!.last.batteryLevel!}$percentage',
                                       CardType.time =>
                                         TimeUtil.computeHourMinuteAmPm(
                                           trackerModuleState.trackerModuleEntity
-                                              .data.last.timestamp,
+                                              .data!.last.timestamp!,
                                         )
                                     },
                                   _ => notApplicableLiteral

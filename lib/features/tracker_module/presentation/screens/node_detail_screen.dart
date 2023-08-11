@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
-import 'package:nim_track/core/utils/enums.dart';
+import 'package:nim_track/core/utils/enums.dart' as enums;
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_detail_bloc/tracker_module_detail_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_name_bloc/tracker_module_name_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_detail_bloc/tracker_modules_detail_bloc.dart';
@@ -41,12 +41,22 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
       BlocProvider.of<TrackerModuleDetailBloc>(context).add(
         GetTrackerModuleDetailEvent(
           id: widget.id,
+          fields: const [
+            enums.Field.batteryLevel,
+            enums.Field.latLng,
+            enums.Field.timestamp,
+          ],
         ),
       );
 
   void _listTrackerModulesDetail() =>
       BlocProvider.of<TrackerModulesDetailBloc>(context).add(
-        const ListTrackerModulesDetailEvent(),
+        const ListTrackerModulesDetailEvent(
+          fields: [
+            enums.Field.name,
+            enums.Field.latLng,
+          ],
+        ),
       );
 
   @override
@@ -225,7 +235,7 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
                   children: [
                     Expanded(
                       child: FirstSectionCard(
-                        cardType: CardType.batteryLevel,
+                        cardType: enums.CardType.batteryLevel,
                       ),
                     ),
                     SizedBox(
@@ -233,7 +243,7 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
                     ),
                     Expanded(
                       child: FirstSectionCard(
-                        cardType: CardType.time,
+                        cardType: enums.CardType.time,
                       ),
                     ),
                   ],

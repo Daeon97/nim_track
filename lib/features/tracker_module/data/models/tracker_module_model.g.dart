@@ -9,8 +9,8 @@ part of 'tracker_module_model.dart';
 TrackerModuleModel _$TrackerModuleModelFromJson(Map<String, dynamic> json) =>
     TrackerModuleModel(
       id: json['id'] as int,
-      mData: (json['data'] as List<dynamic>)
-          .map(
+      mData: (json['data'] as List<dynamic>?)
+          ?.map(
               (e) => TrackerModuleDataModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       name: json['name'] as String?,
@@ -26,10 +26,12 @@ Map<String, dynamic> _$TrackerModuleModelToJson(TrackerModuleModel instance) =>
 TrackerModuleDataModel _$TrackerModuleDataModelFromJson(
         Map<String, dynamic> json) =>
     TrackerModuleDataModel(
-      mBatteryLevel: json['battery_level'] as int,
-      mCoordinates: TrackerModuleCoordinatesModel.fromJson(
-          json['coordinates'] as Map<String, dynamic>),
-      timestamp: json['timestamp'] as int,
+      mBatteryLevel: json['battery_level'] as int?,
+      mCoordinates: json['coordinates'] == null
+          ? null
+          : TrackerModuleCoordinatesModel.fromJson(
+              json['coordinates'] as Map<String, dynamic>),
+      timestamp: json['timestamp'] as int?,
     );
 
 Map<String, dynamic> _$TrackerModuleDataModelToJson(
@@ -43,8 +45,9 @@ Map<String, dynamic> _$TrackerModuleDataModelToJson(
 TrackerModuleCoordinatesModel _$TrackerModuleCoordinatesModelFromJson(
         Map<String, dynamic> json) =>
     TrackerModuleCoordinatesModel(
-      mGeohash: json['hash'] as String,
-      mLatLng: (json['lat_lng'] as List<dynamic>).map((e) => e as num).toList(),
+      mGeohash: json['hash'] as String?,
+      mLatLng:
+          (json['lat_lng'] as List<dynamic>?)?.map((e) => e as num).toList(),
     );
 
 Map<String, dynamic> _$TrackerModuleCoordinatesModelToJson(

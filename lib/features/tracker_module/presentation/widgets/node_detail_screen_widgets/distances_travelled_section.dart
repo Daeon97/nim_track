@@ -97,9 +97,9 @@ class DistancesTravelledSection extends StatelessWidget {
                               trackerModuleEntity.name ??
                               '$nodeLiteral ${trackerModuleEntity.id}',
                           yValueMapper: (trackerModuleEntity, _) =>
-                              trackerModuleEntity.data.totalDistanceKilometer,
+                              trackerModuleEntity.data!.totalDistanceKilometer,
                           dataLabelMapper: (trackerModuleEntity, _) =>
-                              '${trackerModuleEntity.name ?? '$nodeLiteral ${trackerModuleEntity.id}'}$colon$newLine${trackerModuleEntity.data.totalDistanceKilometer}$kmLiteral',
+                              '${trackerModuleEntity.name ?? '$nodeLiteral ${trackerModuleEntity.id}'}$colon$newLine${trackerModuleEntity.data!.totalDistanceKilometer}$kmLiteral',
                           dataLabelSettings: const DataLabelSettings(
                             isVisible: true,
                           ),

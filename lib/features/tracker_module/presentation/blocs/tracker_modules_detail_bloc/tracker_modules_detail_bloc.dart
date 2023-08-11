@@ -3,6 +3,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nim_track/core/errors/failure.dart';
+import 'package:nim_track/core/utils/enums.dart' as enums;
 import 'package:nim_track/features/tracker_module/domain/entities/tracker_module_entity.dart';
 import 'package:nim_track/features/tracker_module/domain/use_cases/tracker_module_use_case.dart';
 
@@ -24,7 +25,9 @@ class TrackerModulesDetailBloc
           const ListingTrackerModulesDetailState(),
         );
         final failureOrTrackerModuleEntities =
-            await _trackerModuleUseCase.listTrackerModules();
+            await _trackerModuleUseCase.listTrackerModules(
+          fields: event.fields,
+        );
         failureOrTrackerModuleEntities.fold(
           (failure) => add(
             _FailedToListTrackerModulesDetailEvent(

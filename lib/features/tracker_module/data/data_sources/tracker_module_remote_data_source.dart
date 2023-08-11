@@ -2,15 +2,19 @@
 
 import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/core/utils/clients/graph_ql_operation_handler.dart';
+import 'package:nim_track/core/utils/enums.dart' as enums;
 import 'package:nim_track/core/utils/helpers/graph_ql_document_util.dart';
 import 'package:nim_track/features/tracker_module/data/models/tracker_module_model.dart';
 
 abstract interface class TrackerModuleRemoteDataSource {
   Future<TrackerModuleModel> getTrackerModule({
     required int id,
+    List<enums.Field>? fields,
   });
 
-  Future<List<TrackerModuleModel>> listTrackerModules();
+  Future<List<TrackerModuleModel>> listTrackerModules({
+    List<enums.Field>? fields,
+  });
 
   Future<String> updateTrackerModuleName({
     required int id,
@@ -24,19 +28,25 @@ class TrackerModuleRemoteDataSourceImplementation
   @override
   Future<TrackerModuleModel> getTrackerModule({
     required int id,
+    List<enums.Field>? fields,
   }) =>
       call<TrackerModuleModel, Map<String, dynamic>>(
         graphQLDocument: GraphQLDocumentUtil.getTrackerModuleQueryDocument(
           id: id,
+          fields: fields,
         ),
         actualDataResidenceKey: getTrackerModuleKey,
         handler: TrackerModuleModel.fromJson,
       );
 
   @override
-  Future<List<TrackerModuleModel>> listTrackerModules() =>
+  Future<List<TrackerModuleModel>> listTrackerModules({
+    List<enums.Field>? fields,
+  }) =>
       call<List<TrackerModuleModel>, List<dynamic>>(
-        graphQLDocument: GraphQLDocumentUtil.listTrackerModulesQueryDocument(),
+        graphQLDocument: GraphQLDocumentUtil.listTrackerModulesQueryDocument(
+          fields: fields,
+        ),
         actualDataResidenceKey: listTrackerModulesKey,
         handler: (
           jsonList,

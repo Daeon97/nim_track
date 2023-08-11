@@ -7,10 +7,16 @@ abstract final class TrackerModulesEvent extends Equatable {
 }
 
 final class ListTrackerModulesEvent extends TrackerModulesEvent {
-  const ListTrackerModulesEvent();
+  const ListTrackerModulesEvent({
+    this.fields,
+  });
+
+  final List<enums.Field>? fields;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+        fields,
+      ];
 }
 
 final class _ListedTrackerModulesEvent extends TrackerModulesEvent {

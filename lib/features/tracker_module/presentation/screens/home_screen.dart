@@ -67,13 +67,26 @@ class _HomeScreenState extends State<HomeScreen> {
               if (allTrackerModulesOrOneTrackerModuleState
                   is AllTrackerModulesState) {
                 context.read<TrackerModulesBloc>().add(
-                      const ListTrackerModulesEvent(),
+                      const ListTrackerModulesEvent(
+                        fields: [
+                          enums.Field.name,
+                          enums.Field.batteryLevel,
+                          enums.Field.latLng,
+                          enums.Field.timestamp,
+                        ],
+                      ),
                     );
               } else if (allTrackerModulesOrOneTrackerModuleState
                   is OneTrackerModuleState) {
                 context.read<TrackerModuleBloc>().add(
                       GetTrackerModuleEvent(
                         id: allTrackerModulesOrOneTrackerModuleState.id,
+                        fields: const [
+                          enums.Field.name,
+                          enums.Field.batteryLevel,
+                          enums.Field.latLng,
+                          enums.Field.timestamp,
+                        ],
                       ),
                     );
               }
@@ -97,11 +110,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     trackerModuleState.trackerModuleEntity.data;
 
                 for (var i = nil.toInt();
-                    i < trackerModuleDataEntities.length;
+                    i < trackerModuleDataEntities!.length;
                     i++) {
                   final pointAnnotationManager = await _mapboxMap?.addMarker(
-                    lng: trackerModuleDataEntities[i].coordinates.latLng.last,
-                    lat: trackerModuleDataEntities[i].coordinates.latLng.first,
+                    lng: trackerModuleDataEntities[i].coordinates!.latLng!.last,
+                    lat:
+                        trackerModuleDataEntities[i].coordinates!.latLng!.first,
                     imagePath: i ==
                             trackerModuleDataEntities.length -
                                 veryTinySpacing.toInt()
@@ -116,8 +130,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 final lngLats = trackerModuleDataEntities
                     .map(
                       (trackerModuleDataEntity) => [
-                        trackerModuleDataEntity.coordinates.latLng.last,
-                        trackerModuleDataEntity.coordinates.latLng.first,
+                        trackerModuleDataEntity.coordinates!.latLng!.last,
+                        trackerModuleDataEntity.coordinates!.latLng!.first,
                       ],
                     )
                     .toList();
@@ -150,8 +164,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 for (final trackerModuleEntity
                     in trackerModulesState.trackerModuleEntities) {
                   final pointAnnotationManager = await _mapboxMap?.addMarker(
-                    lng: trackerModuleEntity.data.last.coordinates.latLng.last,
-                    lat: trackerModuleEntity.data.last.coordinates.latLng.first,
+                    lng: trackerModuleEntity
+                        .data!.last.coordinates!.latLng!.last,
+                    lat: trackerModuleEntity
+                        .data!.last.coordinates!.latLng!.first,
                     imagePath: markerGreenImagePath,
                   );
                   _pointAnnotationManagers.add(
@@ -163,9 +179,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   lngLats: trackerModulesState.trackerModuleEntities
                       .map(
                         (trackerModuleEntity) => [
-                          trackerModuleEntity.data.last.coordinates.latLng.last,
                           trackerModuleEntity
-                              .data.last.coordinates.latLng.first,
+                              .data!.last.coordinates!.latLng!.last,
+                          trackerModuleEntity
+                              .data!.last.coordinates!.latLng!.first,
                         ],
                       )
                       .toList(),

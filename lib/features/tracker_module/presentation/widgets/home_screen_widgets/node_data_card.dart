@@ -48,9 +48,10 @@ class NodeDataCard extends StatelessWidget {
                       id: entities[index].id,
                       name: entities[index].name ??
                           '$nodeLiteral ${entities[index].id}',
-                      batteryLevel: entities[index].data.last.batteryLevel,
+                      batteryLevel: entities[index].data!.last.batteryLevel!,
                       potentiallyFaulty: entities[index].potentiallyFaulty,
-                      lastTransmissionDate: entities[index].data.last.timestamp,
+                      lastTransmissionDate:
+                          entities[index].data!.last.timestamp!,
                     ),
                     growable: false,
                   ),

@@ -70,7 +70,7 @@ class BatteryLevelOverTimeSection extends StatelessWidget {
                   GotTrackerModuleDetailState(
                     trackerModuleEntity: final entity,
                   )
-                      when entity.data.length > veryTinySpacing.toInt() =>
+                      when entity.data!.length > veryTinySpacing.toInt() =>
                     SfCartesianChart(
                       margin: EdgeInsets.zero,
                       primaryXAxis: DateTimeAxis(
@@ -96,16 +96,16 @@ class BatteryLevelOverTimeSection extends StatelessWidget {
                       ),
                       series: <LineSeries<TrackerModuleDataEntity, DateTime>>[
                         LineSeries<TrackerModuleDataEntity, DateTime>(
-                          dataSource: entity.data,
+                          dataSource: entity.data!,
                           color: Theme.of(context).colorScheme.inversePrimary,
                           xAxisName: batteryLevelLiteral,
                           yAxisName: timeLiteral,
                           xValueMapper: (trackerModuleDataEntity, _) =>
                               TimeUtil.computeDateTime(
-                            trackerModuleDataEntity.timestamp,
+                            trackerModuleDataEntity.timestamp!,
                           ),
                           yValueMapper: (trackerModuleDataEntity, _) =>
-                              trackerModuleDataEntity.batteryLevel /
+                              trackerModuleDataEntity.batteryLevel! /
                               hundredPercent,
                           width: tinySpacing,
                           markerSettings: MarkerSettings(
@@ -128,7 +128,7 @@ class BatteryLevelOverTimeSection extends StatelessWidget {
                   GotTrackerModuleDetailState(
                     trackerModuleEntity: final entity,
                   )
-                      when entity.data.length <= veryTinySpacing.toInt() =>
+                      when entity.data!.length <= veryTinySpacing.toInt() =>
                     const Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

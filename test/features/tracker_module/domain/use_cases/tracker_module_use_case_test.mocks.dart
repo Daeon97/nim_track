@@ -10,6 +10,7 @@ import 'dart:async' as _i4;
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:nim_track/core/errors/failure.dart' as _i5;
+import 'package:nim_track/core/utils/enums.dart' as _i7;
 import 'package:nim_track/features/tracker_module/domain/entities/tracker_module_entity.dart'
     as _i6;
 import 'package:nim_track/features/tracker_module/domain/repositories/tracker_module_repository.dart'
@@ -42,13 +43,19 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 class MockTrackerModuleRepository extends _i1.Mock
     implements _i3.TrackerModuleRepository {
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.TrackerModuleEntity>> getTrackerModule(
-          {required int? id}) =>
+  _i4.Future<
+      _i2.Either<_i5.Failure, _i6.TrackerModuleEntity>> getTrackerModule({
+    required int? id,
+    List<_i7.Field>? fields,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #getTrackerModule,
           [],
-          {#id: id},
+          {
+            #id: id,
+            #fields: fields,
+          },
         ),
         returnValue:
             _i4.Future<_i2.Either<_i5.Failure, _i6.TrackerModuleEntity>>.value(
@@ -57,7 +64,10 @@ class MockTrackerModuleRepository extends _i1.Mock
           Invocation.method(
             #getTrackerModule,
             [],
-            {#id: id},
+            {
+              #id: id,
+              #fields: fields,
+            },
           ),
         )),
         returnValueForMissingStub:
@@ -67,38 +77,45 @@ class MockTrackerModuleRepository extends _i1.Mock
           Invocation.method(
             #getTrackerModule,
             [],
-            {#id: id},
+            {
+              #id: id,
+              #fields: fields,
+            },
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, _i6.TrackerModuleEntity>>);
   @override
-  _i4.Future<
-      _i2.Either<_i5.Failure,
-          List<_i6.TrackerModuleEntity>>> listTrackerModules() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #listTrackerModules,
-          [],
-        ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.Failure, List<_i6.TrackerModuleEntity>>>.value(
-            _FakeEither_0<_i5.Failure, List<_i6.TrackerModuleEntity>>(
-          this,
-          Invocation.method(
-            #listTrackerModules,
-            [],
-          ),
-        )),
-        returnValueForMissingStub: _i4.Future<
-                _i2.Either<_i5.Failure, List<_i6.TrackerModuleEntity>>>.value(
-            _FakeEither_0<_i5.Failure, List<_i6.TrackerModuleEntity>>(
-          this,
-          Invocation.method(
-            #listTrackerModules,
-            [],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, List<_i6.TrackerModuleEntity>>>);
+  _i4.Future<_i2.Either<_i5.Failure, List<_i6.TrackerModuleEntity>>>
+      listTrackerModules({List<_i7.Field>? fields}) => (super.noSuchMethod(
+            Invocation.method(
+              #listTrackerModules,
+              [],
+              {#fields: fields},
+            ),
+            returnValue: _i4.Future<
+                    _i2.Either<_i5.Failure,
+                        List<_i6.TrackerModuleEntity>>>.value(
+                _FakeEither_0<_i5.Failure, List<_i6.TrackerModuleEntity>>(
+              this,
+              Invocation.method(
+                #listTrackerModules,
+                [],
+                {#fields: fields},
+              ),
+            )),
+            returnValueForMissingStub: _i4.Future<
+                    _i2.Either<_i5.Failure,
+                        List<_i6.TrackerModuleEntity>>>.value(
+                _FakeEither_0<_i5.Failure, List<_i6.TrackerModuleEntity>>(
+              this,
+              Invocation.method(
+                #listTrackerModules,
+                [],
+                {#fields: fields},
+              ),
+            )),
+          ) as _i4
+              .Future<_i2.Either<_i5.Failure, List<_i6.TrackerModuleEntity>>>);
   @override
   _i4.Future<_i2.Either<_i5.Failure, String>> updateTrackerModuleName({
     required int? id,

@@ -54,7 +54,7 @@ class FirstSectionCard extends StatelessWidget {
                           trackerModuleEntity: final entity,
                         ) =>
                           BatteryLevelIconWidget(
-                            batteryLevel: entity.data.last.batteryLevel,
+                            batteryLevel: entity.data!.last.batteryLevel!,
                           ),
                         _ => const Icon(
                             Icons.battery_unknown,
@@ -87,12 +87,11 @@ class FirstSectionCard extends StatelessWidget {
                         Text(
                           switch (cardType) {
                             CardType.batteryLevel =>
-                              '${entity.data.last.batteryLevel}$percentage',
-                            CardType.time =>
-                              '${TimeUtil.computeDayMonthDate(
-                                entity.data.last.timestamp,
+                              '${entity.data!.last.batteryLevel!}$percentage',
+                            CardType.time => '${TimeUtil.computeDayMonthDate(
+                                entity.data!.last.timestamp!,
                               )} ${TimeUtil.computeHourMinuteAmPm(
-                                entity.data.last.timestamp,
+                                entity.data!.last.timestamp!,
                               )}',
                           },
                           maxLines: switch (cardType) {
