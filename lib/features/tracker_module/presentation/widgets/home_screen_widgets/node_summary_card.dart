@@ -86,55 +86,49 @@ class _NodeSummaryCardState extends State<NodeSummaryCard> {
                                     entities.length,
                                     (index) => RotatedBox(
                                       quarterTurns: veryTinySpacing.toInt(),
-                                      child: BlocBuilder<
-                                          AllTrackerModulesOrOneTrackerModuleBloc,
-                                          AllTrackerModulesOrOneTrackerModuleState>(
-                                        builder: (
-                                          _,
-                                          allTrackerModulesOrOneTrackerModuleState,
-                                        ) =>
-                                            BlocBuilder<TrackerModuleBloc,
-                                                TrackerModuleState>(
-                                          builder: (_, trackerModuleState) =>
-                                              ChoiceChip(
-                                            label: Text(
-                                              entities[index].name ??
-                                                  '$nodeLiteral ${entities[index].id}',
-                                              textAlign: TextAlign.center,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: tinySpacing.toInt(),
-                                            ),
-                                            selected: allTrackerModulesOrOneTrackerModuleState
-                                                    is OneTrackerModuleState &&
-                                                trackerModuleState
-                                                    is GotTrackerModuleState &&
-                                                trackerModuleState
-                                                        .trackerModuleEntity
-                                                        .id ==
-                                                    entities[index].id,
-                                            onSelected: (selected) =>
-                                                trackerModuleState
-                                                        is GettingTrackerModuleState
-                                                    ? null
-                                                    : switch (selected) {
-                                                        true => context
-                                                            .read<
-                                                                AllTrackerModulesOrOneTrackerModuleBloc>()
-                                                            .add(
-                                                              GetOneTrackerModuleEvent(
-                                                                id: entities[
-                                                                        index]
-                                                                    .id,
-                                                              ),
-                                                            ),
-                                                        false => context
-                                                            .read<
-                                                                AllTrackerModulesOrOneTrackerModuleBloc>()
-                                                            .add(
-                                                              const GetAllTrackerModulesEvent(),
-                                                            )
-                                                      },
+                                      child: BlocBuilder<TrackerModuleBloc,
+                                          TrackerModuleState>(
+                                        builder: (_, trackerModuleState) =>
+                                            ChoiceChip(
+                                          label: Text(
+                                            entities[index].name ??
+                                                '$nodeLiteral ${entities[index].id}',
+                                            textAlign: TextAlign.center,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: tinySpacing.toInt(),
                                           ),
+                                          selected: context
+                                                      .read<
+                                                          AllTrackerModulesOrOneTrackerModuleBloc>()
+                                                      .state
+                                                  is OneTrackerModuleState &&
+                                              trackerModuleState
+                                                  is GotTrackerModuleState &&
+                                              trackerModuleState
+                                                      .trackerModuleEntity.id ==
+                                                  entities[index].id,
+                                          onSelected: (selected) =>
+                                              trackerModuleState
+                                                      is GettingTrackerModuleState
+                                                  ? null
+                                                  : switch (selected) {
+                                                      true => context
+                                                          .read<
+                                                              AllTrackerModulesOrOneTrackerModuleBloc>()
+                                                          .add(
+                                                            GetOneTrackerModuleEvent(
+                                                              id: entities[
+                                                                      index]
+                                                                  .id,
+                                                            ),
+                                                          ),
+                                                      false => context
+                                                          .read<
+                                                              AllTrackerModulesOrOneTrackerModuleBloc>()
+                                                          .add(
+                                                            const GetAllTrackerModulesEvent(),
+                                                          )
+                                                    },
                                         ),
                                       ),
                                     ),
