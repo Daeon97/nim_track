@@ -4,30 +4,56 @@ import 'package:intl/intl.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 
 final class TimeUtil {
-  static String computeHourMinuteAmPm(int timestamp) => DateFormat.jm().format(
+  static String computeHourMinuteAmPm(
+    int timestamp,
+  ) =>
+      DateFormat.jm().format(
         DateTime.fromMillisecondsSinceEpoch(
-          timestamp * timestampMultiplier,
+          _computeAccurateTimestamp(
+            timestamp,
+          ),
         ),
       );
 
-  static String computeDayMonthDate(int timestamp) => '${DateFormat.E().format(
+  static String computeDayMonthDate(
+    int timestamp,
+  ) =>
+      '${DateFormat.E().format(
         DateTime.fromMillisecondsSinceEpoch(
-          timestamp * timestampMultiplier,
+          _computeAccurateTimestamp(
+            timestamp,
+          ),
         ),
       )} ${DateFormat.LLL().format(
         DateTime.fromMillisecondsSinceEpoch(
-          timestamp * timestampMultiplier,
+          _computeAccurateTimestamp(
+            timestamp,
+          ),
         ),
       )} ${DateFormat.d().format(
         DateTime.fromMillisecondsSinceEpoch(
-          timestamp * timestampMultiplier,
+          _computeAccurateTimestamp(
+            timestamp,
+          ),
         ),
       )}';
 
-  static DateTime computeDateTime(int timestamp) =>
+  static DateTime computeDateTime(
+    int timestamp,
+  ) =>
       DateTime.fromMillisecondsSinceEpoch(
-        timestamp * timestampMultiplier,
+        _computeAccurateTimestamp(
+          timestamp,
+        ),
       );
 
   static DateTime get currentDateTime => DateTime.now();
+
+  static int _computeAccurateTimestamp(
+    int timestamp,
+  ) =>
+      switch (timestamp.toString().length) {
+        ten => timestamp * timestampMultiplier,
+        _ => timestamp
+      };
 }

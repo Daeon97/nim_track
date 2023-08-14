@@ -90,6 +90,7 @@ const noTransmissionWithinlastHourLiteral =
     'This node has not sent new data within the last hour. It may be faulty';
 const noNodesLiteral = 'There are no nodes to display at this time';
 const noDataLiteral = 'No data';
+const someDataChangedLiteral = 'Some data changed. You may need to refresh';
 
 // Special characters
 const percentage = '%';

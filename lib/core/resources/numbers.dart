@@ -31,6 +31,7 @@ const distancesTravelledSectionHeight = 300.0;
 const snackBarDurationOnFailedToUpdateTrackerModuleNameSeconds = 6;
 const twoDotFive = 2.5;
 const timestampMultiplier = 1000;
+const ten = 10;
 
 // Battery levels
 const tenPercent = 10;

@@ -11,6 +11,7 @@ import 'package:nim_track/core/utils/extensions/mapbox_convenience_utils.dart';
 import 'package:nim_track/features/settings/presentation/blocs/theme_bloc/theme_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/all_tracker_modules_or_one_tracker_module/all_tracker_modules_or_one_tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
+import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_name_update_bloc/tracker_module_name_update_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/dashboard_sheet.dart';
 
@@ -27,21 +28,37 @@ class _HomeScreenState extends State<HomeScreen> {
   MapboxMap? _mapboxMap;
   late final List<PointAnnotationManager> _pointAnnotationManagers;
   PolylineAnnotationManager? _polylineAnnotationManager;
+  late final ValueNotifier<bool> _showRefreshMessageHeadsUp;
 
   @override
   void initState() {
     _pointAnnotationManagers = [];
-    BlocProvider.of<AllTrackerModulesOrOneTrackerModuleBloc>(
-      context,
-    ).add(
-      const GetAllTrackerModulesEvent(),
+    _showRefreshMessageHeadsUp = ValueNotifier<bool>(
+      false,
     );
+    context.read<AllTrackerModulesOrOneTrackerModuleBloc>().add(
+          const GetAllTrackerModulesEvent(),
+        );
     super.initState();
   }
+
+  void _listTrackerModules() => context.read<TrackerModulesBloc>().add(
+        ListTrackerModulesEvent(
+          fields: _fields,
+        ),
+      );
+
+  List<enums.Field> get _fields => [
+        enums.Field.name,
+        enums.Field.batteryLevel,
+        enums.Field.latLng,
+        enums.Field.timestamp,
+      ];
 
   @override
   void dispose() {
     _mapboxMap?.dispose();
+    _showRefreshMessageHeadsUp.dispose();
     super.dispose();
   }
 
@@ -66,27 +83,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ) {
               if (allTrackerModulesOrOneTrackerModuleState
                   is AllTrackerModulesState) {
-                context.read<TrackerModulesBloc>().add(
-                      const ListTrackerModulesEvent(
-                        fields: [
-                          enums.Field.name,
-                          enums.Field.batteryLevel,
-                          enums.Field.latLng,
-                          enums.Field.timestamp,
-                        ],
-                      ),
-                    );
+                _listTrackerModules();
               } else if (allTrackerModulesOrOneTrackerModuleState
                   is OneTrackerModuleState) {
                 context.read<TrackerModuleBloc>().add(
                       GetTrackerModuleEvent(
                         id: allTrackerModulesOrOneTrackerModuleState.id,
-                        fields: const [
-                          enums.Field.name,
-                          enums.Field.batteryLevel,
-                          enums.Field.latLng,
-                          enums.Field.timestamp,
-                        ],
+                        fields: _fields,
                       ),
                     );
               }
@@ -190,6 +193,15 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             },
           ),
+          BlocListener<TrackerModuleNameUpdateBloc,
+              TrackerModuleNameUpdateState>(
+            listener: (_, trackerModuleNameUpdateState) {
+              if (trackerModuleNameUpdateState
+                  is UpdatedTrackerModuleNameState) {
+                _showRefreshMessageHeadsUp.value = true;
+              }
+            },
+          ),
         ],
         child: Scaffold(
           body: SafeArea(
@@ -234,6 +246,62 @@ class _HomeScreenState extends State<HomeScreen> {
                       Icons.settings,
                     ),
                   ),
+                ),
+                ValueListenableBuilder<bool>(
+                  valueListenable: _showRefreshMessageHeadsUp,
+                  builder: (_, showRefreshMessageHeadsUpValue, __) =>
+                      showRefreshMessageHeadsUpValue
+                          ? Container(
+                              padding: const EdgeInsetsDirectional.all(
+                                spacing,
+                              ),
+                              margin: const EdgeInsetsDirectional.only(
+                                start: spacing,
+                                end: extraLargeSpacing + spacing,
+                                top: spacing,
+                              ),
+                              decoration: BoxDecoration(
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                borderRadius: BorderRadiusDirectional.circular(
+                                  spacing,
+                                ),
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      someDataChangedLiteral,
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: spacing,
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      _listTrackerModules();
+                                      _showRefreshMessageHeadsUp.value = false;
+                                    },
+                                    icon: const Icon(
+                                      Icons.refresh,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: smallSpacing,
+                                  ),
+                                  IconButton(
+                                    onPressed: () => _showRefreshMessageHeadsUp
+                                        .value = false,
+                                    icon: const Icon(
+                                      Icons.close,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : const SizedBox.shrink(),
                 ),
               ],
             ),

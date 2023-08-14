@@ -39,8 +39,7 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
     super.initState();
   }
 
-  void _getTrackerModuleName() =>
-      BlocProvider.of<TrackerModuleNameGetBloc>(context).add(
+  void _getTrackerModuleName() => context.read<TrackerModuleNameGetBloc>().add(
         GetTrackerModuleNameEvent(
           id: widget.id,
           fields: const [
@@ -49,8 +48,7 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
         ),
       );
 
-  void _getTrackerModuleDetail() =>
-      BlocProvider.of<TrackerModuleDetailBloc>(context).add(
+  void _getTrackerModuleDetail() => context.read<TrackerModuleDetailBloc>().add(
         GetTrackerModuleDetailEvent(
           id: widget.id,
           fields: const [
@@ -62,14 +60,14 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
       );
 
   void _listTrackerModulesDetail() =>
-      BlocProvider.of<TrackerModulesDetailBloc>(context).add(
-        const ListTrackerModulesDetailEvent(
-          fields: [
-            enums.Field.name,
-            enums.Field.latLng,
-          ],
-        ),
-      );
+      context.read<TrackerModulesDetailBloc>().add(
+            const ListTrackerModulesDetailEvent(
+              fields: [
+                enums.Field.name,
+                enums.Field.latLng,
+              ],
+            ),
+          );
 
   @override
   Widget build(BuildContext context) =>
@@ -81,6 +79,7 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
                 content: Text(
                   '$nodeNameUpdatedToLiteral $singleQuote${trackerModuleNameUpdateState.result}$singleQuote',
                 ),
+                behavior: SnackBarBehavior.floating,
                 dismissDirection: DismissDirection.horizontal,
               ),
             );
