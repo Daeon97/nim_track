@@ -1,0 +1,34 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+#input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type Query {
+    getTrackerModule(id: Int!): TrackerModule
+    listTrackerModules: [TrackerModule]
+}
+
+type Mutation {
+    updateTrackerModuleName(input: UpdateTrackerModuleNameInput): String!
+}
+
+input UpdateTrackerModuleNameInput {
+    id: Int!
+    name: String!
+}
+
+type TrackerModule {
+    id: Int!
+    name: String
+    data: [TrackerModuleData!]
+}
+
+type TrackerModuleData {
+    battery_level: Int!
+    coordinates: Coordinates!
+    timestamp: Int!
+}
+
+type Coordinates {
+    hash: String!
+    lat_lng: [Float!]!
+}

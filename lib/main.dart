@@ -1,18 +1,42 @@
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:nim_track/amplifyconfiguration.dart';
 import 'package:nim_track/app.dart';
+import 'package:nim_track/injection_container.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
-  _init().then(
-    (_) => runApp(
-      const App(),
-    ),
-  );
-}
+void main() => _init().then(
+      (_) => runApp(
+        const App(),
+      ),
+    );
 
 Future<void> _init() async {
-  await Future.delayed(
-    Duration(
-      seconds: 5,
-    ),
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load();
+
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getTemporaryDirectory(),
   );
+
+  initDependencyInjection();
+  await _configureAmplify();
+}
+
+Future<void> _configureAmplify() async {
+  if (!Amplify.isConfigured) {
+    await Amplify.addPlugin(
+      AmplifyAPI(),
+    );
+  }
+
+  try {
+    await Amplify.configure(amplifyconfig);
+  } on AmplifyAlreadyConfiguredException catch (e) {
+    safePrint(e.message);
+  }
 }
