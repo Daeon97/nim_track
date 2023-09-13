@@ -1,20 +1,14 @@
-// ignore_for_file: public_member_api_docs
-
-import 'dart:async';
+// ignore_for_file: public_member_api_docs, lines_longer_than_80_chars
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/core/utils/enums.dart' as enums;
 import 'package:nim_track/core/utils/extensions/google_map_convenience_utils.dart';
-import 'package:nim_track/core/utils/extensions/mapbox_convenience_utils.dart';
-import 'package:nim_track/features/settings/presentation/blocs/theme_bloc/theme_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/all_tracker_modules_or_one_tracker_module/all_tracker_modules_or_one_tracker_module_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_bloc/tracker_module_bloc.dart';
-import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_name_update_bloc/tracker_module_name_update_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_modules_bloc/tracker_modules_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/widgets/home_screen_widgets/dashboard_sheet.dart';
 
@@ -28,13 +22,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // late final List<PointAnnotationManager> _pointAnnotationManagers;
-  // PolylineAnnotationManager? _polylineAnnotationManager;
   GoogleMapController? _googleMapController;
 
   @override
   void initState() {
-    // _pointAnnotationManagers = [];
     context.read<AllTrackerModulesOrOneTrackerModuleBloc>().add(
           const GetAllTrackerModulesEvent(),
         );
@@ -64,17 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) => MultiBlocListener(
         listeners: [
-          // BlocListener<ThemeBloc, ThemeState>(
-          //   listener: (_, themeState) async {
-          //     // (await _googleMapController.future).setMapStyle(mapStyle)
-          //     // _mapboxMap?.loadStyleURI(
-          //     //   switch (themeState.themeEntity.fakeBrightness) {
-          //     //     enums.Brightness.light => MapboxStyles.MAPBOX_STREETS,
-          //     //     enums.Brightness.dark => MapboxStyles.DARK
-          //     //   },
-          //     // );
-          //   },
-          // ),
           BlocListener<AllTrackerModulesOrOneTrackerModuleBloc,
               AllTrackerModulesOrOneTrackerModuleState>(
             listener: (
@@ -97,117 +77,26 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BlocListener<TrackerModuleBloc, TrackerModuleState>(
             listener: (_, trackerModuleState) async {
-              // if (_pointAnnotationManagers.isNotEmpty) {
-              //   for (final pointAnnotationManager in _pointAnnotationManagers) {
-              //     await pointAnnotationManager.deleteAll();
-              //   }
-              //   _pointAnnotationManagers.clear();
-              // }
-              //
-              // if (_polylineAnnotationManager != null) {
-              //   await _polylineAnnotationManager?.deleteAll();
-              // }
-
-              if (trackerModuleState is GotTrackerModuleState) {
-                final trackerModuleDataEntities =
-                    trackerModuleState.trackerModuleEntity.data;
-
-                // for (var i = nil.toInt();
-                //     i < trackerModuleDataEntities!.length;
-                //     i++) {
-                //   final pointAnnotationManager = await _mapboxMap?.addMarker(
-                //     lng: trackerModuleDataEntities[i].coordinates!.latLng!.last,
-                //     lat:
-                //         trackerModuleDataEntities[i].coordinates!.latLng!.first,
-                //     imagePath: i ==
-                //             trackerModuleDataEntities.length -
-                //                 veryTinySpacing.toInt()
-                //         ? markerGreenImagePath
-                //         : trailImagePath,
-                //   );
-                //   _pointAnnotationManagers.add(
-                //     pointAnnotationManager!,
-                //   );
-                // }
-                //
-                // final lngLats = trackerModuleDataEntities
-                //     .map(
-                //       (trackerModuleDataEntity) => [
-                //         trackerModuleDataEntity.coordinates!.latLng!.last,
-                //         trackerModuleDataEntity.coordinates!.latLng!.first,
-                //       ],
-                //     )
-                //     .toList();
-                //
-                // _polylineAnnotationManager = await _mapboxMap?.drawPolyline(
-                //   lngLats: lngLats,
-                // );
-
-                // await _mapboxMap?.easeToBounds(
-                //   lngLats: lngLats,
-                // );
-
-                // (await _googleMapController.future).animateCamera(CameraUpdate.newCameraPosition(
-                //   CameraPosition(
-                //     target: LatLng(
-                //       detailsState.details.latitude.toDouble(),
-                //       detailsState.details.longitude.toDouble(),
-                //     ),
-                //     zoom: defaultZoom,
-                //   ),
-                // ),);
+              if (trackerModuleState is GotTrackerModuleState &&
+                  trackerModuleState.trackerModuleEntity.data!.isNotEmpty) {
+                await _googleMapController
+                    ?.animateToTrackerModuleDataEntitiesBoundingBox(
+                  trackerModuleDataEntities:
+                      trackerModuleState.trackerModuleEntity.data!,
+                );
               }
             },
           ),
           BlocListener<TrackerModulesBloc, TrackerModulesState>(
             listener: (_, trackerModulesState) async {
-              if (trackerModulesState is ListedTrackerModulesState) {
+              if (trackerModulesState is ListedTrackerModulesState &&
+                  trackerModulesState.trackerModuleEntities.isNotEmpty) {
                 await _googleMapController
                     ?.animateToTrackerModuleEntitiesBoundingBox(
                   trackerModuleEntities:
                       trackerModulesState.trackerModuleEntities,
                 );
               }
-              // if (_pointAnnotationManagers.isNotEmpty) {
-              //   for (final pointAnnotationManager in _pointAnnotationManagers) {
-              //     await pointAnnotationManager.deleteAll();
-              //   }
-              //   _pointAnnotationManagers.clear();
-              // }
-              //
-              // if (_polylineAnnotationManager != null) {
-              //   await _polylineAnnotationManager?.deleteAll();
-              // }
-              //
-              // if (trackerModulesState is ListedTrackerModulesState &&
-              //     trackerModulesState.trackerModuleEntities.isNotEmpty) {
-              //   for (final trackerModuleEntity
-              //       in trackerModulesState.trackerModuleEntities) {
-              //     final pointAnnotationManager = await _mapboxMap?.addMarker(
-              //       lng: trackerModuleEntity
-              //           .data!.last.coordinates!.latLng!.last,
-              //       lat: trackerModuleEntity
-              //           .data!.last.coordinates!.latLng!.first,
-              //       imagePath: markerGreenImagePath,
-              //     );
-              //     _pointAnnotationManagers.add(
-              //       pointAnnotationManager!,
-              //     );
-              //   }
-              //
-              //   await _mapboxMap?.easeToBounds(
-              //     lngLats: trackerModulesState.trackerModuleEntities
-              //         .map(
-              //           (trackerModuleEntity) => [
-              //             trackerModuleEntity
-              //                 .data!.last.coordinates!.latLng!.last,
-              //             trackerModuleEntity
-              //                 .data!.last.coordinates!.latLng!.first,
-              //           ],
-              //         )
-              //         .toList(),
-              //   );
-              // }
             },
           ),
         ],
@@ -216,25 +105,57 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Stack(
               alignment: AlignmentDirectional.topEnd,
               children: [
-                BlocBuilder<TrackerModulesBloc, TrackerModulesState>(
-                  builder: (_, trackerModulesState) => GoogleMap(
-                    mapType: MapType.hybrid,
-                    initialCameraPosition: const CameraPosition(
-                      target: LatLng(
-                        defaultLat,
-                        defaultLng,
+                BlocBuilder<AllTrackerModulesOrOneTrackerModuleBloc,
+                    AllTrackerModulesOrOneTrackerModuleState>(
+                  builder: (_, allTrackerModulesOrOneTrackerModuleState) =>
+                      BlocBuilder<TrackerModulesBloc, TrackerModulesState>(
+                    builder: (_, trackerModulesState) =>
+                        BlocBuilder<TrackerModuleBloc, TrackerModuleState>(
+                      builder: (_, trackerModuleState) => GoogleMap(
+                        mapType: MapType.hybrid,
+                        initialCameraPosition: const CameraPosition(
+                          target: LatLng(
+                            defaultLat,
+                            defaultLng,
+                          ),
+                          zoom: defaultZoom,
+                        ),
+                        onMapCreated: (googleMapController) =>
+                            _googleMapController = googleMapController,
+                        markers: allTrackerModulesOrOneTrackerModuleState
+                                    is AllTrackerModulesState &&
+                                trackerModulesState is ListedTrackerModulesState
+                            ? _googleMapController
+                                    ?.showTrackerModuleEntitiesOnMap(
+                                  trackerModuleEntities:
+                                      trackerModulesState.trackerModuleEntities,
+                                ) ??
+                                const <Marker>{}
+                            : allTrackerModulesOrOneTrackerModuleState
+                                        is OneTrackerModuleState &&
+                                    trackerModuleState is GotTrackerModuleState
+                                ? _googleMapController
+                                        ?.showTrackerModuleDataEntitiesOnMap(
+                                      trackerModuleDataEntities:
+                                          trackerModuleState
+                                              .trackerModuleEntity.data!,
+                                    ) ??
+                                    const <Marker>{}
+                                : const <Marker>{},
+                        polylines: allTrackerModulesOrOneTrackerModuleState
+                                    is OneTrackerModuleState &&
+                                trackerModuleState is GotTrackerModuleState
+                            ? _googleMapController
+                                    ?.trackTrackerModuleDataEntitiesOnMap(
+                                  trackerModuleDataEntities: trackerModuleState
+                                      .trackerModuleEntity.data!,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ) ??
+                                const <Polyline>{}
+                            : const <Polyline>{},
                       ),
-                      zoom: defaultZoom,
                     ),
-                    onMapCreated: (googleMapController) =>
-                        _googleMapController = googleMapController,
-                    markers: trackerModulesState is ListedTrackerModulesState
-                        ? _googleMapController?.showTrackerModuleEntitiesOnMap(
-                              trackerModuleEntities:
-                                  trackerModulesState.trackerModuleEntities,
-                            ) ??
-                            const <Marker>{}
-                        : const <Marker>{},
                   ),
                 ),
                 Container(
@@ -259,12 +180,47 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         width: smallSpacing,
                       ),
-                      IconButton(
-                        onPressed: () {
-                          //.
-                        },
-                        icon: const Icon(
-                          Icons.gps_fixed,
+                      BlocBuilder<AllTrackerModulesOrOneTrackerModuleBloc,
+                          AllTrackerModulesOrOneTrackerModuleState>(
+                        builder:
+                            (_, allTrackerModulesOrOneTrackerModuleState) =>
+                                BlocBuilder<TrackerModulesBloc,
+                                    TrackerModulesState>(
+                          builder: (_, trackerModulesState) => BlocBuilder<
+                              TrackerModuleBloc, TrackerModuleState>(
+                            builder: (_, trackerModuleState) => IconButton(
+                              onPressed:
+                                  allTrackerModulesOrOneTrackerModuleState
+                                              is AllTrackerModulesState &&
+                                          trackerModulesState
+                                              is ListedTrackerModulesState
+                                      ? () async {
+                                          await _googleMapController
+                                              ?.animateToTrackerModuleEntitiesBoundingBox(
+                                            trackerModuleEntities:
+                                                trackerModulesState
+                                                    .trackerModuleEntities,
+                                          );
+                                        }
+                                      : allTrackerModulesOrOneTrackerModuleState
+                                                  is OneTrackerModuleState &&
+                                              trackerModuleState
+                                                  is GotTrackerModuleState
+                                          ? () async {
+                                              await _googleMapController
+                                                  ?.animateToTrackerModuleDataEntitiesBoundingBox(
+                                                trackerModuleDataEntities:
+                                                    trackerModuleState
+                                                        .trackerModuleEntity
+                                                        .data!,
+                                              );
+                                            }
+                                          : null,
+                              icon: const Icon(
+                                Icons.gps_fixed,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(

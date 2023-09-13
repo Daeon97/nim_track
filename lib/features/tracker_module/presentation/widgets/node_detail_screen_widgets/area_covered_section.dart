@@ -4,13 +4,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
-import 'package:nim_track/core/utils/enums.dart' as enums;
-import 'package:nim_track/core/utils/extensions/mapbox_convenience_utils.dart';
-import 'package:nim_track/features/settings/presentation/blocs/theme_bloc/theme_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_detail_bloc/tracker_module_detail_bloc.dart';
 
 class AreaCoveredSection extends StatelessWidget {
