@@ -113,6 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         BlocBuilder<TrackerModuleBloc, TrackerModuleState>(
                       builder: (_, trackerModuleState) => GoogleMap(
                         mapType: MapType.hybrid,
+                        zoomControlsEnabled: false,
                         initialCameraPosition: const CameraPosition(
                           target: LatLng(
                             defaultLat,

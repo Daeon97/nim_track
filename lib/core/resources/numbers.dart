@@ -25,7 +25,7 @@ const shimmerDurationMilliseconds = 1000;
 const nodeSummaryCardFirstCardListWheelScrollViewAnimationDurationMilliseconds =
     500;
 const shimmerBaseColorOpacity = 0.38;
-const areaCoveredSectionMapHeight = 200.0;
+const areaCoveredSectionMapHeight = 300.0;
 const batteryLevelOverTimeSectionGraphHeight = 300.0;
 const distancesTravelledSectionHeight = 300.0;
 const snackBarDurationOnFailedToUpdateTrackerModuleNameSeconds = 6;

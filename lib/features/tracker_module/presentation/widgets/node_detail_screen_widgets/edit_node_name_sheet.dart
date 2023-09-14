@@ -6,7 +6,6 @@ import 'package:nim_track/core/resources/numbers.dart';
 import 'package:nim_track/core/resources/strings.dart';
 import 'package:nim_track/core/utils/enums.dart' as enums;
 import 'package:nim_track/features/settings/presentation/blocs/theme_bloc/theme_bloc.dart';
-import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_name_get_bloc/tracker_module_name_get_bloc.dart';
 import 'package:nim_track/features/tracker_module/presentation/blocs/tracker_module_name_update_bloc/tracker_module_name_update_bloc.dart';
 
 class EditNodeNameSheet extends StatefulWidget {

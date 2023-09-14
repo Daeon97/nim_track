@@ -110,6 +110,54 @@ extension GoogleMapConvenienceUtils on GoogleMapController {
     return polylines;
   }
 
+  Set<Polygon> plotTrackerModuleDataEntitiesOnMap({
+    required List<TrackerModuleDataEntity> trackerModuleDataEntities,
+    required Color color,
+  }) {
+    final polygons = <Polygon>{};
+
+    if (trackerModuleDataEntities.isEmpty) {
+      return polygons;
+    }
+
+    for (var i = nil.toInt(); i < trackerModuleDataEntities.length; i++) {
+      polygons.add(
+        Polygon(
+          polygonId: PolygonId(
+            trackerModuleDataEntities[i].coordinates!.geohash!,
+          ),
+          strokeWidth: veryTinySpacing.toInt() + veryTinySpacing.toInt(),
+          fillColor: color,
+          points: [
+            LatLng(
+              trackerModuleDataEntities[i]
+                  .coordinates!
+                  .latLng!
+                  .first
+                  .toDouble(),
+              trackerModuleDataEntities[i].coordinates!.latLng!.last.toDouble(),
+            ),
+            if (i != trackerModuleDataEntities.length - veryTinySpacing.toInt())
+              LatLng(
+                trackerModuleDataEntities[i + veryTinySpacing.toInt()]
+                    .coordinates!
+                    .latLng!
+                    .first
+                    .toDouble(),
+                trackerModuleDataEntities[i + veryTinySpacing.toInt()]
+                    .coordinates!
+                    .latLng!
+                    .last
+                    .toDouble(),
+              ),
+          ],
+        ),
+      );
+    }
+
+    return polygons;
+  }
+
   Future<void> animateToTrackerModuleEntitiesBoundingBox({
     required List<TrackerModuleEntity> trackerModuleEntities,
   }) async {
@@ -138,6 +186,7 @@ extension GoogleMapConvenienceUtils on GoogleMapController {
 
   Future<void> animateToTrackerModuleDataEntitiesBoundingBox({
     required List<TrackerModuleDataEntity> trackerModuleDataEntities,
+    double? padding,
   }) async {
     if (trackerModuleDataEntities.isEmpty) {
       return;
@@ -155,7 +204,7 @@ extension GoogleMapConvenienceUtils on GoogleMapController {
               )
               .toList(),
         ),
-        veryLargeSpacing,
+        padding ?? veryLargeSpacing,
       ),
     );
   }

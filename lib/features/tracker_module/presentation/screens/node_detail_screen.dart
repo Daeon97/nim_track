@@ -53,6 +53,7 @@ class _NodeDetailScreenState extends State<NodeDetailScreen> {
           id: widget.id,
           fields: const [
             enums.Field.batteryLevel,
+            enums.Field.hash,
             enums.Field.latLng,
             enums.Field.timestamp,
           ],
