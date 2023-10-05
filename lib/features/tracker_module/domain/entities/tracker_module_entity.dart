@@ -21,7 +21,7 @@ base class TrackerModuleDataEntity {
 
   final int? batteryLevel;
   final TrackerModuleCoordinatesEntity? coordinates;
-  final int? timestamp;
+  final num? timestamp;
 }
 
 base class TrackerModuleCoordinatesEntity {

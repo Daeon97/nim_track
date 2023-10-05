@@ -4,7 +4,6 @@ gradle-wrapper.jar
 /gradlew
 /gradlew.bat
 /local.properties
-/gradle.properties
 GeneratedPluginRegistrant.java
 
 # Remember to never publicly share your keystore.
@@ -12,3 +11,6 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
+
+# String.xml containing only our google map API key
+app/src/main/res/values/strings.xml

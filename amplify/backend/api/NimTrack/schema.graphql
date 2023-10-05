@@ -25,7 +25,7 @@ type TrackerModule {
 type TrackerModuleData {
     battery_level: Int!
     coordinates: Coordinates!
-    timestamp: Int!
+    timestamp: Float!
 }
 
 type Coordinates {

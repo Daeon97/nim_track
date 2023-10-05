@@ -31,7 +31,7 @@ TrackerModuleDataModel _$TrackerModuleDataModelFromJson(
           ? null
           : TrackerModuleCoordinatesModel.fromJson(
               json['coordinates'] as Map<String, dynamic>),
-      timestamp: json['timestamp'] as int?,
+      timestamp: json['timestamp'] as num?,
     );
 
 Map<String, dynamic> _$TrackerModuleDataModelToJson(

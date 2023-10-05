@@ -2,7 +2,6 @@
 
 import 'package:latlong2/latlong.dart';
 import 'package:nim_track/core/resources/numbers.dart';
-import 'package:nim_track/core/utils/enums.dart' as enums;
 import 'package:nim_track/core/utils/helpers/time_util.dart';
 import 'package:nim_track/features/tracker_module/domain/entities/tracker_module_entity.dart';
 
