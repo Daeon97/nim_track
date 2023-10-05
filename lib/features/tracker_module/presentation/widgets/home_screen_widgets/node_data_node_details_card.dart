@@ -21,7 +21,7 @@ class NodeDataNodeDetailsCard extends StatelessWidget {
   final String name;
   final int batteryLevel;
   final bool potentiallyFaulty;
-  final int lastTransmissionDate;
+  final num lastTransmissionDate;
 
   @override
   Widget build(BuildContext context) => Padding(

@@ -5,7 +5,7 @@ import 'package:nim_track/core/resources/numbers.dart';
 
 final class TimeUtil {
   static String computeHourMinuteAmPm(
-    int timestamp,
+    num timestamp,
   ) =>
       DateFormat.jm().format(
         DateTime.fromMillisecondsSinceEpoch(
@@ -16,7 +16,7 @@ final class TimeUtil {
       );
 
   static String computeDayMonthDate(
-    int timestamp,
+    num timestamp,
   ) =>
       '${DateFormat.E().format(
         DateTime.fromMillisecondsSinceEpoch(
@@ -39,7 +39,7 @@ final class TimeUtil {
       )}';
 
   static DateTime computeDateTime(
-    int timestamp,
+    num timestamp,
   ) =>
       DateTime.fromMillisecondsSinceEpoch(
         _computeAccurateTimestamp(
@@ -50,10 +50,10 @@ final class TimeUtil {
   static DateTime get currentDateTime => DateTime.now();
 
   static int _computeAccurateTimestamp(
-    int timestamp,
+    num timestamp,
   ) =>
-      switch (timestamp.toString().length) {
-        ten => timestamp * timestampMultiplier,
-        _ => timestamp
+      switch (timestamp.toInt().toString().length) {
+        ten => timestamp.toInt() * timestampMultiplier,
+        _ => timestamp.toInt()
       };
 }
